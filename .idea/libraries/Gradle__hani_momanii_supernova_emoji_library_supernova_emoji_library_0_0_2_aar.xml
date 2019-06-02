@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/supernova-emoji-library-0.0.2.aar/000119946f712b7a412a7ba66d3356bb/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/supernova-emoji-library-0.0.2.aar/000119946f712b7a412a7ba66d3356bb/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/hani.momanii.supernova_emoji_library/supernova-emoji-library/0.0.2/e523fdb660fd9a88153e3cf682ad2bc05cecdd86/supernova-emoji-library-0.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

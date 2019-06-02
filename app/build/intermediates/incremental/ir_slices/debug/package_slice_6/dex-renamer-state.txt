@@ -1,0 +1,4 @@
+#Sat Jun 01 18:18:06 AST 2019
+base.0=C\:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\6
+path.0=classes.dex
+renamed.0=classes.dex
