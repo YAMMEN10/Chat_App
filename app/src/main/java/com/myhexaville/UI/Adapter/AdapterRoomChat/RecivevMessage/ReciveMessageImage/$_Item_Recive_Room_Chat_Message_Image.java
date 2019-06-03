@@ -17,11 +17,11 @@ public class $_Item_Recive_Room_Chat_Message_Image extends $_Item_Recive_Room_Ch
         date_recive = view.findViewById(R.id.date_recive_image);
     }
 
-    public ImageView getMessage_send_image() {
+    public ImageView getMessage_recive_image() {
         return message_recive_image;
     }
 
-    public void setMessage_send_image(ImageView message_send_image) {
-        this.message_recive_image = message_send_image;
+    public void setMessage_recive_image(ImageView message_recive_image) {
+        this.message_recive_image = message_recive_image;
     }
 }

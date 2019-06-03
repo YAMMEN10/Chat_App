@@ -14,14 +14,14 @@ public final class R {
 
         public static final int photo_crop_dim_color = 0x7f050072;
         public static final int photo_crop_highlight_color = 0x7f050073;
-        public static final int solid_black = 0x7f050083;
+        public static final int solid_black = 0x7f050084;
     }
     public static final class dimen {
         private dimen() {}
 
-        public static final int photo_crop_stroke_width = 0x7f0600d8;
-        public static final int photo_crop_width = 0x7f0600d9;
-        public static final int photo_preview_size = 0x7f0600da;
+        public static final int photo_crop_stroke_width = 0x7f0600da;
+        public static final int photo_crop_width = 0x7f0600db;
+        public static final int photo_preview_size = 0x7f0600dc;
     }
     public static final class string {
         private string() {}

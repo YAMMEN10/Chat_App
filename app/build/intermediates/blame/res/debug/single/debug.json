@@ -852,6 +852,10 @@
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-nodpi-v4\\emoji_1f4ce.png"
     },
     {
+        "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ripple.xml.flat",
+        "source": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\src\\main\\res\\drawable\\ripple.xml"
+    },
+    {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_orca_emoji_more_front_pressed.png.flat",
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-mdpi-v4\\orca_emoji_more_front_pressed.png"
     },
@@ -2646,6 +2650,10 @@
     {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_emoji_2196.png.flat",
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-nodpi-v4\\emoji_2196.png"
+    },
+    {
+        "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_ripple.xml.flat",
+        "source": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\src\\main\\res\\drawable-v21\\ripple.xml"
     },
     {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_track_mtrl_alpha.9.png.flat",
@@ -5246,6 +5254,10 @@
     {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_emoji_1f36c.png.flat",
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-nodpi-v4\\emoji_1f36c.png"
+    },
+    {
+        "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable_pause_voice.xml.flat",
+        "source": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\src\\main\\res\\drawable\\pause_voice.xml"
     },
     {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_emoji_1f466_1f3fb.png.flat",

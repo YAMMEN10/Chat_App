@@ -18,7 +18,6 @@ import com.myhexaville.UI.Adapter.AdapterMainChat.$_Recycle_View_Main_Chat_Adapt
 import com.myhexaville.UI.Adapter.AdapterMainChat.$_Value_Item_Main_Chat;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.$_Recycle_View_Room_Chat_Adapter;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
-import com.myhexaville.UI.Chat.MainFragment.RoomChat.RecyclerItemClickListener;
 import com.myhexaville.UI.ToolStorage.FriendPathMangment;
 import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.MainActivity;
@@ -45,7 +44,7 @@ public class main_chat_fragment extends Fragment {
     public static List<$_Value_Item_Main_Chat> rooms;
     public static $_Recycle_View_Main_Chat_Adapter recycleAdapter;
     //Attribute
-    RecyclerView recycle_view_main_chat;
+    public static RecyclerView recycle_view_main_chat;
     //public static List<$_Value_Item_Main_Chat> roomsInformation;
     $_FriendStorgeMangement mangementFriend;
     // TODO: Rename and change types of parameters
@@ -98,11 +97,15 @@ public class main_chat_fragment extends Fragment {
         $_Value_Item_Main_Chat value_item_main_chat;
         $_FriendInfo friendInfo;
         for (File temp_file : all_friend.listFiles()) {
+
             friendInfo = ($_FriendInfo) MainActivity.store_friend.retriveFriend(temp_file.getName());
             value_item_main_chat = new $_Value_Item_Main_Chat("", friendInfo.getUser(), friendInfo.getId(), friendInfo.getPhoto());
-            rooms.add(value_item_main_chat);
-            recycleAdapter.notifyDataSetChanged();
-            System.out.println("GGGGGGGGGG = " + friendInfo.getId() + "    " + value_item_main_chat.getEmail());
+           /* rooms.add(value_item_main_chat);
+            recycle_view_main_chat.addItemDecoration(new DividerItemDecoration(getContext(),
+                    DividerItemDecoration.VERTICAL));
+            recycleAdapter.notifyDataSetChanged();*/
+
+            MainActivity.addChatFriend(value_item_main_chat);
             if (MainActivity.store_message.isExist(value_item_main_chat.getEmail())) {
                 List<$_Message> messages = (List<$_Message>) MainActivity.store_message.retriveMessage(value_item_main_chat.getEmail());
                 MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(messages, getContext()), messages));
@@ -110,7 +113,7 @@ public class main_chat_fragment extends Fragment {
                 // if not have any message
                 System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
                 List<$_Message> list = new ArrayList();
-                MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(list, FourActivity.context), list));
+                MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(list, getContext()), list));
 
             }
 
@@ -128,9 +131,12 @@ public class main_chat_fragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         View view = inflater.inflate(R.layout.fragment_main_chat_fragment, container, false);
         mListener = (OnFragmentInteractionListener) getActivity();
+        recycle_view_main_chat = view.findViewById(R.id.recycle_view_main_chat);
+        recycle_view_main_chat.setAdapter(recycleAdapter);
+        recycle_view_main_chat.setLayoutManager(layoutManager);
+        action_recycle_view();
         getAllFriend(FriendPathMangment.FriendPath + "/", mangementFriend);
         MainActivity.get_Recive_Data_And_Apply();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         // $_Value_Item_Main_Chat value_item_main_chat = new $_Value_Item_Main_Chat("Hello", "Yamen", "y@y.y", R.drawable.add);
         //room_chat room_chat = new room_chat();
 
@@ -144,10 +150,7 @@ public class main_chat_fragment extends Fragment {
             main_chat_fragment.rooms.get(0).second.addMessage(MainActivity.messages.get(i));
             MainActivity.messages.remove(i);
         }*/
-        recycle_view_main_chat = view.findViewById(R.id.recycle_view_main_chat);
-        recycle_view_main_chat.setAdapter(recycleAdapter);
-        recycle_view_main_chat.setLayoutManager(layoutManager);
-        action_recycle_view();
+
         return view;
     }
 

@@ -70,8 +70,6 @@ public class $_Store_Friend {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return "";
     }

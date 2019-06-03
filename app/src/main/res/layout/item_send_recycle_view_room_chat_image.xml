@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:id="@+id/item_view_send_message_image"
+    android:background="@drawable/ripple"
+    android:orientation="vertical"
+    android:tag="item_view_send_message_image">
 
 
     <LinearLayout

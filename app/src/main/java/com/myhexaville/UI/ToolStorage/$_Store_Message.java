@@ -79,8 +79,6 @@ public class $_Store_Message {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return "";
     }

@@ -13,4 +13,8 @@
     <dimen name="ic_delete">30dp</dimen>
     <dimen name="thumbnail">90dp</dimen>
 
+
+    <dimen name="corner_radius">1dp</dimen>
+    <dimen name="margin">5dp</dimen>
+
 </resources>

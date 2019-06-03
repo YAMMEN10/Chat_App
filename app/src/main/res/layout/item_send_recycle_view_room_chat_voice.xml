@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:id="@+id/item_view_send_message_voice"
+    android:background="@drawable/ripple"
+    android:gravity="end"
+    android:orientation="vertical"
+    android:tag="item_view_send_message_voice">
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
         android:background="@drawable/send_message_chat"
         android:orientation="vertical">
 
@@ -22,8 +24,7 @@
                 android:id="@+id/btn_send_play_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000 "
-                app:srcCompat="@drawable/play_voice" />
+                android:background="#00000000 " />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -60,5 +61,6 @@
 
 
     </LinearLayout>
+
 
 </LinearLayout>

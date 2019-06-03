@@ -81,7 +81,7 @@ public class room_chat extends Fragment {
     public room_chat() {
         // Required empty public constructor
         list = new ArrayList<>();
-        recycle_view_room_chat_adapter = new $_Recycle_View_Room_Chat_Adapter(list, getContext());
+        //recycle_view_room_chat_adapter = new $_Recycle_View_Room_Chat_Adapter(list, getContext(), listener);
     }
 
 
@@ -233,16 +233,7 @@ public class room_chat extends Fragment {
         });
 
 
-        recycle_view_room_chat.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recycle_view_room_chat, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-            }
 
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
 
 
         item_recycle_view_room_chat_studio.setOnClickListener(new View.OnClickListener() {

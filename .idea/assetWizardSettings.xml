@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/Android%20Studio%203.3/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_voice_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/E:/Android%20Studio%203.3/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_pause_circle_filled_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="record_voice" />
+                            <entry key="color" value="a16d37" />
+                            <entry key="height" value="50" />
+                            <entry key="outputName" value="pause_voice" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\USER" />
+                            <entry key="width" value="50" />
                           </map>
                         </option>
                       </PersistentState>

@@ -10,12 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.myhexaville.UI.Chat.SearchFragment.search_fragment;
 
+
 public class ThirdActivity extends AppCompatActivity implements search_fragment.OnFragmentInteractionListener {
 
     public static FragmentManager fragmentManager;
     public static FragmentActivity fragmentActivity;
     public static Context context;
-    public static search_fragment search_fragment;//Fragment
+    public static com.myhexaville.UI.Chat.SearchFragment.search_fragment search_fragment;//Fragment
     private static FragmentTransaction fragmentTransaction;
 
 

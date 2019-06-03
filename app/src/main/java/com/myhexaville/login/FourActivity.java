@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,11 +20,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.SeekBar;
 
 import com.myhexaville.Logic.Client.$_Client;
@@ -32,7 +31,6 @@ import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageImage.$_Message_Image;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageText.$_Message_Text;
-import com.myhexaville.UI.Chat.MainFragment.RoomChat.RecyclerItemClickListener;
 import com.myhexaville.UI.Chat.VoiceFragment.voice_fragment;
 
 import org.json.JSONException;
@@ -71,6 +69,9 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
     private View rootView;
     private SeekBar seekBar;
     private EmojiconEditText txt_message_input;
+    // for audio
+    public static boolean wasPlaying = false;
+    public static MediaPlayer mPlayer = null;
 
 
     //Constructor
@@ -101,7 +102,6 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         /*for(int i = 0; i < MainActivity.allMessages.get($_Client.idRecived).second.size(); i++){
             //list.add(MainActivity.allMessages.get($_Client.idRecived).get(i));
             MainActivity.allMessages.get($_Client.idRecived).second.add(MainActivity.allMessages.get($_Client.idRecived).second.get(i));
-
         }*/
         //recycle_view_room_chat_adapter.notifyDataSetChanged();
         MainActivity.allMessages.get($_Client.idRecived).first.notifyDataSetChanged();
@@ -191,6 +191,12 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
     protected void onStop() {
         super.onStop();
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
 
     // My Function
     public void initUI() {
@@ -317,7 +323,6 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                     mRecorder.release();
                     mRecorder = null;
                     Toast.makeText(getApplicationContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
-
                     try {
                         DataInputStream dataInputStream = new DataInputStream(new FileInputStream(mFileName));
                         bytes = new byte[dataInputStream.available()];
@@ -342,7 +347,6 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-
                                 }
                             });
                             thread.start();
@@ -350,12 +354,9 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                         $_Message_Voice message_voice = new $_Message_Voice($_Client.getEmail(), $_Client.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
                         addMessage(message_voice);
                         storeMessage(MainActivity.allMessages.get($_Client.idRecived.toString()).second);
-
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -363,31 +364,19 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
                 }
 */
                 Bundle bundle = new Bundle();
                 bundle.putString("name", $_Client.idRecived);
                 voice_fragment.setArguments(bundle);
-                fragmentActivity.getSupportFragmentManager().beginTransaction().add(R.id.container_main_fourty, new voice_fragment()).commit();
+                fragmentActivity.getSupportFragmentManager().beginTransaction().add(R.id.container_main_fourty, voice_fragment).commit();
             }
         });
 
 
-        recycle_view_room_chat.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
-                MenuInflater menuInflater = popupMenu.getMenuInflater();
-                menuInflater.inflate(R.menu.message_popup_menu, popupMenu.getMenu());
-                popupMenu.show();
-                return true;
-            }
-        });
 
 
-        recycle_view_room_chat.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recycle_view_room_chat, new RecyclerItemClickListener.OnItemClickListener() {
+/*    recycle_view_room_chat.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recycle_view_room_chat, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -426,8 +415,7 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 });
             }
         }));
-
-
+*/
     }
 
 
@@ -469,11 +457,5 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
             }
         });
         thread.start();
-    }
-
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

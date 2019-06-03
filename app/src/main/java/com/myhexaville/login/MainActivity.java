@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
@@ -74,6 +75,7 @@ import java.util.Map;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.myhexaville.UI.Chat.MainFragment.MainChat.main_chat_fragment.recycle_view_main_chat;
 import static com.myhexaville.login.FlexibleFrameLayout.ORDER_LOGIN_STATE;
 import static com.myhexaville.login.FlexibleFrameLayout.ORDER_SIGN_UP_STATE;
 
@@ -615,7 +617,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                     SecondActivity.fragmentActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            addChatFriend(finalMy_json3, value_item_main_chat);
+                            addChatFriend(value_item_main_chat);
 
                         }
                     });
@@ -695,12 +697,13 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
         return null;
     }
 
-    private static void addChatFriend($_JSON_Friend_Accept_Response finalMy_json6, $_Value_Item_Main_Chat value_item_main_chat) {
+    public static void addChatFriend($_Value_Item_Main_Chat value_item_main_chat) {
         room_chat room_chat = new room_chat();
         //FragmentTransaction fragmentTransaction = SecondActivity.fragmentActivity.getSupportFragmentManager().beginTransaction();
         //fragmentTransaction.add(R.id.container_main_second, room_chat).addToBackStack(null).hide(room_chat).addToBackStack(null).commitAllowingStateLoss();
-        System.out.println("RRRRRRR = " + value_item_main_chat.getId_image());
         main_chat_fragment.rooms.add(value_item_main_chat);
+        recycle_view_main_chat.addItemDecoration(new DividerItemDecoration(SecondActivity.context,
+                DividerItemDecoration.VERTICAL));
         main_chat_fragment.recycleAdapter.notifyDataSetChanged();
         List<$_Message> list = new ArrayList();
         MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(list, FourActivity.context), list));
@@ -716,10 +719,11 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
         //FragmentTransaction fragmentTransaction = SecondActivity.fragmentActivity.getSupportFragmentManager().beginTransaction();
         //fragmentTransaction.add(R.id.container_main_second, room_chat).hide(room_chat).addToBackStack(null).commitAllowingStateLoss();
         main_chat_fragment.rooms.add(value_item_main_chat);
+        recycle_view_main_chat.addItemDecoration(new DividerItemDecoration(SecondActivity.context,
+                DividerItemDecoration.VERTICAL));
         main_chat_fragment.recycleAdapter.notifyDataSetChanged();
         List<$_Message> list = new ArrayList();
         MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(list, FourActivity.context), list));
-
         //MainActivity.allMessages.put(value_item_main_chat.getEmail(),new ArrayList<>());
 
 

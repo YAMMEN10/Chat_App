@@ -451,6 +451,16 @@ attr ratingBarStyleIndicator
 attr ratingBarStyleSmall
 attr reverseLayout
 attr rippleColor
+attr rv_alpha
+attr rv_centered
+attr rv_color
+attr rv_framerate
+attr rv_rippleDuration
+attr rv_ripplePadding
+attr rv_type
+attr rv_zoom
+attr rv_zoomDuration
+attr rv_zoomScale
 attr scrimAnimationDuration
 attr scrimBackground
 attr scrimVisibleHeightTrigger
@@ -722,6 +732,7 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color rippelColor
 color ripple_material_dark
 color ripple_material_light
 color secondPage
@@ -832,6 +843,7 @@ dimen compat_button_padding_vertical_material
 dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
+dimen corner_radius
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_item_min_width
@@ -893,6 +905,7 @@ dimen ic_delete
 dimen item_touch_helper_max_drag_scroll_per_frame
 dimen item_touch_helper_swipe_escape_max_velocity
 dimen item_touch_helper_swipe_escape_velocity
+dimen margin
 dimen mtrl_bottomappbar_fabOffsetEndMode
 dimen mtrl_bottomappbar_fab_cradle_margin
 dimen mtrl_bottomappbar_fab_cradle_rounded_corner_radius
@@ -2518,9 +2531,11 @@ drawable orca_emoji_more_back_normal
 drawable orca_emoji_more_front_normal
 drawable orca_emoji_more_front_pressed
 drawable password
+drawable pause_voice
 drawable play_voice
 drawable recive_message_chat
 drawable record_voice
+drawable ripple
 drawable selector_emoji_activity
 drawable selector_emoji_food
 drawable selector_emoji_nature
@@ -2634,6 +2649,7 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id doubleRipple
 id edit_message_menu
 id edit_query
 id emojicon_icon
@@ -2682,6 +2698,12 @@ id italic
 id item_recycle_view_room_chat_record_voice
 id item_recycle_view_room_chat_studio
 id item_touch_helper_previous_elevation
+id item_view_recive_message_image
+id item_view_recive_message_text
+id item_view_recive_message_voice
+id item_view_send_message_image
+id item_view_send_message_text
+id item_view_send_message_voice
 id labeled
 id largeLabel
 id left
@@ -2732,6 +2754,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id rectangle
 id recycle_view_main_chat
 id recycle_view_main_chat_email
 id recycle_view_main_chat_image
@@ -2770,6 +2793,7 @@ id showHome
 id showTitle
 id sides
 id sign_up_fragment
+id simpleRipple
 id smallLabel
 id snackbar_action
 id snackbar_text
@@ -3609,6 +3633,7 @@ styleable PopupWindow android_popupBackground android_popupAnimationStyle overla
 styleable PopupWindowBackgroundState state_above_anchor
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle
 styleable RecyclerView android_orientation android_descendantFocusability fastScrollEnabled fastScrollHorizontalThumbDrawable fastScrollHorizontalTrackDrawable fastScrollVerticalThumbDrawable fastScrollVerticalTrackDrawable layoutManager reverseLayout spanCount stackFromEnd
+styleable RippleView rv_alpha rv_centered rv_color rv_framerate rv_rippleDuration rv_ripplePadding rv_type rv_zoom rv_zoomDuration rv_zoomScale
 styleable ScrimInsetsFrameLayout insetForeground
 styleable ScrollingViewBehavior_Layout behavior_overlapTop
 styleable SearchView android_focusable android_maxWidth android_inputType android_imeOptions closeIcon commitIcon defaultQueryHint goIcon iconifiedByDefault layout queryBackground queryHint searchHintIcon searchIcon submitBackground suggestionRowLayout voiceIcon

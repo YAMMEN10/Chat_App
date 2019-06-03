@@ -1,12 +1,9 @@
 package com.myhexaville.UI.Adapter.AdapterRoomChat;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -35,9 +32,6 @@ import com.myhexaville.UI.Adapter.AdapterRoomChat.SendMessage.SendMessgaeText.$_
 import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.R;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -45,8 +39,7 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
 
     private List<$_Message> list;
     private Context context;
-    private boolean wasPlaying = false;
-    private MediaPlayer mPlayer = null;
+
 
     public $_Recycle_View_Room_Chat_Adapter(List list, Context context) {
         this.list = list;
@@ -91,6 +84,7 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder myHolder, int i) {
         int type = getItemViewType(i);
+
         $_Message message = list.get(i);
         if (type == $_Message_Type.SENT_TEXT) {
             $_Message_Text message_text = ($_Message_Text) message;
@@ -140,7 +134,7 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
             Glide.with(FourActivity.fragmentActivity)
                     .load(message_image.getBytes())
                     .asBitmap()
-                    .into(recive_message_holders_image.getItem_send_room_chat_message_image().getMessage_send_image());
+                    .into(recive_message_holders_image.getItem_send_room_chat_message_image().getMessage_recive_image());
            /* byte [] encodeByte=Base64.decode(message_image.getBytes(),Base64.DEFAULT);
             InputStream inputStream  = new ByteArrayInputStream(encodeByte);
             Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
@@ -156,61 +150,12 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
             //push value
             send_message_holders_voice.getItem_send_room_chat_message_voice().getDate_send().setText(value_send_item_room_chat_message_voice.getDate());
             send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice_seek_bar().setProgress((int) message_voice.getVoice_bar());
-            send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice().setBackgroundResource(R.drawable.play_voice);
+            send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice().setImageResource(R.drawable.play_voice);
 
-
-            TextView message_send_value = send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_value();
+           /* TextView message_send_value = send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_value();
             ImageButton message_send_voice = send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice();
             SeekBar seekBar = send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice_seek_bar();
-            send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice().setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    playSounds(message.getName(), (($_Message_Voice) message).getVoice_data(), seekBar);
-                    return true;
-                }
-            });
-
-            send_message_holders_voice.getItem_send_room_chat_message_voice().getMessage_send_voice_seek_bar().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    message_send_value.setVisibility(View.VISIBLE);
-                    int x = (int) Math.ceil(progress / 1000f);
-
-                    if (x < 10)
-                        message_send_value.setText("0:0" + x);
-                    else
-                        message_send_value.setText("0:" + x);
-
-                    double percent = progress / (double) seekBar.getMax();
-                    int offset = seekBar.getThumbOffset();
-                    int seekWidth = seekBar.getWidth();
-                    int val = (int) Math.round(percent * (seekWidth - 2 * offset));
-                    int labelWidth = message_send_value.getWidth();
-                    message_send_value.setX(offset + seekBar.getX() + val
-                            - Math.round(percent * offset)
-                            - Math.round(percent * labelWidth / 2));
-
-                    if (progress > 0 && mPlayer != null && !mPlayer.isPlaying()) {
-                        clearMediaPlayer();
-                        message_send_voice.setImageResource(R.drawable.play_voice);
-                        seekBar.setProgress(0);
-                    }
-
-
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    message_send_value.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    if (mPlayer != null && mPlayer.isPlaying()) {
-                        mPlayer.seekTo(seekBar.getProgress());
-                    }
-                }
-            });
+   */
 
 
         } else if (type == $_Message_Type.RECIVE_VOICE) {
@@ -221,16 +166,17 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
             //push value
             recive_message_holders_voice.getItem_recive_room_chat_message_voice().getDate_recive().setText(value_recive_item_room_chat_message_voice.getDate());
             recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recive_voice_seek_bar().setProgress((int) message_voice.getVoice_bar());
-            recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recived_voice().setBackgroundResource(R.drawable.record_voice);
+            recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recived_voice().setImageResource(R.drawable.play_voice);
 
 
             TextView message_recive_value = recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recive_value();
             ImageButton message_recive_voice = recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recived_voice();
             SeekBar seekBar = recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recive_voice_seek_bar();
-            recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recived_voice().setOnClickListener(new View.OnClickListener() {
+
+       /*     recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recived_voice().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    playSounds(message.getName(), (($_Message_Voice) message).getVoice_data(), seekBar);
+                    playSounds(message.getName(), (($_Message_Voice) message).getVoice_data(), seekBar, message_recive_voice);
                 }
             });
             recive_message_holders_voice.getItem_recive_room_chat_message_voice().getMessage_recive_voice_seek_bar().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -274,89 +220,13 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
                     }
                 }
             });
-
+*/
         }
 
     }
 
-    private void playSounds(String mFileName, byte[] bytes, SeekBar message_send_voice_seek_bar) {
-        try {
-            if (mPlayer != null && mPlayer.isPlaying()) {
-                clearMediaPlayer();
-                message_send_voice_seek_bar.setProgress(0);
-                wasPlaying = true;
-            }
 
 
-            if (!wasPlaying) {
-
-                if (mPlayer == null) {
-                    mPlayer = new MediaPlayer();
-                }
-
-
-                //play voice
-                FileOutputStream fileOutputStream = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mFileName + ".3gp");
-                fileOutputStream.write(bytes);
-
-
-                try {
-                    mPlayer.setDataSource(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mFileName + ".3gp");
-                } catch (IOException e) {
-                }
-
-
-                mPlayer.prepare();
-                mPlayer.setVolume(0.5f, 0.5f);
-                mPlayer.setLooping(false);
-                message_send_voice_seek_bar.setMax(mPlayer.getDuration());
-                mPlayer.start();
-                MediaPlayer finalMPlayer = mPlayer;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        int currentPosition = finalMPlayer.getCurrentPosition();
-                        int total = finalMPlayer.getDuration();
-
-
-                        while (finalMPlayer != null && finalMPlayer.isPlaying() && currentPosition < total) {
-                            try {
-                                Thread.sleep(1000);
-                                currentPosition = finalMPlayer.getCurrentPosition();
-                            } catch (InterruptedException e) {
-                                return;
-                            } catch (Exception e) {
-                                return;
-                            }
-
-                            message_send_voice_seek_bar.setProgress(currentPosition);
-
-                        }
-                    }
-                }).start();
-
-            }
-
-            wasPlaying = false;
-            mPlayer = null;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mFileName + ".3gp").delete();
-
-    }
-
-    private void action_seek_bar(SeekBar seekBar) {
-
-
-    }
-
-    private void clearMediaPlayer() {
-        mPlayer.stop();
-        mPlayer.release();
-        mPlayer = null;
-    }
 
     @Override
     public int getItemViewType(int position) {

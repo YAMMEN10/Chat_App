@@ -53,7 +53,7 @@ public class voice_fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String LOG_TAG = "AudioRecording";
-    public static boolean isplay = false;
+    public static boolean isPlay = false;
     public static byte[] bytes;
     private static String mFileName = null;
     Button btn_stop_record;
@@ -64,7 +64,6 @@ public class voice_fragment extends Fragment {
     private String mParam2;
     private boolean wasPlaying = false;
     private OnFragmentInteractionListener mListener;
-
     public voice_fragment() {
         // Required empty public constructor
     }
@@ -109,7 +108,7 @@ public class voice_fragment extends Fragment {
 
         mFileName += "/" + $_Client.idRecived + ".3gp";
 
-        isplay = true;
+        isPlay = true;
         if (CheckPermissions()) {
             mRecorder = new MediaRecorder();
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -133,7 +132,7 @@ public class voice_fragment extends Fragment {
             public void onClick(View v) {
 
 
-                isplay = false;
+                isPlay = false;
                 mRecorder.stop();
                 mRecorder.release();
                 mRecorder = null;
@@ -172,12 +171,11 @@ public class voice_fragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                    System.out.println("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
-
-
                     $_Message_Voice message_voice = new $_Message_Voice($_Client.getEmail(), $_Client.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
                     addMessage(message_voice);
                     storeMessage(MainActivity.allMessages.get($_Client.idRecived).second);
+// maybe this statement not work i dont test it
+                    FourActivity.fragmentActivity.getSupportFragmentManager().beginTransaction().remove(FourActivity.voice_fragment).commit();
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -186,8 +184,6 @@ public class voice_fragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-// maybe this statement not work i dont test it
-                FourActivity.fragmentActivity.getSupportFragmentManager().beginTransaction().remove(FourActivity.voice_fragment).commit();
 
 
             }
