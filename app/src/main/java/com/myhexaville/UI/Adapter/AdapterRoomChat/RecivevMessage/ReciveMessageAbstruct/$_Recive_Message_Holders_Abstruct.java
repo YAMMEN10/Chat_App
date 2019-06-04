@@ -1,9 +1,7 @@
 package com.myhexaville.UI.Adapter.AdapterRoomChat.RecivevMessage.ReciveMessageAbstruct;
 
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +13,6 @@ import com.myhexaville.UI.ToolSpeech.$_Arabic_TTS;
 import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
-
-import java.util.Locale;
 
 public abstract class $_Recive_Message_Holders_Abstruct extends RecyclerView.ViewHolder implements View.OnLongClickListener {
     private $_Item_Recive_Room_Chat_Message_Abstruct item_recive_room_chat_message_abstruct;
@@ -83,8 +79,11 @@ public abstract class $_Recive_Message_Holders_Abstruct extends RecyclerView.Vie
                     return true;
                 } else if (item.getTitle().equals("Speech")) {
                     System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ = " + FourActivity.context);
-                    mTTS.speak((($_Message_Text) MainActivity.allMessages.get($_Client.idRecived).second.get(getAdapterPosition())).getMessage_text(), TextToSpeech.QUEUE_FLUSH, null);
-
+                    String text = (($_Message_Text) MainActivity.allMessages.get($_Client.idRecived).second.get(getAdapterPosition())).getMessage_text();
+                    if (text != null && !text.equals("")) {
+                        // To read the text inserted
+                        arabic_tts.talk(text);
+                    }
 
                     return true;
 
