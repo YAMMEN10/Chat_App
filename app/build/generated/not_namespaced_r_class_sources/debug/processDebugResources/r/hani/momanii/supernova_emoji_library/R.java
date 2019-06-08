@@ -12,11 +12,11 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static final int emojiconAlignment = 0x7f0300da;
-        public static final int emojiconSize = 0x7f0300db;
-        public static final int emojiconTextLength = 0x7f0300dc;
-        public static final int emojiconTextStart = 0x7f0300dd;
-        public static final int emojiconUseSystemDefault = 0x7f0300de;
+        public static final int emojiconAlignment = 0x7f0300bc;
+        public static final int emojiconSize = 0x7f0300bd;
+        public static final int emojiconTextLength = 0x7f0300be;
+        public static final int emojiconTextStart = 0x7f0300bf;
+        public static final int emojiconUseSystemDefault = 0x7f0300c0;
     }
     public static final class drawable {
         private drawable() {}
@@ -1452,20 +1452,20 @@ public final class R {
         private id() {}
 
         public static final int Emoji_GridView = 0x7f080004;
-        public static final int baseline = 0x7f080028;
-        public static final int bottom = 0x7f08002c;
-        public static final int emojicon_icon = 0x7f080063;
-        public static final int emojis_backspace = 0x7f080064;
-        public static final int emojis_pager = 0x7f080065;
-        public static final int emojis_tab = 0x7f080066;
-        public static final int emojis_tab_0_recents = 0x7f080067;
-        public static final int emojis_tab_1_people = 0x7f080068;
-        public static final int emojis_tab_2_nature = 0x7f080069;
-        public static final int emojis_tab_3_food = 0x7f08006a;
-        public static final int emojis_tab_4_sport = 0x7f08006b;
-        public static final int emojis_tab_5_cars = 0x7f08006c;
-        public static final int emojis_tab_6_elec = 0x7f08006d;
-        public static final int emojis_tab_7_sym = 0x7f08006e;
+        public static final int baseline = 0x7f08002b;
+        public static final int bottom = 0x7f08002e;
+        public static final int emojicon_icon = 0x7f080064;
+        public static final int emojis_backspace = 0x7f080065;
+        public static final int emojis_pager = 0x7f080066;
+        public static final int emojis_tab = 0x7f080067;
+        public static final int emojis_tab_0_recents = 0x7f080068;
+        public static final int emojis_tab_1_people = 0x7f080069;
+        public static final int emojis_tab_2_nature = 0x7f08006a;
+        public static final int emojis_tab_3_food = 0x7f08006b;
+        public static final int emojis_tab_4_sport = 0x7f08006c;
+        public static final int emojis_tab_5_cars = 0x7f08006d;
+        public static final int emojis_tab_6_elec = 0x7f08006e;
+        public static final int emojis_tab_7_sym = 0x7f08006f;
     }
     public static final class layout {
         private layout() {}
@@ -1482,7 +1482,7 @@ public final class R {
     public static final class styleable {
         private styleable() {}
 
-        public static final int[] Emojicon = { 0x7f0300da, 0x7f0300db, 0x7f0300dc, 0x7f0300dd, 0x7f0300de };
+        public static final int[] Emojicon = { 0x7f0300bc, 0x7f0300bd, 0x7f0300be, 0x7f0300bf, 0x7f0300c0 };
         public static final int Emojicon_emojiconAlignment = 0;
         public static final int Emojicon_emojiconSize = 1;
         public static final int Emojicon_emojiconTextLength = 2;
