@@ -13,6 +13,8 @@ import com.myhexaville.UI.Chat.MainFragment.MainChat.main_chat_fragment;
 import com.myhexaville.UI.Chat.MainFragment.RoomChat.room_chat;
 import com.myhexaville.UI.Chat.MainFragment.main_fragment;
 import com.myhexaville.UI.Chat.SearchFragment.search_fragment;
+import com.myhexaville.UI.Friend.OnlineFriendFragment;
+import com.myhexaville.UI.Friend.friend_fragment;
 import com.myhexaville.UI.Notification.notification_fragment;
 
 public class SecondActivity extends AppCompatActivity implements main_fragment.OnFragmentInteractionListener,
@@ -20,7 +22,9 @@ public class SecondActivity extends AppCompatActivity implements main_fragment.O
         notification_fragment.OnFragmentInteractionListener,
         room_chat.OnFragmentInteractionListener,
         signup_fragment_tow.OnFragmentInteractionListener,
-        search_fragment.OnFragmentInteractionListener {
+        search_fragment.OnFragmentInteractionListener,
+        friend_fragment.OnFragmentInteractionListener,
+        OnlineFriendFragment.OnFragmentInteractionListener{
 
     public static FragmentManager fragmentManager;
     public static FragmentActivity fragmentActivity;
@@ -30,6 +34,8 @@ public class SecondActivity extends AppCompatActivity implements main_fragment.O
     public static signup_fragment_tow signup_fragment_tow;
     public static String res;
     private static FragmentTransaction fragmentTransaction;
+    public static friend_fragment friend_fragment;
+    public static OnlineFriendFragment onlineFriendFragment;
 
     // Attribute
 
@@ -41,6 +47,8 @@ public class SecondActivity extends AppCompatActivity implements main_fragment.O
         fragmentTransaction = fragmentManager.beginTransaction();
         main_fragment = new main_fragment();
         signup_fragment_tow = new signup_fragment_tow();
+        friend_fragment=new friend_fragment();
+        onlineFriendFragment=new OnlineFriendFragment();
 
         // init All Fragment
     }

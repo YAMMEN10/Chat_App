@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Friend.$_FriendInfo;
 import com.myhexaville.Logic.Friend.$_FriendStorgeMangement;
 import com.myhexaville.Logic.JSONData.$_JSON;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
@@ -32,6 +33,7 @@ import com.myhexaville.Logic.JSONData.$_JSON_Login_Successful;
 import com.myhexaville.Logic.JSONData.$_JSON_Message_Image;
 import com.myhexaville.Logic.JSONData.$_JSON_Message_Text;
 import com.myhexaville.Logic.JSONData.$_JSON_Message_Voice;
+import com.myhexaville.Logic.JSONData.$_JSON_Online_Friend_Respons;
 import com.myhexaville.Logic.JSONData.$_JSON_Refusal_Friend_Response;
 import com.myhexaville.Logic.JSONData.$_JSON_Remove_Friend_Response;
 import com.myhexaville.Logic.JSONData.$_JSON_Remove_Request_Response;
@@ -46,6 +48,7 @@ import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Account.signin_fragment;
 import com.myhexaville.UI.Account.signup_fragment;
 import com.myhexaville.UI.Account.signup_fragment_tow;
+import com.myhexaville.UI.Adapter.AdapterFriend.$_Value_Item_Friend;
 import com.myhexaville.UI.Adapter.AdapterMainChat.$_Value_Item_Main_Chat;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.$_Recycle_View_Room_Chat_Adapter;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
@@ -56,9 +59,11 @@ import com.myhexaville.UI.Chat.MainFragment.MainChat.main_chat_fragment;
 import com.myhexaville.UI.Chat.MainFragment.RoomChat.room_chat;
 import com.myhexaville.UI.Chat.MainFragment.main_fragment;
 import com.myhexaville.UI.Chat.SearchFragment.search_fragment;
+import com.myhexaville.UI.Friend.friend_fragment;
 import com.myhexaville.UI.Notification.notification_fragment;
 import com.myhexaville.UI.ToolStorage.$_Store_Friend;
 import com.myhexaville.UI.ToolStorage.$_Store_Message;
+import com.myhexaville.UI.ToolStorage.FriendPathMangment;
 import com.myhexaville.login.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
@@ -66,6 +71,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
         main_chat_fragment.OnFragmentInteractionListener,
         room_chat.OnFragmentInteractionListener,
         search_fragment.OnFragmentInteractionListener,
-        notification_fragment.OnFragmentInteractionListener {
+        notification_fragment.OnFragmentInteractionListener,
+        friend_fragment.OnFragmentInteractionListener{
 
 
     public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
@@ -159,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                                 Intent intent = new Intent(MainActivity.context, SecondActivity.class);
                                 intent.putExtras(bundle);
                                 MainActivity.fragmentActivity.startActivity(intent);
+                                getOnline();
                             } else {
                                 Toast.makeText(context, "Sign Up UN Successfully", Toast.LENGTH_SHORT).show();
                                 $_Client.getSharedPreferences().removeObject("username");
@@ -216,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
 
                                 intent.putExtras(bundle);
                                 MainActivity.fragmentActivity.startActivity(intent);
+                                getOnline();
                             } else {
                                 Toast.makeText(context, "Sign Up UN Successfully", Toast.LENGTH_SHORT).show();
                                 $_Client.getSharedPreferences().removeObject("id");
@@ -495,7 +504,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
 
                         $_Client.getDataInputStreamMessage().readFully(temp);
                         photos.add(temp);
-                        System.out.println("TEEEEMP = " + temp);
 
 
                     }
@@ -573,6 +581,8 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                         public void run() {
                             addChat(finalMy_json2, value_item_main_chat);
                             ThirdActivity.search_fragment.Edit_button(finalMy_json2.getId_user(), "Remove");
+                            SecondActivity.friend_fragment.getValueItemFriends().add(new $_Value_Item_Friend(finalMy_json2.getId_user(),finalMy_json2.getUser_name(),"state",null));
+                            SecondActivity.friend_fragment.getRecycleViewFriend().notifyDataSetChanged();
 
 
                         }
@@ -593,7 +603,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                                 System.out.println("1111111111111111111111111111111");
                                 bytes = new byte[Integer.parseInt((($_JSON_Friend_Accept_Response) finalMy_json6).getBytes())];
                                 dataInputStream.readFully(bytes);
-
                                 System.out.println("2222222222222222222222222222222222 = " + bytes);
 
                             } catch (IOException e) {
@@ -616,7 +625,8 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                         @Override
                         public void run() {
                             addChatFriend(finalMy_json3, value_item_main_chat);
-
+                            SecondActivity.friend_fragment.getValueItemFriends().add(new $_Value_Item_Friend(finalMy_json3.getId_user(),finalMy_json3.getUser_name(),"state",bytes));
+                            SecondActivity.friend_fragment.getRecycleViewFriend().notifyDataSetChanged();
                         }
                     });
 
@@ -670,6 +680,30 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                         @Override
                         public void run() {
 
+                        }
+                    });
+
+                    break;
+                }
+                case  "Online_Friends_Response":
+                {
+                    JSONArray jsonArray_Ids = jsonObject.getJSONArray("Ids");
+                    JSONArray jsonArray_OnlineState = jsonObject.getJSONArray("OnlineState");
+                    ArrayList<String> Ids=new ArrayList<>();
+                    ArrayList<String> OnlineState=new ArrayList<>();
+                    for (int i = 0; i < jsonArray_Ids.length(); i++) {
+                        Ids.add(jsonArray_Ids.getString(i));
+                        OnlineState.add(jsonArray_OnlineState.getString(i));
+                    }
+                    System.out.println("MMMMM");
+
+                    my_json=new $_JSON_Online_Friend_Respons("Online_Friends_Response",jsonObject.getString($_JSONAttributes.IdRecive.toString()),true,Ids,OnlineState);
+                    SecondActivity.fragmentActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("MMMMM");
+
+                            SecondActivity.onlineFriendFragment.add_Online(Ids,OnlineState);
                         }
                     });
 
@@ -890,7 +924,54 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
         }
 
     }
+     public static ArrayList<String> getFriends(String path)
+     {
+         File all_friend = new File(path);
+         $_FriendInfo friendInfo;
+         ArrayList<String > temp=new ArrayList<>();
+         for (File temp_file : all_friend.listFiles()){
+             friendInfo = ($_FriendInfo) MainActivity.store_friend.retriveFriend(temp_file.getName());
+             temp.add(friendInfo.getId());
+         }
 
+         return temp;
+     }
+
+    public static void getOnline()
+    {
+
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        ArrayList<String> friends=getFriends(FriendPathMangment.FriendPath + "/");
+
+                        Thread.sleep(5000);
+                        JSONObject jsonObject1 = new JSONObject();
+                        jsonObject1.put($_JSONAttributes.Type.toString(), "Online_Friends");
+                        jsonObject1.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
+                        jsonObject1.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+                        jsonObject1.put("Friends", new JSONArray(friends));
+                        $_Client.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
+                        $_Client.getDataOutputStreamMessage().flush();
+                        System.out.println("OOOO");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        thread.start();
+
+
+    }
     @Override
     protected void onStop() {
         super.onStop();

@@ -24,8 +24,8 @@ public class $_Client {
     private static String UserName = "Username";
 
     public $_Client(Context context) throws IOException {
-        socketOnline = new Socket("192.168.43.116", 5000);
-        socketMessage = new Socket("192.168.43.116", 5000);
+        socketOnline = new Socket("192.168.1.105", 5000);
+        socketMessage = new Socket("192.168.1.105", 5000);
         dataOutputStreamOnline = new DataOutputStream(socketOnline.getOutputStream());
         dataInputStreamOnline = new DataInputStream(socketOnline.getInputStream());
         dataOutputStreamMessage = new DataOutputStream(socketMessage.getOutputStream());
