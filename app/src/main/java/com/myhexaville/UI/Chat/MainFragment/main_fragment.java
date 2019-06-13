@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myhexaville.UI.Adapter.AdapterPageViewer.$_Page_Adapter;
+import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
 import com.myhexaville.login.SecondActivity;
 import com.myhexaville.login.ThirdActivity;
@@ -86,7 +87,10 @@ public class main_fragment extends Fragment {
         pagerTabStrip.setTextColor(Color.WHITE);
         pagerTabStrip.setTextSize(1, 20);
         viewPager.setAdapter(page_adapter);
+        viewPager.setOffscreenPageLimit(4);
         setHasOptionsMenu(true);
+        MainActivity.getOnline();
+
 
         return view;
     }

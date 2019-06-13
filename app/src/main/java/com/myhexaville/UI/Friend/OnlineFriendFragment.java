@@ -47,6 +47,7 @@ public class OnlineFriendFragment extends Fragment {
         // Required empty public constructor
         valueItemOnlineFriends=new ArrayList<>();
 
+        viewOnlineAadpter=new $_Recycle_View_Online_Aadpter(getContext(),valueItemOnlineFriends);
 
     }
 
@@ -82,9 +83,8 @@ public class OnlineFriendFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.online_friendfragment, container, false);
-
-        viewOnlineAadpter=new $_Recycle_View_Online_Aadpter(getContext(),valueItemOnlineFriends);
-        recyclerView=view.findViewById(R.id.list_online);
+         viewOnlineAadpter.notifyDataSetChanged();
+         recyclerView=view.findViewById(R.id.list_online);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setAdapter(viewOnlineAadpter);
 
@@ -136,7 +136,6 @@ public class OnlineFriendFragment extends Fragment {
             {
                $_FriendInfo friendInfo = ($_FriendInfo) MainActivity.store_friend.retriveFriend(Ids.get(i));
                valueItemOnlineFriends.add(new $_Value_Item_Online_Friend(friendInfo.getId(),friendInfo.getUser(),"Online",friendInfo.getPhoto()));
-                System.out.println("totototototo");
             }
         }
         viewOnlineAadpter.notifyDataSetChanged();

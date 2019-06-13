@@ -47,8 +47,6 @@ public class SecondActivity extends AppCompatActivity implements main_fragment.O
         fragmentTransaction = fragmentManager.beginTransaction();
         main_fragment = new main_fragment();
         signup_fragment_tow = new signup_fragment_tow();
-        friend_fragment=new friend_fragment();
-        onlineFriendFragment=new OnlineFriendFragment();
 
         // init All Fragment
     }

@@ -114,10 +114,9 @@ public class friend_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("testtt1");
 
         View view= inflater.inflate(R.layout.fragment_friend_fragment, container, false);
-        add_friends_from_files(FriendPathMangment.FriendPath + "/");
+       add_friends_from_files(FriendPathMangment.FriendPath + "/");
         recyclerView=view.findViewById(R.id.list_friend);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setAdapter(recycleViewFriend);
@@ -171,11 +170,25 @@ public class friend_fragment extends Fragment {
             friendInfo = ($_FriendInfo) MainActivity.store_friend.retriveFriend(temp_file.getName());
             $_Value_Item_Friend valueItemFriend=new $_Value_Item_Friend(friendInfo.getId(),friendInfo.getUser(),friendInfo.getState(),friendInfo.getPhoto());
             valueItemFriends.add(valueItemFriend);
-            recycleViewFriend.notifyDataSetChanged();
 
         }
+        recycleViewFriend.notifyDataSetChanged();
+
 
     }
+
+    public void remove(String id_user) {
+
+        for (int i = 0; i <valueItemFriends.size() ; i++) {
+            if(valueItemFriends.get(i).getId().equals(id_user))
+            {
+                valueItemFriends.remove(valueItemFriends.get(i));
+            }
+            
+        }
+        recycleViewFriend.notifyDataSetChanged();
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

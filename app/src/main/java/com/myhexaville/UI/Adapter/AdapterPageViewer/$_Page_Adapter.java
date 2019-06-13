@@ -30,13 +30,15 @@ public class $_Page_Adapter extends FragmentStatePagerAdapter {
                 }
                 case 2:
                 {
-                    fragments[i]= SecondActivity.friend_fragment;
+                    fragments[i]= new friend_fragment();
+                    SecondActivity.friend_fragment= (friend_fragment) fragments[i];
 
                     break;
                 }
                 case 3:
                 {
-                    fragments[i]=SecondActivity.onlineFriendFragment;
+                    fragments[i]=new OnlineFriendFragment();
+                    SecondActivity.onlineFriendFragment= (OnlineFriendFragment) fragments[i];
                     break;
                 }
 

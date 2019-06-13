@@ -6,7 +6,15 @@ public class $_Value_Item_Friend {
     private byte[] image;
     private  String Id;
 
-    public $_Value_Item_Friend(String Id,String user_Name, String state, byte[] image) {
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public $_Value_Item_Friend(String Id, String user_Name, String state, byte[] image) {
         User_Name = user_Name;
         State = state;
         this.image = image;

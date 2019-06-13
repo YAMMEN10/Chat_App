@@ -56,14 +56,12 @@ public class $_Recycle_View_Online_Aadpter extends RecyclerView.Adapter<$_Recycl
         holderFriendOnline.itemOnlineFriend.getFriendName().setText(valueItemFriend.getFriendName());
         holderFriendOnline.itemOnlineFriend.getOnline().setText(valueItemFriend.getOnline());
 
-       /* if(holderFriendOnline.itemOnlineFriend.getImageFriend()!=null)
-        {
             Glide.with(SecondActivity.fragmentActivity)
                     .load(valueItemFriend.getImage())
                     .asBitmap()
                     .into(
                             holderFriendOnline.itemOnlineFriend.getImageFriend()
-                    );}*/
+                    );
         holderFriends.add(holderFriendOnline);
     }
 

@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                                 Intent intent = new Intent(MainActivity.context, SecondActivity.class);
                                 intent.putExtras(bundle);
                                 MainActivity.fragmentActivity.startActivity(intent);
-                                getOnline();
+                               // getOnline();
                             } else {
                                 Toast.makeText(context, "Sign Up UN Successfully", Toast.LENGTH_SHORT).show();
                                 $_Client.getSharedPreferences().removeObject("username");
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
 
                                 intent.putExtras(bundle);
                                 MainActivity.fragmentActivity.startActivity(intent);
-                                getOnline();
+                               // getOnline();
                             } else {
                                 Toast.makeText(context, "Sign Up UN Successfully", Toast.LENGTH_SHORT).show();
                                 $_Client.getSharedPreferences().removeObject("id");
@@ -500,23 +500,53 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                         Users_name.add(jsonArray_Users_name.getString(i));
                         State_Users.add(jsonArray_State_Users.getString(i));
                         lenthes.add(jsonArray_lenthes.getInt(i));
-                        byte[] temp = new byte[jsonArray_lenthes.getInt(i)];
 
-                        $_Client.getDataInputStreamMessage().readFully(temp);
-                        photos.add(temp);
 
 
                     }
+                    Thread thread=new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < jsonArray_Ids.length(); i++) {
+
+
+                            try {
+                                byte[] temp = new byte[jsonArray_lenthes.getInt(i)];
+                                System.out.println("Photo");
+                                $_Client.getDataInputStreamMessage().readFully(temp);
+                                photos.add(temp);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                                 }
+                                 ThirdActivity .fragmentActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ThirdActivity.search_fragment.Edit_Image(photos);
+                                }
+                            });
+                            System.out.println("photo2");
+                        }
+                    });
+                    thread.start();
+
                     my_json = new $_JSON_Search_User_Successful("Search_User_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), Ids, Users_name, State_Users, lenthes);
                     final $_JSON_Search_User_Successful finalMy_json = ($_JSON_Search_User_Successful) my_json;
                     final JSONObject finalJsonObject = jsonObject;
                     SecondActivity.fragmentActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ThirdActivity.search_fragment.set_list_show(finalMy_json, photos);
+                            ThirdActivity.search_fragment.set_list_show(finalMy_json);
                         }
                     });
-
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
                 case "Friend_Request": {
@@ -570,18 +600,39 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                     break;
                 }
                 case "Accept_Friend_Response": {
-                    my_json = new $_JSON_Accept_Friend_Respons("Accept_Friend_Response", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString($_JSONAttributes.Accept_Friend_Id.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()));
+                    my_json = new $_JSON_Accept_Friend_Respons("Accept_Friend_Response", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString($_JSONAttributes.Accept_Friend_Id.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()),jsonObject.getInt("ImageLength"));
 
                     $_JSON_Accept_Friend_Respons finalMy_json2 = ($_JSON_Accept_Friend_Respons) my_json;
-                    store_friend.storeFriend(finalMy_json2.getId_user(), finalMy_json2.getUser_name(), "State", new byte[5]);
-                    $_Value_Item_Main_Chat value_item_main_chat = new $_Value_Item_Main_Chat("null", finalMy_json2.getUser_name(), finalMy_json2.getId_user(), new byte[1]);
+                   Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                DataInputStream dataInputStream = new DataInputStream($_Client.getSocketMessage().getInputStream());
+                                System.out.println("tttttttttttttttttttttt"+finalMy_json2.getImagelenth());
+                                bytes = new byte[ finalMy_json2.getImagelenth()];
+                                dataInputStream.readFully(bytes);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    thread.start();
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    store_friend.storeFriend(finalMy_json2.getId_user(), finalMy_json2.getUser_name(), "State", bytes);
+                    $_Value_Item_Main_Chat value_item_main_chat = new $_Value_Item_Main_Chat("null", finalMy_json2.getUser_name(), finalMy_json2.getId_user(),bytes);
 
                     SecondActivity.fragmentActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             addChat(finalMy_json2, value_item_main_chat);
                             ThirdActivity.search_fragment.Edit_button(finalMy_json2.getId_user(), "Remove");
-                            SecondActivity.friend_fragment.getValueItemFriends().add(new $_Value_Item_Friend(finalMy_json2.getId_user(),finalMy_json2.getUser_name(),"state",null));
+                            SecondActivity.friend_fragment.getValueItemFriends().add(new $_Value_Item_Friend(finalMy_json2.getId_user(),finalMy_json2.getUser_name(),"state",bytes));
                             SecondActivity.friend_fragment.getRecycleViewFriend().notifyDataSetChanged();
 
 
@@ -591,7 +642,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                     break;
                 }
                 case "Friend_Accept_Response": {
-                    my_json = new $_JSON_Friend_Accept_Response("Friend_Accept_Response", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getString($_JSONAttributes.Id_Friend_Accept_Response.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()), jsonObject.getString($_JSONAttributes.Message.toString()));
+                    my_json = new $_JSON_Friend_Accept_Response("Friend_Accept_Response", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getString($_JSONAttributes.Id_Friend_Accept_Response.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()), jsonObject.getInt($_JSONAttributes.Message.toString()));
 
                     $_JSON_Friend_Accept_Response finalMy_json3 = ($_JSON_Friend_Accept_Response) my_json;
                     $_JSON finalMy_json6 = my_json;
@@ -601,7 +652,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                             try {
                                 DataInputStream dataInputStream = new DataInputStream($_Client.getSocketMessage().getInputStream());
                                 System.out.println("1111111111111111111111111111111");
-                                bytes = new byte[Integer.parseInt((($_JSON_Friend_Accept_Response) finalMy_json6).getBytes())];
+                                bytes = new byte[(($_JSON_Friend_Accept_Response) finalMy_json6).getImagelenth()];
                                 dataInputStream.readFully(bytes);
                                 System.out.println("2222222222222222222222222222222222 = " + bytes);
 
@@ -643,6 +694,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                             $_Value_Item_Main_Chat value_item_main_chat = getValueItemMainChat(finalMy_json4.getId_user());
                             main_chat_fragment.rooms.remove(value_item_main_chat);
                             main_chat_fragment.recycleAdapter.notifyDataSetChanged();
+                            SecondActivity.friend_fragment.remove(finalMy_json4.getId_user());
                         }
                     });
                     break;
@@ -658,6 +710,8 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                             $_Value_Item_Main_Chat value_item_main_chat = getValueItemMainChat(finalMy_json8.getId_user());
                             main_chat_fragment.rooms.remove(value_item_main_chat);
                             main_chat_fragment.recycleAdapter.notifyDataSetChanged();
+                            SecondActivity.friend_fragment.remove(finalMy_json8.getId_user());
+
                         }
                     });
                     break;
@@ -956,7 +1010,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                         jsonObject1.put("Friends", new JSONArray(friends));
                         $_Client.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
                         $_Client.getDataOutputStreamMessage().flush();
-                        System.out.println("OOOO");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

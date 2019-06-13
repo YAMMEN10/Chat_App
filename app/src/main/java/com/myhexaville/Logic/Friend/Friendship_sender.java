@@ -19,7 +19,6 @@ public class Friendship_sender {
             jsonObject1.put($_JSONAttributes.user_friend_request.toString(), username);
             jsonObject1.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
             if (Type.equals($_JSONAttributes.Accept_Friend.toString())) {
-                jsonObject1.put($_JSONAttributes.Message.toString(), image.length);
 
 
                 Thread thread = new Thread(new Runnable() {
@@ -27,8 +26,8 @@ public class Friendship_sender {
                     public void run() {
                         try {
                             $_Client.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
-                            $_Client.getDataOutputStreamMessage().write(image);
-                            $_Client.getDataOutputStreamMessage().flush();
+                           // $_Client.getDataOutputStreamMessage().write(image);
+                            //$_Client.getDataOutputStreamMessage().flush();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

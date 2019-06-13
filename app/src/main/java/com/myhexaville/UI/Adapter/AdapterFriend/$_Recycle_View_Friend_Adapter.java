@@ -39,13 +39,12 @@ public class $_Recycle_View_Friend_Adapter extends RecyclerView.Adapter<$_Recycl
         holderFriend.item_friend.getUser_Name().setText(valueItemFriend.getUser_Name());
         holderFriend.item_friend.getState().setText(valueItemFriend.getState());
 
-     /*   if(valueItemFriend.getImage()!=null)
-        {Glide.with(SecondActivity.fragmentActivity)
+        Glide.with(SecondActivity.fragmentActivity)
                 .load(valueItemFriend.getImage())
                 .asBitmap()
                 .into(
                        holderFriend.item_friend.getImage()
-                );}*/
+                );
         Holder_friends.add(holderFriend);
     }
 
