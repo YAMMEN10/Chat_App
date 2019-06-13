@@ -8,6 +8,14 @@ public class $_FriendInfo implements Serializable {
     private byte[] photo;
     private String state;
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public $_FriendInfo(String id, String user, byte[] photo, String state) {
         this.id = id;
         this.user = user;

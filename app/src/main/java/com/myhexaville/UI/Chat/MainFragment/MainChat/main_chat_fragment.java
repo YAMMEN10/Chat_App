@@ -128,6 +128,7 @@ public class main_chat_fragment extends Fragment {
         // Inflate the layout for this fragment
         //rooms = new ArrayList<>();
         // mangementFriend.setFriendPath(FriendPathMangment.FriendPath);
+        System.out.println("testtt2");
         layoutManager = new LinearLayoutManager(getContext());
         View view = inflater.inflate(R.layout.fragment_main_chat_fragment, container, false);
         mListener = (OnFragmentInteractionListener) getActivity();

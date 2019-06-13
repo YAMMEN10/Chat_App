@@ -12,11 +12,11 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static final int emojiconAlignment = 0x7f0300e2;
-        public static final int emojiconSize = 0x7f0300e3;
-        public static final int emojiconTextLength = 0x7f0300e4;
-        public static final int emojiconTextStart = 0x7f0300e5;
-        public static final int emojiconUseSystemDefault = 0x7f0300e6;
+        public static final int emojiconAlignment = 0x7f0300bc;
+        public static final int emojiconSize = 0x7f0300bd;
+        public static final int emojiconTextLength = 0x7f0300be;
+        public static final int emojiconTextStart = 0x7f0300bf;
+        public static final int emojiconUseSystemDefault = 0x7f0300c0;
     }
     public static final class drawable {
         private drawable() {}
@@ -1437,23 +1437,23 @@ public final class R {
         public static final int orca_emoji_more_back_normal = 0x7f07060a;
         public static final int orca_emoji_more_front_normal = 0x7f07060b;
         public static final int orca_emoji_more_front_pressed = 0x7f07060c;
-        public static final int selector_emoji_activity = 0x7f070613;
-        public static final int selector_emoji_food = 0x7f070614;
-        public static final int selector_emoji_nature = 0x7f070615;
-        public static final int selector_emoji_objects = 0x7f070616;
-        public static final int selector_emoji_people = 0x7f070617;
-        public static final int selector_emoji_recent = 0x7f070618;
-        public static final int selector_emoji_symbols = 0x7f070619;
-        public static final int selector_emoji_travel = 0x7f07061a;
-        public static final int smiley = 0x7f07061e;
-        public static final int sym_keyboard_delete_holo_dark = 0x7f07061f;
+        public static final int selector_emoji_activity = 0x7f070611;
+        public static final int selector_emoji_food = 0x7f070612;
+        public static final int selector_emoji_nature = 0x7f070613;
+        public static final int selector_emoji_objects = 0x7f070614;
+        public static final int selector_emoji_people = 0x7f070615;
+        public static final int selector_emoji_recent = 0x7f070616;
+        public static final int selector_emoji_symbols = 0x7f070617;
+        public static final int selector_emoji_travel = 0x7f070618;
+        public static final int smiley = 0x7f07061c;
+        public static final int sym_keyboard_delete_holo_dark = 0x7f07061d;
     }
     public static final class id {
         private id() {}
 
         public static final int Emoji_GridView = 0x7f080004;
-        public static final int baseline = 0x7f080028;
-        public static final int bottom = 0x7f08002c;
+        public static final int baseline = 0x7f08002b;
+        public static final int bottom = 0x7f08002e;
         public static final int emojicon_icon = 0x7f080064;
         public static final int emojis_backspace = 0x7f080065;
         public static final int emojis_pager = 0x7f080066;
@@ -1482,7 +1482,7 @@ public final class R {
     public static final class styleable {
         private styleable() {}
 
-        public static final int[] Emojicon = { 0x7f0300e2, 0x7f0300e3, 0x7f0300e4, 0x7f0300e5, 0x7f0300e6 };
+        public static final int[] Emojicon = { 0x7f0300bc, 0x7f0300bd, 0x7f0300be, 0x7f0300bf, 0x7f0300c0 };
         public static final int Emojicon_emojiconAlignment = 0;
         public static final int Emojicon_emojiconSize = 1;
         public static final int Emojicon_emojiconTextLength = 2;

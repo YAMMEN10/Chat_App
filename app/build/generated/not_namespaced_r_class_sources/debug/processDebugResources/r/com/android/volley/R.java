@@ -9,29 +9,4 @@ package com.android.volley;
 public final class R {
     private R() {}
 
-    public static final class color {
-        private color() {}
-
-        public static final int photo_crop_dim_color = 0x7f050072;
-        public static final int photo_crop_highlight_color = 0x7f050073;
-        public static final int solid_black = 0x7f050084;
-    }
-    public static final class dimen {
-        private dimen() {}
-
-        public static final int photo_crop_stroke_width = 0x7f0600da;
-        public static final int photo_crop_width = 0x7f0600db;
-        public static final int photo_preview_size = 0x7f0600dc;
-    }
-    public static final class string {
-        private string() {}
-
-        public static final int auth_failed = 0x7f0e002b;
-        public static final int generic_error = 0x7f0e0035;
-        public static final int generic_server_down = 0x7f0e0036;
-        public static final int generic_server_timeout = 0x7f0e0037;
-        public static final int no_internet = 0x7f0e003e;
-        public static final int no_network_connection = 0x7f0e003f;
-        public static final int parsing_failed = 0x7f0e0041;
-    }
 }

@@ -1,6 +1,9 @@
 package com.myhexaville.Logic.Client;
 
 import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.text.format.Formatter;
 
 import com.myhexaville.Logic.ServerManagment.$_CheckOnline;
 import com.myhexaville.Logic.Tools.$_SharedPreferences;
@@ -9,6 +12,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+
+import static android.content.Context.WIFI_SERVICE;
 
 public class $_Client {
     public static String idRecived = "";
@@ -26,8 +31,12 @@ public class $_Client {
     private static byte[] PersonalImage;
 
     public $_Client(Context context) throws IOException {
-        socketOnline = new Socket("192.168.43.116", 5000);
-        socketMessage = new Socket("192.168.43.116", 5000);
+     /*   WifiManager wifiMgr = (WifiManager) context.getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+        String ipAddress = Formatter.formatIpAddress(ip);*/
+        socketOnline = new Socket("192.168.1.106", 5000);
+        socketMessage = new Socket("192.168.1.106", 5000);
         dataOutputStreamOnline = new DataOutputStream(socketOnline.getOutputStream());
         dataInputStreamOnline = new DataInputStream(socketOnline.getInputStream());
         dataOutputStreamMessage = new DataOutputStream(socketMessage.getOutputStream());

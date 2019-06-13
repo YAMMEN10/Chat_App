@@ -2,21 +2,22 @@ package com.myhexaville.Logic.JSONData;
 
 public class $_JSON_Friend_Accept_Response extends $_JSON_Friend_Response {
     private String user_name;
-    private String bytes;
+    private int imagelenth;
 
-    public $_JSON_Friend_Accept_Response(String type, String idReceived, String Id_user, String user_friend_request, String bytes) {
+    public int getImagelenth() {
+        return imagelenth;
+    }
+
+    public void setImagelenth(int imagelenth) {
+        this.imagelenth = imagelenth;
+    }
+
+    public $_JSON_Friend_Accept_Response(String type, String idReceived, String Id_user, String user_name, int bytes) {
         super(type, idReceived, true, Id_user);
-        this.user_name = user_friend_request;
-        this.bytes = bytes;
+        this.user_name= user_name;
+        this.imagelenth  = bytes;
     }
 
-    public String getBytes() {
-        return bytes;
-    }
-
-    public void setBytes(String bytes) {
-        this.bytes = bytes;
-    }
 
     public String getUser_name() {
         return user_name;

@@ -80,7 +80,6 @@ attr backgroundStacked
 attr backgroundTint
 attr backgroundTintMode
 attr barLength
-attr barWidth
 attr barrierAllowsGoneWidgets
 attr barrierDirection
 attr behavior_autoHide
@@ -104,36 +103,6 @@ attr boxCornerRadiusTopEnd
 attr boxCornerRadiusTopStart
 attr boxStrokeColor
 attr boxStrokeWidth
-attr bsb_always_show_bubble
-attr bsb_anim_duration
-attr bsb_auto_adjust_section_mark
-attr bsb_bubble_color
-attr bsb_bubble_text_color
-attr bsb_bubble_text_size
-attr bsb_is_float_type
-attr bsb_max
-attr bsb_min
-attr bsb_progress
-attr bsb_second_track_color
-attr bsb_second_track_size
-attr bsb_section_count
-attr bsb_section_text_color
-attr bsb_section_text_interval
-attr bsb_section_text_position
-attr bsb_section_text_size
-attr bsb_seek_by_section
-attr bsb_show_progress_in_float
-attr bsb_show_section_mark
-attr bsb_show_section_text
-attr bsb_show_thumb_text
-attr bsb_thumb_color
-attr bsb_thumb_radius
-attr bsb_thumb_radius_on_dragging
-attr bsb_thumb_text_color
-attr bsb_thumb_text_size
-attr bsb_touch_to_seek
-attr bsb_track_color
-attr bsb_track_size
 attr buttonBarButtonStyle
 attr buttonBarNegativeButtonStyle
 attr buttonBarNeutralButtonStyle
@@ -222,19 +191,12 @@ attr contentScrim
 attr controlBackground
 attr coordinatorLayoutStyle
 attr cornerRadius
-attr countText
-attr countTextColor
-attr countTextSize
 attr counterEnabled
 attr counterMaxLength
 attr counterOverflowTextAppearance
 attr counterTextAppearance
 attr customNavigationLayout
-attr defTextColor
-attr defTextSize
 attr defaultQueryHint
-attr definition
-attr definitionText
 attr dialogCornerRadius
 attr dialogPreferredPadding
 attr dialogTheme
@@ -403,10 +365,7 @@ attr layout_optimizationLevel
 attr layout_scrollFlags
 attr layout_scrollInterpolator
 attr liftOnScroll
-attr lineBarWidth
-attr lineDefTextSize
 attr lineHeight
-attr lineProgressColor
 attr lineSpacing
 attr listChoiceBackgroundIndicator
 attr listDividerAlertDialog
@@ -421,7 +380,6 @@ attr listPreferredItemPaddingLeft
 attr listPreferredItemPaddingRight
 attr logo
 attr logoDescription
-attr marginBtwText
 attr materialButtonStyle
 attr materialCardViewStyle
 attr maxActionInlineWidth
@@ -448,7 +406,6 @@ attr passwordToggleDrawable
 attr passwordToggleEnabled
 attr passwordToggleTint
 attr passwordToggleTintMode
-attr percentage
 attr popupMenuStyle
 attr popupTheme
 attr popupWindowStyle
@@ -456,7 +413,6 @@ attr preserveIconSpacing
 attr pressedTranslationZ
 attr progressBarPadding
 attr progressBarStyle
-attr progressColor
 attr queryBackground
 attr queryHint
 attr radioButtonStyle
@@ -464,18 +420,7 @@ attr ratingBarStyle
 attr ratingBarStyleIndicator
 attr ratingBarStyleSmall
 attr reverseLayout
-attr rimColor
 attr rippleColor
-attr rv_alpha
-attr rv_centered
-attr rv_color
-attr rv_framerate
-attr rv_rippleDuration
-attr rv_ripplePadding
-attr rv_type
-attr rv_zoom
-attr rv_zoomDuration
-attr rv_zoomScale
 attr scrimAnimationDuration
 attr scrimBackground
 attr scrimVisibleHeightTrigger
@@ -606,12 +551,7 @@ attr track
 attr trackTint
 attr trackTintMode
 attr ttcIndex
-attr underLineColor
-attr underLineSize
 attr useCompatPadding
-attr value
-attr valueDefTextSize
-attr valuePercentage
 attr viewInflaterClass
 attr voiceIcon
 attr windowActionBar
@@ -742,8 +682,6 @@ color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
 color notification_material_background_media_default_color
-color photo_crop_dim_color
-color photo_crop_highlight_color
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -752,7 +690,6 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
-color rippelColor
 color ripple_material_dark
 color ripple_material_light
 color secondPage
@@ -760,7 +697,6 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
-color solid_black
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -863,7 +799,6 @@ dimen compat_button_padding_vertical_material
 dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
-dimen corner_radius
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_item_min_width
@@ -925,7 +860,6 @@ dimen ic_delete
 dimen item_touch_helper_max_drag_scroll_per_frame
 dimen item_touch_helper_swipe_escape_max_velocity
 dimen item_touch_helper_swipe_escape_velocity
-dimen margin
 dimen mtrl_bottomappbar_fabOffsetEndMode
 dimen mtrl_bottomappbar_fab_cradle_margin
 dimen mtrl_bottomappbar_fab_cradle_rounded_corner_radius
@@ -990,9 +924,6 @@ dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
 dimen padd_10
-dimen photo_crop_stroke_width
-dimen photo_crop_width
-dimen photo_preview_size
 dimen subtitle_corner_radius
 dimen subtitle_outline_width
 dimen subtitle_shadow_offset
@@ -2551,11 +2482,9 @@ drawable orca_emoji_more_back_normal
 drawable orca_emoji_more_front_normal
 drawable orca_emoji_more_front_pressed
 drawable password
-drawable pause_voice
 drawable play_voice
 drawable recive_message_chat
 drawable record_voice
-drawable ripple
 drawable selector_emoji_activity
 drawable selector_emoji_food
 drawable selector_emoji_nature
@@ -2578,7 +2507,10 @@ id Add_friend2
 id CTRL
 id Emoji_GridView
 id FUNCTION
+id FriendState
 id META
+id OnlineName
+id OnlineState
 id SHIFT
 id SYM
 id action0
@@ -2614,10 +2546,8 @@ id auto
 id barrier
 id baseline
 id beginning
-id below_section_mark
 id blocking
 id bottom
-id bottom_sides
 id btn_emoji
 id btn_recive_play_voice
 id btn_send_play_voice
@@ -2669,7 +2599,6 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
-id doubleRipple
 id edit_message_menu
 id edit_query
 id emojicon_icon
@@ -2711,6 +2640,7 @@ id icon_group
 id ifRoom
 id imUser
 id image
+id imageOnline
 id imgview_photo
 id info
 id invisible
@@ -2718,12 +2648,6 @@ id italic
 id item_recycle_view_room_chat_record_voice
 id item_recycle_view_room_chat_studio
 id item_touch_helper_previous_elevation
-id item_view_recive_message_image
-id item_view_recive_message_text
-id item_view_recive_message_voice
-id item_view_send_message_image
-id item_view_send_message_text
-id item_view_send_message_voice
 id labeled
 id largeLabel
 id left
@@ -2731,7 +2655,9 @@ id line1
 id line3
 id list
 id listMode
+id list_friend
 id list_item
+id list_online
 id login_fragment
 id masked
 id media_actions
@@ -2773,10 +2699,7 @@ id percent
 id pin
 id progress_circular
 id progress_horizontal
-id progress_line
 id radio
-id recording
-id rectangle
 id recycle_view_main_chat
 id recycle_view_main_chat_email
 id recycle_view_main_chat_image
@@ -2813,9 +2736,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
-id sides
 id sign_up_fragment
-id simpleRipple
 id smallLabel
 id snackbar_action
 id snackbar_text
@@ -2889,7 +2810,6 @@ id view_background
 id view_foreground
 id view_offset_helper
 id visible
-id wheelprogress
 id withText
 id wrap
 id wrap_content
@@ -2966,6 +2886,7 @@ layout emojicon_grid
 layout emojicon_item
 layout emojicons
 layout for_testing
+layout fragment_friend_fragment
 layout fragment_login
 layout fragment_main_chat_fragment
 layout fragment_main_fragment
@@ -2977,6 +2898,7 @@ layout fragment_signup
 layout fragment_signup_fragment
 layout fragment_signup_fragment_tow
 layout fragment_voice_fragment
+layout frienditem
 layout item_layout
 layout item_recive_recycle_view_room_chat_image
 layout item_recive_recycle_view_room_chat_text
@@ -3003,7 +2925,8 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
-layout sample_progress_wheel
+layout online_friendfragment
+layout onlineitem
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -3057,7 +2980,6 @@ string action_settings
 string app_label
 string app_name
 string appbar_scrolling_view_behavior
-string auth_failed
 string bottom_sheet_behavior
 string character_counter_content_description
 string character_counter_pattern
@@ -3067,19 +2989,13 @@ string email
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string forgot_password
-string generic_error
-string generic_server_down
-string generic_server_timeout
 string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string id
 string login
 string mtrl_chip_close_icon_content_description
 string my_cart
-string no_internet
-string no_network_connection
 string or
-string parsing_failed
 string password
 string password_toggle_content_description
 string path_password_eye
@@ -3617,7 +3533,6 @@ styleable AppCompatTheme android_windowIsFloating android_windowAnimationStyle a
 styleable BottomAppBar backgroundTint fabAlignmentMode fabCradleMargin fabCradleRoundedCornerRadius fabCradleVerticalOffset hideOnScroll
 styleable BottomNavigationView elevation itemBackground itemHorizontalTranslationEnabled itemIconSize itemIconTint itemTextAppearanceActive itemTextAppearanceInactive itemTextColor labelVisibilityMode menu
 styleable BottomSheetBehavior_Layout behavior_fitToContents behavior_hideable behavior_peekHeight behavior_skipCollapsed
-styleable BubbleSeekBar bsb_always_show_bubble bsb_anim_duration bsb_auto_adjust_section_mark bsb_bubble_color bsb_bubble_text_color bsb_bubble_text_size bsb_is_float_type bsb_max bsb_min bsb_progress bsb_second_track_color bsb_second_track_size bsb_section_count bsb_section_text_color bsb_section_text_interval bsb_section_text_position bsb_section_text_size bsb_seek_by_section bsb_show_progress_in_float bsb_show_section_mark bsb_show_section_text bsb_show_thumb_text bsb_thumb_color bsb_thumb_radius bsb_thumb_radius_on_dragging bsb_thumb_text_color bsb_thumb_text_size bsb_touch_to_seek bsb_track_color bsb_track_size
 styleable ButtonBarLayout allowStacking
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Chip android_textAppearance android_ellipsize android_maxWidth android_text android_checkable checkedIcon checkedIconEnabled checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipStartPadding chipStrokeColor chipStrokeWidth closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible hideMotionSpec iconEndPadding iconStartPadding rippleColor showMotionSpec textEndPadding textStartPadding
@@ -3655,11 +3570,8 @@ styleable MenuView android_windowAnimationStyle android_itemTextAppearance andro
 styleable NavigationView android_background android_fitsSystemWindows android_maxWidth elevation headerLayout itemBackground itemHorizontalPadding itemIconPadding itemIconTint itemTextAppearance itemTextColor menu
 styleable PopupWindow android_popupBackground android_popupAnimationStyle overlapAnchor
 styleable PopupWindowBackgroundState state_above_anchor
-styleable ProgressLine definition lineBarWidth lineDefTextSize lineProgressColor underLineColor underLineSize value valueDefTextSize valuePercentage
-styleable ProgressWheel barWidth countText countTextColor countTextSize defTextColor defTextSize definitionText marginBtwText percentage progressColor rimColor
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle
 styleable RecyclerView android_orientation android_descendantFocusability fastScrollEnabled fastScrollHorizontalThumbDrawable fastScrollHorizontalTrackDrawable fastScrollVerticalThumbDrawable fastScrollVerticalTrackDrawable layoutManager reverseLayout spanCount stackFromEnd
-styleable RippleView rv_alpha rv_centered rv_color rv_framerate rv_rippleDuration rv_ripplePadding rv_type rv_zoom rv_zoomDuration rv_zoomScale
 styleable ScrimInsetsFrameLayout insetForeground
 styleable ScrollingViewBehavior_Layout behavior_overlapTop
 styleable SearchView android_focusable android_maxWidth android_inputType android_imeOptions closeIcon commitIcon defaultQueryHint goIcon iconifiedByDefault layout queryBackground queryHint searchHintIcon searchIcon submitBackground suggestionRowLayout voiceIcon

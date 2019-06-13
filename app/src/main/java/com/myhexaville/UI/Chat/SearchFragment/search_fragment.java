@@ -45,7 +45,6 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private SearchView searchView;
     private SearchManager searchManager;
     private User_Adapter mAdapter;
     private OnFragmentInteractionListener mListener;
@@ -196,7 +195,7 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
                 e.printStackTrace();
             }
         } else
-            set_list_show(null, null);
+            set_list_show(null);
         return false;
     }
 
@@ -217,12 +216,12 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
         }
     }
 
-    public void set_list_show(final $_JSON_Search_User_Successful list_show, ArrayList<byte[]> photos) {
+    public void set_list_show(final $_JSON_Search_User_Successful list_show ) {
 
         user_info_searches = new ArrayList<>();
         if (list_show != null) {
             for (int i = 0; i < list_show.getIds().size(); i++) {
-                user_info_searches.add(new User_Info_Search(photos.get(i), list_show.getUsers_Name().get(i), "I need Pizza", list_show.getIds().get(i), list_show.getState_users().get(i)));
+                user_info_searches.add(new User_Info_Search(null, list_show.getUsers_Name().get(i), "I need Pizza", list_show.getIds().get(i), list_show.getState_users().get(i)));
 
             }
         }
@@ -234,6 +233,13 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
         // TextView mEmptyView = getActivity().findViewById(R.id.emptyView);
         //mListView.setEmptyView(mEmptyView);
 
+    }
+    public void Edit_Image(ArrayList<byte[]> photos)
+    {
+        for (int i = 0; i <user_info_searches.size() ; i++) {
+            user_info_searches.get(i).setmImageUrl(photos.get(i));
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     public void Edit_button(String id, String text) {
