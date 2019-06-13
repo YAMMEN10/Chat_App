@@ -12,11 +12,11 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static final int emojiconAlignment = 0x7f0300da;
-        public static final int emojiconSize = 0x7f0300db;
-        public static final int emojiconTextLength = 0x7f0300dc;
-        public static final int emojiconTextStart = 0x7f0300dd;
-        public static final int emojiconUseSystemDefault = 0x7f0300de;
+        public static final int emojiconAlignment = 0x7f0300e2;
+        public static final int emojiconSize = 0x7f0300e3;
+        public static final int emojiconTextLength = 0x7f0300e4;
+        public static final int emojiconTextStart = 0x7f0300e5;
+        public static final int emojiconUseSystemDefault = 0x7f0300e6;
     }
     public static final class drawable {
         private drawable() {}
@@ -1482,7 +1482,7 @@ public final class R {
     public static final class styleable {
         private styleable() {}
 
-        public static final int[] Emojicon = { 0x7f0300da, 0x7f0300db, 0x7f0300dc, 0x7f0300dd, 0x7f0300de };
+        public static final int[] Emojicon = { 0x7f0300e2, 0x7f0300e3, 0x7f0300e4, 0x7f0300e5, 0x7f0300e6 };
         public static final int Emojicon_emojiconAlignment = 0;
         public static final int Emojicon_emojiconSize = 1;
         public static final int Emojicon_emojiconTextLength = 2;

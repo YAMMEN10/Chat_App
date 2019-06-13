@@ -2,12 +2,12 @@ package com.myhexaville.Logic.JSONData;
 
 public class $_JSON_SignUp_Tow extends $_JSON_Account {
     String state;
-    String byteBuffer;
+    //String bytes;
 
-    public $_JSON_SignUp_Tow(String type, String idFrom, String state, String byteBuffer, String user_name) {
+    public $_JSON_SignUp_Tow(String type, String idFrom, String state, String user_name) {
         super(type, idFrom, user_name);
         this.state = state;
-        this.byteBuffer = byteBuffer;
+        //this.bytes = bytes;
     }
 
     public String getState() {
@@ -18,12 +18,11 @@ public class $_JSON_SignUp_Tow extends $_JSON_Account {
         this.state = state;
     }
 
-    public String getByteBuffer() {
-        return byteBuffer;
+   /* public String getBytes() {
+        return bytes;
     }
 
-    public void setByteBuffer(String byteBuffer) {
-        this.byteBuffer = byteBuffer;
-    }
-
+    public void setBytes(String bytes) {
+        this.bytes = bytes;
+    }*/
 }

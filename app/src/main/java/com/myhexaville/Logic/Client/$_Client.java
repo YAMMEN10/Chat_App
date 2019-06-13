@@ -20,8 +20,10 @@ public class $_Client {
     private static DataInputStream dataInputStreamMessage = null;
     private static $_CheckOnline checkOnline;
     private static $_SharedPreferences sharedPreferences;
-    private static String Email = "Email";
-    private static String UserName = "Username";
+    private static String Email;
+    private static String UserName;
+    private static String State;
+    private static byte[] PersonalImage;
 
     public $_Client(Context context) throws IOException {
         socketOnline = new Socket("192.168.43.116", 5000);
@@ -30,6 +32,10 @@ public class $_Client {
         dataInputStreamOnline = new DataInputStream(socketOnline.getInputStream());
         dataOutputStreamMessage = new DataOutputStream(socketMessage.getOutputStream());
         dataInputStreamMessage = new DataInputStream(socketMessage.getInputStream());
+        Email = "Email";
+        UserName = "Username";
+        State = "State";
+        PersonalImage = new byte[0];
     }
 
 
@@ -95,6 +101,30 @@ public class $_Client {
 
     public static void setUserName(String userName) {
         UserName = userName;
+    }
+
+    public static String getState() {
+        return State;
+    }
+
+    public static void setState(String state) {
+        State = state;
+    }
+
+    public static String getIdRecived() {
+        return idRecived;
+    }
+
+    public static void setIdRecived(String idRecived) {
+        $_Client.idRecived = idRecived;
+    }
+
+    public static byte[] getPersonalImage() {
+        return PersonalImage;
+    }
+
+    public static void setPersonalImage(byte[] personalImage) {
+        PersonalImage = personalImage;
     }
 
     public synchronized static Socket getSocket() {

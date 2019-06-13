@@ -28,7 +28,6 @@ public class SecondActivity extends AppCompatActivity implements main_fragment.O
     //Fragment
     public static main_fragment main_fragment;
     public static signup_fragment_tow signup_fragment_tow;
-    public static String res;
     private static FragmentTransaction fragmentTransaction;
 
     // Attribute
@@ -61,7 +60,7 @@ public class SecondActivity extends AppCompatActivity implements main_fragment.O
             if (getIntent() == null) {
                 System.out.println("QQQQQQQQQQQQQQQQQ");
             }
-            if (res.equals("main_fragment")) {
+            if (getIntent().getExtras().getString("fragment").equals("main_fragment")) {
             /*Bundle bundle = new Bundle();
             bundle.putString("data", finalMy_json.toString());
             main_fragment.setArguments(bundle);

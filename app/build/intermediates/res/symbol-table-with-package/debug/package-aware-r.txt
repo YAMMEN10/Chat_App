@@ -80,6 +80,7 @@ attr backgroundStacked
 attr backgroundTint
 attr backgroundTintMode
 attr barLength
+attr barWidth
 attr barrierAllowsGoneWidgets
 attr barrierDirection
 attr behavior_autoHide
@@ -221,12 +222,19 @@ attr contentScrim
 attr controlBackground
 attr coordinatorLayoutStyle
 attr cornerRadius
+attr countText
+attr countTextColor
+attr countTextSize
 attr counterEnabled
 attr counterMaxLength
 attr counterOverflowTextAppearance
 attr counterTextAppearance
 attr customNavigationLayout
+attr defTextColor
+attr defTextSize
 attr defaultQueryHint
+attr definition
+attr definitionText
 attr dialogCornerRadius
 attr dialogPreferredPadding
 attr dialogTheme
@@ -395,7 +403,10 @@ attr layout_optimizationLevel
 attr layout_scrollFlags
 attr layout_scrollInterpolator
 attr liftOnScroll
+attr lineBarWidth
+attr lineDefTextSize
 attr lineHeight
+attr lineProgressColor
 attr lineSpacing
 attr listChoiceBackgroundIndicator
 attr listDividerAlertDialog
@@ -410,6 +421,7 @@ attr listPreferredItemPaddingLeft
 attr listPreferredItemPaddingRight
 attr logo
 attr logoDescription
+attr marginBtwText
 attr materialButtonStyle
 attr materialCardViewStyle
 attr maxActionInlineWidth
@@ -436,6 +448,7 @@ attr passwordToggleDrawable
 attr passwordToggleEnabled
 attr passwordToggleTint
 attr passwordToggleTintMode
+attr percentage
 attr popupMenuStyle
 attr popupTheme
 attr popupWindowStyle
@@ -443,6 +456,7 @@ attr preserveIconSpacing
 attr pressedTranslationZ
 attr progressBarPadding
 attr progressBarStyle
+attr progressColor
 attr queryBackground
 attr queryHint
 attr radioButtonStyle
@@ -450,6 +464,7 @@ attr ratingBarStyle
 attr ratingBarStyleIndicator
 attr ratingBarStyleSmall
 attr reverseLayout
+attr rimColor
 attr rippleColor
 attr rv_alpha
 attr rv_centered
@@ -591,7 +606,12 @@ attr track
 attr trackTint
 attr trackTintMode
 attr ttcIndex
+attr underLineColor
+attr underLineSize
 attr useCompatPadding
+attr value
+attr valueDefTextSize
+attr valuePercentage
 attr viewInflaterClass
 attr voiceIcon
 attr windowActionBar
@@ -2753,7 +2773,9 @@ id percent
 id pin
 id progress_circular
 id progress_horizontal
+id progress_line
 id radio
+id recording
 id rectangle
 id recycle_view_main_chat
 id recycle_view_main_chat_email
@@ -2867,6 +2889,7 @@ id view_background
 id view_foreground
 id view_offset_helper
 id visible
+id wheelprogress
 id withText
 id wrap
 id wrap_content
@@ -2980,6 +3003,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout sample_progress_wheel
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -3631,6 +3655,8 @@ styleable MenuView android_windowAnimationStyle android_itemTextAppearance andro
 styleable NavigationView android_background android_fitsSystemWindows android_maxWidth elevation headerLayout itemBackground itemHorizontalPadding itemIconPadding itemIconTint itemTextAppearance itemTextColor menu
 styleable PopupWindow android_popupBackground android_popupAnimationStyle overlapAnchor
 styleable PopupWindowBackgroundState state_above_anchor
+styleable ProgressLine definition lineBarWidth lineDefTextSize lineProgressColor underLineColor underLineSize value valueDefTextSize valuePercentage
+styleable ProgressWheel barWidth countText countTextColor countTextSize defTextColor defTextSize definitionText marginBtwText percentage progressColor rimColor
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle
 styleable RecyclerView android_orientation android_descendantFocusability fastScrollEnabled fastScrollHorizontalThumbDrawable fastScrollHorizontalTrackDrawable fastScrollVerticalThumbDrawable fastScrollVerticalTrackDrawable layoutManager reverseLayout spanCount stackFromEnd
 styleable RippleView rv_alpha rv_centered rv_color rv_framerate rv_rippleDuration rv_ripplePadding rv_type rv_zoom rv_zoomDuration rv_zoomScale

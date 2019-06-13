@@ -12,36 +12,36 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static final int bsb_always_show_bubble = 0x7f03004e;
-        public static final int bsb_anim_duration = 0x7f03004f;
-        public static final int bsb_auto_adjust_section_mark = 0x7f030050;
-        public static final int bsb_bubble_color = 0x7f030051;
-        public static final int bsb_bubble_text_color = 0x7f030052;
-        public static final int bsb_bubble_text_size = 0x7f030053;
-        public static final int bsb_is_float_type = 0x7f030054;
-        public static final int bsb_max = 0x7f030055;
-        public static final int bsb_min = 0x7f030056;
-        public static final int bsb_progress = 0x7f030057;
-        public static final int bsb_second_track_color = 0x7f030058;
-        public static final int bsb_second_track_size = 0x7f030059;
-        public static final int bsb_section_count = 0x7f03005a;
-        public static final int bsb_section_text_color = 0x7f03005b;
-        public static final int bsb_section_text_interval = 0x7f03005c;
-        public static final int bsb_section_text_position = 0x7f03005d;
-        public static final int bsb_section_text_size = 0x7f03005e;
-        public static final int bsb_seek_by_section = 0x7f03005f;
-        public static final int bsb_show_progress_in_float = 0x7f030060;
-        public static final int bsb_show_section_mark = 0x7f030061;
-        public static final int bsb_show_section_text = 0x7f030062;
-        public static final int bsb_show_thumb_text = 0x7f030063;
-        public static final int bsb_thumb_color = 0x7f030064;
-        public static final int bsb_thumb_radius = 0x7f030065;
-        public static final int bsb_thumb_radius_on_dragging = 0x7f030066;
-        public static final int bsb_thumb_text_color = 0x7f030067;
-        public static final int bsb_thumb_text_size = 0x7f030068;
-        public static final int bsb_touch_to_seek = 0x7f030069;
-        public static final int bsb_track_color = 0x7f03006a;
-        public static final int bsb_track_size = 0x7f03006b;
+        public static final int bsb_always_show_bubble = 0x7f03004f;
+        public static final int bsb_anim_duration = 0x7f030050;
+        public static final int bsb_auto_adjust_section_mark = 0x7f030051;
+        public static final int bsb_bubble_color = 0x7f030052;
+        public static final int bsb_bubble_text_color = 0x7f030053;
+        public static final int bsb_bubble_text_size = 0x7f030054;
+        public static final int bsb_is_float_type = 0x7f030055;
+        public static final int bsb_max = 0x7f030056;
+        public static final int bsb_min = 0x7f030057;
+        public static final int bsb_progress = 0x7f030058;
+        public static final int bsb_second_track_color = 0x7f030059;
+        public static final int bsb_second_track_size = 0x7f03005a;
+        public static final int bsb_section_count = 0x7f03005b;
+        public static final int bsb_section_text_color = 0x7f03005c;
+        public static final int bsb_section_text_interval = 0x7f03005d;
+        public static final int bsb_section_text_position = 0x7f03005e;
+        public static final int bsb_section_text_size = 0x7f03005f;
+        public static final int bsb_seek_by_section = 0x7f030060;
+        public static final int bsb_show_progress_in_float = 0x7f030061;
+        public static final int bsb_show_section_mark = 0x7f030062;
+        public static final int bsb_show_section_text = 0x7f030063;
+        public static final int bsb_show_thumb_text = 0x7f030064;
+        public static final int bsb_thumb_color = 0x7f030065;
+        public static final int bsb_thumb_radius = 0x7f030066;
+        public static final int bsb_thumb_radius_on_dragging = 0x7f030067;
+        public static final int bsb_thumb_text_color = 0x7f030068;
+        public static final int bsb_thumb_text_size = 0x7f030069;
+        public static final int bsb_touch_to_seek = 0x7f03006a;
+        public static final int bsb_track_color = 0x7f03006b;
+        public static final int bsb_track_size = 0x7f03006c;
     }
     public static final class color {
         private color() {}
@@ -55,7 +55,7 @@ public final class R {
 
         public static final int below_section_mark = 0x7f08002a;
         public static final int bottom_sides = 0x7f08002d;
-        public static final int sides = 0x7f0800ef;
+        public static final int sides = 0x7f0800f1;
     }
     public static final class string {
         private string() {}
@@ -65,7 +65,7 @@ public final class R {
     public static final class styleable {
         private styleable() {}
 
-        public static final int[] BubbleSeekBar = { 0x7f03004e, 0x7f03004f, 0x7f030050, 0x7f030051, 0x7f030052, 0x7f030053, 0x7f030054, 0x7f030055, 0x7f030056, 0x7f030057, 0x7f030058, 0x7f030059, 0x7f03005a, 0x7f03005b, 0x7f03005c, 0x7f03005d, 0x7f03005e, 0x7f03005f, 0x7f030060, 0x7f030061, 0x7f030062, 0x7f030063, 0x7f030064, 0x7f030065, 0x7f030066, 0x7f030067, 0x7f030068, 0x7f030069, 0x7f03006a, 0x7f03006b };
+        public static final int[] BubbleSeekBar = { 0x7f03004f, 0x7f030050, 0x7f030051, 0x7f030052, 0x7f030053, 0x7f030054, 0x7f030055, 0x7f030056, 0x7f030057, 0x7f030058, 0x7f030059, 0x7f03005a, 0x7f03005b, 0x7f03005c, 0x7f03005d, 0x7f03005e, 0x7f03005f, 0x7f030060, 0x7f030061, 0x7f030062, 0x7f030063, 0x7f030064, 0x7f030065, 0x7f030066, 0x7f030067, 0x7f030068, 0x7f030069, 0x7f03006a, 0x7f03006b, 0x7f03006c };
         public static final int BubbleSeekBar_bsb_always_show_bubble = 0;
         public static final int BubbleSeekBar_bsb_anim_duration = 1;
         public static final int BubbleSeekBar_bsb_auto_adjust_section_mark = 2;

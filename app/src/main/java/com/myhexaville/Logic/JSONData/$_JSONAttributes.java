@@ -4,6 +4,7 @@ public enum $_JSONAttributes {
     Id,
     Password,
     IdRecive,
+    State,
     Done,
     Type,
     Search_User,

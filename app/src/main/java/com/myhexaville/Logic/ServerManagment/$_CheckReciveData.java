@@ -35,11 +35,8 @@ public class $_CheckReciveData extends $_Background {
     public void excute() {
         // TODO implement here
         try {
-            System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIII");
-
             final String s = $_Client.getDataInputStreamMessage().readUTF();
             result = s;
-            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGG");
 
             // new $_TreatmentData(new JSONObject(s)).excute();
 

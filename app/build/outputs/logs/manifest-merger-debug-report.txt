@@ -15,6 +15,7 @@ MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\US
 MERGED from [dev.dworks.libs:volleyplus:0.1.4] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\volleyplus-0.1.4.aar\7312aed9680aacdc39560cb4de11bf0f\AndroidManifest.xml:2:1-11:12
 MERGED from [com.xw.repo:bubbleseekbar:3.5-lite] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\bubbleseekbar-3.5-lite.aar\6b5424ce5c70d5fab0ee47167021d401\AndroidManifest.xml:2:1-17:12
 MERGED from [com.github.traex.rippleeffect:library:1.3] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\library-1.3.aar\6d7a51f5d97bc859eeac5297ee2bb8c8\AndroidManifest.xml:2:1-14:12
+MERGED from [com.zekapp.library:progreswheelview:1.1.5] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\progreswheelview-1.1.5.aar\50f4de6e8e4ec5256622d866999f3a42\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\71a7b330259dc7082209ae1bbbb38e8e\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\fdf4496a4d06a6da47dc961d9fcf8310\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\93b90dd0ce4761b11562317e6a923982\AndroidManifest.xml:17:1-22:12
@@ -168,6 +169,8 @@ MERGED from [com.xw.repo:bubbleseekbar:3.5-lite] C:\Users\USER\.gradle\caches\tr
 MERGED from [com.xw.repo:bubbleseekbar:3.5-lite] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\bubbleseekbar-3.5-lite.aar\6b5424ce5c70d5fab0ee47167021d401\AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.traex.rippleeffect:library:1.3] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\library-1.3.aar\6d7a51f5d97bc859eeac5297ee2bb8c8\AndroidManifest.xml:8:5-10:41
 MERGED from [com.github.traex.rippleeffect:library:1.3] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\library-1.3.aar\6d7a51f5d97bc859eeac5297ee2bb8c8\AndroidManifest.xml:8:5-10:41
+MERGED from [com.zekapp.library:progreswheelview:1.1.5] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\progreswheelview-1.1.5.aar\50f4de6e8e4ec5256622d866999f3a42\AndroidManifest.xml:7:5-9:41
+MERGED from [com.zekapp.library:progreswheelview:1.1.5] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\progreswheelview-1.1.5.aar\50f4de6e8e4ec5256622d866999f3a42\AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\71a7b330259dc7082209ae1bbbb38e8e\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\71a7b330259dc7082209ae1bbbb38e8e\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\USER\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\fdf4496a4d06a6da47dc961d9fcf8310\AndroidManifest.xml:20:5-44

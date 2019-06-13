@@ -256,8 +256,6 @@ public class signup_fragment extends Fragment implements OnSignUpListener {
                 $_Client.getSharedPreferences().storeObject("username", txt_name_signup);
                 $_Client.getSharedPreferences().storeObject("password", txt_password_signup.getText().toString());
             }
-            $_Client.getSharedPreferences().storeObject("id_project", txt_email_signup.getText().toString());
-            $_Client.getSharedPreferences().storeObject("username_project", txt_name_signup.getText().toString());
 
 
         } catch (JSONException e) {

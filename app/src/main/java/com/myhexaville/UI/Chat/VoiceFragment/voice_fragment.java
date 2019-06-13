@@ -2,7 +2,6 @@ package com.myhexaville.UI.Chat.VoiceFragment;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.progresviews.ProgressWheel;
 import com.myhexaville.Logic.Client.$_Client;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.UI.$_Static_Class;
@@ -58,12 +58,15 @@ public class voice_fragment extends Fragment {
     private static String mFileName = null;
     Button btn_stop_record;
     MediaRecorder mRecorder = null;
-    MediaPlayer mPlayer;
+    ProgressWheel recording;
+    private int time = 0;
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private boolean wasPlaying = false;
     private OnFragmentInteractionListener mListener;
+
     public voice_fragment() {
         // Required empty public constructor
     }
@@ -102,6 +105,8 @@ public class voice_fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_voice_fragment, container, false);
         btn_stop_record = view.findViewById(R.id.btn_stop_record);
+        recording = view.findViewById(R.id.recording);
+        startTimming();
         //Bundle bundle = getArguments();
         //System.out.println("TTTTTTTTTTT = " + bundle +  "    " + bundle.getString("name"));
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -130,67 +135,108 @@ public class voice_fragment extends Fragment {
         btn_stop_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                isPlay = false;
-                mRecorder.stop();
-                mRecorder.release();
-                mRecorder = null;
-                Toast.makeText(getContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
-
-                try {
-                    DataInputStream dataInputStream = new DataInputStream(new FileInputStream(mFileName));
-                    bytes = new byte[dataInputStream.available()];
-                    dataInputStream.read(bytes);
-                    dataInputStream.close();
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-                        jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
-                        jsonObject.put($_JSONAttributes.Type.toString(), "Message_Voice");
-                        jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                        jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
-                        jsonObject.put("MType", "R");
-                        jsonObject.put("Message", bytes.length);
-                        Thread thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                                    $_Client.getDataOutputStreamMessage().write(bytes);
-                                    $_Client.getDataOutputStreamMessage().flush();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-                        thread.start();
-                        thread.join();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    $_Message_Voice message_voice = new $_Message_Voice($_Client.getEmail(), $_Client.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
-                    addMessage(message_voice);
-                    storeMessage(MainActivity.allMessages.get($_Client.idRecived).second);
-// maybe this statement not work i dont test it
-                    FourActivity.fragmentActivity.getSupportFragmentManager().beginTransaction().remove(FourActivity.voice_fragment).commit();
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
+                stopRecording();
             }
         });
 
 
         return view;
+    }
+
+
+    private void stopRecording() {
+        isPlay = false;
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
+        FourActivity.fragmentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        try {
+            DataInputStream dataInputStream = new DataInputStream(new FileInputStream(mFileName));
+            bytes = new byte[dataInputStream.available()];
+            dataInputStream.read(bytes);
+            dataInputStream.close();
+            JSONObject jsonObject = new JSONObject();
+            try {
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAA = " + $_Client.idRecived);
+                jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
+                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
+                jsonObject.put($_JSONAttributes.Type.toString(), "Message_Voice");
+                jsonObject.put("Time", $_Static_Class.getCurrentTime());
+                jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+                jsonObject.put("MType", "R");
+                jsonObject.put("Message", bytes.length);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA = " + jsonObject.toString());
+
+                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_Client.getDataOutputStreamMessage().write(bytes);
+                            $_Client.getDataOutputStreamMessage().flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                thread.start();
+                thread.join();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            $_Message_Voice message_voice = new $_Message_Voice($_Client.getEmail(), $_Client.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
+            addMessage(message_voice);
+            storeMessage(MainActivity.allMessages.get($_Client.idRecived).second);
+// maybe this statement not work i dont test it
+            FourActivity.fragmentActivity.getSupportFragmentManager().beginTransaction().remove(FourActivity.voice_fragment).commit();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void startTimming() {
+        Thread time_recording = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        FourActivity.fragmentActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                recording.setStepCountText(String.valueOf(time));
+                            }
+                        });
+                        Thread.sleep(1000);
+                        if (time == 20 || !isPlay) {
+                            time = 0;
+                            stopRecording();
+                            break;
+                        }
+                        System.out.println("tiiiiiiiiiiiiiiiiiiiiiiiiiiime = " + time);
+                        time++;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        time_recording.start();
+
+
     }
 
 

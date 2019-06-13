@@ -126,6 +126,7 @@ public class signup_fragment_tow extends Fragment {
         onFragmentInteractionListener = null;
     }
 
+    private byte[] bytes;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -142,14 +143,15 @@ public class signup_fragment_tow extends Fragment {
             cursor.close();
             try {
                 FileInputStream fileInputStream = new FileInputStream(picturePath);
-                byte[] bytes = new byte[fileInputStream.available()];
+                bytes = new byte[fileInputStream.available()];
+                $_Client.setPersonalImage(bytes);
                 fileInputStream.read(bytes);
                 $_JSON_Change_Image change_image = new $_JSON_Change_Image("Change_Image", $_Client.getEmail(), $_Client.getUserName(), bytes.length);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put($_JSONAttributes.Id.toString(), change_image.getIdFrom());
                 jsonObject.put($_JSONAttributes.Type.toString(), change_image.getType());
                 jsonObject.put($_JSONAttributes.User_Name.toString(), change_image.getUser_name());
-                jsonObject.put($_JSONAttributes.Message.toString(), bytes.length);
+                jsonObject.put($_JSONAttributes.Message.toString(), change_image.getBytes());
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -248,9 +250,8 @@ public class signup_fragment_tow extends Fragment {
         try {
             jsonObject.put($_JSONAttributes.Type.toString(), "Sign_Up_Tow");
             jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-
-            jsonObject.put("State", txt_state_signup.getText());
-            jsonObject.put("Image", my_image);
+            jsonObject.put($_JSONAttributes.State.toString(), txt_state_signup.getText());
+            //jsonObject.put($_JSONAttributes.Message.toString(), bytes.length);
             $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
 
 

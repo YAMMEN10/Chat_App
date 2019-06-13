@@ -16,10 +16,6 @@
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-nodpi-v4\\emoji_1f378.png"
     },
     {
-        "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_custom_big.xml.flat",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\1e6235e746aac4c2442afebe1b12e582\\res\\layout\\notification_template_custom_big.xml"
-    },
-    {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_emoji_26f9_1f3fb.png.flat",
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-nodpi-v4\\emoji_26f9_1f3fb.png"
     },
@@ -1886,6 +1882,10 @@
     {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_emoji_1f40b.png.flat",
         "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\supernova-emoji-library-0.0.2.aar\\000119946f712b7a412a7ba66d3356bb\\res\\drawable-nodpi-v4\\emoji_1f40b.png"
+    },
+    {
+        "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\layout_sample_progress_wheel.xml.flat",
+        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\progreswheelview-1.1.5.aar\\50f4de6e8e4ec5256622d866999f3a42\\res\\layout\\sample_progress_wheel.xml"
     },
     {
         "merged": "C:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4_emoji_1f3b7.png.flat",

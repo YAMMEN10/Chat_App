@@ -18,5 +18,4 @@ public class $_JSON_SignUp extends $_JSON_Account {
         this.password = password;
     }
 
-
 }

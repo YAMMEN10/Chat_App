@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
         search_fragment.OnFragmentInteractionListener,
         notification_fragment.OnFragmentInteractionListener {
 
-
-    public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
     private static final String TAG = "MainActivity";
     public static FragmentManager fragmentManager;
     public static FragmentActivity fragmentActivity;
@@ -111,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
     private ThirdActivity thirdActivity;
     private FourActivity fourActivity;
 
+
     public static void Decode_JSON($_CheckReciveData checkReciveData) {
         JSONObject jsonObject = null;
         $_JSON my_json = null;
@@ -123,23 +122,42 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                 System.out.println("BITMAP = " + bytes);
 
             }
-            System.out.println(jsonObject.toString());
 
             switch (jsonObject.getString("Type")) {
                 case "Login_User_Successful": {
-                    my_json = new $_JSON_Login_Successful("Login_User_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()));
+
+                    my_json = new $_JSON_Login_Successful("Login_User_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()), jsonObject.getString($_JSONAttributes.State.toString()), jsonObject.getString($_JSONAttributes.Message.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()));
                     final $_JSON finalMy_json = my_json;
                     fragmentActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                           /*  $_Client.setEmail($_Client.getSharedPreferences().getObject("id_project"));
                             $_Client.setUserName($_Client.getSharedPreferences().getObject("username_project"));*/
-                            System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY = " + $_Client.getEmail());
                             if ((($_JSON_Login_Successful) finalMy_json).isDone()) {
                                 Toast.makeText(context, "Login_User_Successful", Toast.LENGTH_SHORT).show();
-                                $_Client.setEmail($_Client.getSharedPreferences().getObject("id_project"));
-                                $_Client.setUserName($_Client.getSharedPreferences().getObject("username_project"));
-                              /*  fragmentTransaction = fragmentManager.beginTransaction();
+                                $_Client.setEmail((($_JSON_Login_Successful) finalMy_json).getIdReceived());
+                                $_Client.setUserName((($_JSON_Login_Successful) finalMy_json).getUsername());
+                                $_Client.setState((($_JSON_Login_Successful) finalMy_json).getState());
+                                System.out.println("EEEEEEEEEEEEEEEEEE = " + (($_JSON_Login_Successful) finalMy_json).getUsername());
+                                Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+
+                                            DataInputStream dataInputStream = null;
+                                            dataInputStream = new DataInputStream($_Client.getSocketMessage().getInputStream());
+                                            byte[] bytes = new byte[Integer.parseInt((($_JSON_Login_Successful) finalMy_json).getBytes().toLowerCase())];
+                                            dataInputStream.readFully(bytes);
+                                            $_Client.setPersonalImage(bytes);
+
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                thread.start();
+
+                                /*  fragmentTransaction = fragmentManager.beginTransaction();
                                 main_fragment main_fragment = new main_fragment();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("data", finalMy_json.toString());
@@ -156,20 +174,19 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
 
                                 Bundle bundle = new Bundle();
                                 bundle.putString("fragment", "main_fragment");
-                                SecondActivity.res = "main_fragment";
 
                                 Intent intent = new Intent(MainActivity.context, SecondActivity.class);
                                 intent.putExtras(bundle);
                                 MainActivity.fragmentActivity.startActivity(intent);
                             } else {
                                 Toast.makeText(context, "Sign Up UN Successfully", Toast.LENGTH_SHORT).show();
+                                $_Client.getSharedPreferences().removeObject("id");
                                 $_Client.getSharedPreferences().removeObject("username");
                                 $_Client.getSharedPreferences().removeObject("password");
-                                $_Client.getSharedPreferences().removeObject("id");
                                 /*if ($_Client.getSharedPreferences().isExist("data_signup").equals(""))
                                     $_Client.getSharedPreferences().removeObject("username");*/
-                                $_Client.setEmail("Email");
-                                $_Client.setUserName("Username");
+                                /*$_Client.setEmail("Email");
+                                $_Client.setUserName("Username");*/
                             }
                         }
                     });
@@ -178,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                 case "Sign_Up_Successful": {
                     my_json = new $_JSON_SignUp_Successful("Sign_Up_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()), jsonObject.getString($_JSONAttributes.Password.toString()));
                     final $_JSON finalMy_json = my_json;
-                    final JSONObject finalJsonObject = new JSONObject();
                     fragmentActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -187,8 +203,9 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                             $_Client.setUserName($_Client.getSharedPreferences().getObject("username_project"));*/
                             if ((($_JSON_SignUp_Successful) finalMy_json).isDone()) {
                                 Toast.makeText(context, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
-                                $_Client.setEmail($_Client.getSharedPreferences().getObject("id_project"));
-                                $_Client.setUserName($_Client.getSharedPreferences().getObject("username_project"));
+                                $_Client.setEmail((($_JSON_SignUp_Successful) finalMy_json).getIdReceived());
+                                $_Client.setUserName((($_JSON_SignUp_Successful) finalMy_json).getUser_name());
+
                                /* Bundle bundle = new Bundle();
                                 fragmentTransaction = fragmentManager.beginTransaction();
                                 signup_fragment_tow signup_fragment_tow = new signup_fragment_tow();
@@ -214,7 +231,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                                 Intent intent = new Intent(MainActivity.context, SecondActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("fragment", "signup_fragment_tow");
-                                SecondActivity.res = "signup_fragment_tow";
 
                                 intent.putExtras(bundle);
                                 MainActivity.fragmentActivity.startActivity(intent);
@@ -231,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                     break;
                 }
                 case "Sign_Up_Tow_Successful": {
-                    my_json = new $_JSON_SignUp_Tow_Successful("Sign_Up_Tow_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString("Password"), jsonObject.getString("Image"));
+                    my_json = new $_JSON_SignUp_Tow_Successful("Sign_Up_Tow_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString($_JSONAttributes.State.toString()));
                     final $_JSON finalMy_json = my_json;
                     final JSONObject finalJsonObject1 = jsonObject;
                     fragmentActivity.runOnUiThread(new Runnable() {
@@ -239,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                         public void run() {
                             if ((($_JSON_SignUp_Tow_Successful) finalMy_json).isDone()) {
                                 Toast.makeText(context, "Sign Up AAAAAL Successfully", Toast.LENGTH_SHORT).show();
+                                $_Client.setState((($_JSON_SignUp_Tow_Successful) finalMy_json).getState());
                              /*   JSONObject jsonObject1 = new JSONObject();
                                 try {
                                     jsonObject1.put("Id", (($_JSON_SignUp_Tow_Successful) finalMy_json).getIdReceived());
@@ -438,7 +455,7 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                     break;
                 }
                 case "Change_Message_Successful": {
-                    my_json = new $_JSON_Change_Image_Successful("Change_Message_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()));
+                    my_json = new $_JSON_Change_Image_Successful("Change_Message_Successful", jsonObject.getString($_JSONAttributes.IdRecive.toString()), jsonObject.getBoolean($_JSONAttributes.Done.toString()), jsonObject.getString($_JSONAttributes.User_Name.toString()), jsonObject.getString($_JSONAttributes.Message.toString()));
                     $_JSON finalMy_json2 = my_json;
 
                     SecondActivity.fragmentActivity.runOnUiThread(new Runnable() {
@@ -447,6 +464,25 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                             if ((($_JSON_Change_Image_Successful) finalMy_json2).isDone()) {
                                 Toast.makeText(SecondActivity.context, "Add Picture Successfully", Toast.LENGTH_SHORT).show();
                                 System.out.println("AAAAAAccepted");
+                                Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+
+                                            DataInputStream dataInputStream = null;
+
+                                            dataInputStream = new DataInputStream($_Client.getSocketMessage().getInputStream());
+                                            byte[] bytes = new byte[Integer.parseInt((($_JSON_Change_Image_Successful) finalMy_json2).getBytes().toLowerCase())];
+                                            dataInputStream.readFully(bytes);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                thread.start();
+
+                                $_Client.setPersonalImage(bytes);
+
 
                              /*   JSONObject jsonObject1 = new JSONObject();
                                 try {
@@ -688,6 +724,169 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        secondActivity = new SecondActivity();
+        thirdActivity = new ThirdActivity();
+        fourActivity = new FourActivity();
+        allMessages = new HashMap<>();
+
+        signin_fragment topLoginFragment = new signin_fragment();
+        signup_fragment topSignUpFragment = new signup_fragment();
+
+
+        binding.loginFragment.setRotation(-90);
+
+        binding.button.setOnSignUpListener(topSignUpFragment);
+        binding.button.setOnLoginListener(topLoginFragment);
+
+        binding.button.setOnButtonSwitched(isLogin -> {
+            binding.getRoot()
+                    .setBackgroundColor(ContextCompat.getColor(
+                            this,
+                            isLogin ? R.color.colorPrimary : R.color.secondPage));
+        });
+
+        binding.loginFragment.setVisibility(INVISIBLE);
+
+
+        fragmentActivity = this;
+        context = this;
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        store_friend = new $_Store_Friend(new $_FriendStorgeMangement());
+        store_message = new $_Store_Message(new $_ChatMessageMangment());
+        $_Client.setSharedPreferences(new $_SharedPreferences("RememberMe"));
+        /*$_Client.getSharedPreferences().removeObject("id");
+        $_Client.getSharedPreferences().removeObject("username");
+        $_Client.getSharedPreferences().removeObject("password");*/
+        //messages = new ArrayList<>();
+        if (findViewById(R.id.container_main) != null) {
+            if (savedInstanceState != null) return;
+            if ($_Client.getSharedPreferences().isExist("id") == "") {
+                //  fragmentTransaction.add(R.id.continer_main, new signin_fragment(), null).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.login_fragment, topLoginFragment)
+                        .replace(R.id.sign_up_fragment, topSignUpFragment)
+                        .commit();
+            } else {
+                //fragmentTransaction.add(R.id.container_main, new main_fragment(), null).addToBackStack(null).commit();
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //  if (validateEmail() && validatePassword() && validateConfirmPassword()) {
+                            $_Client client = new $_Client(context);
+                            send_Sign_In();
+                            $_Client.setCheckOnline(new $_CheckOnline($_Client.getEmail(), "Check", "online"));
+                            //  }
+                        } catch (IOException e) {
+                            System.err.println("error connect to internet");
+                        }
+                    }
+                });
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("fragment", "main_fragment");
+                Intent intent = new Intent(MainActivity.context, SecondActivity.class);
+                intent.putExtras(bundle);
+                MainActivity.fragmentActivity.startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        binding.loginFragment.setPivotX(binding.loginFragment.getWidth() / 2);
+        binding.loginFragment.setPivotY(binding.loginFragment.getHeight());
+        binding.signUpFragment.setPivotX(binding.signUpFragment.getWidth() / 2);
+        binding.signUpFragment.setPivotY(binding.signUpFragment.getHeight());
+    }
+
+    public void switchFragment(View v) {
+        if (isLogin) {
+            binding.loginFragment.setVisibility(VISIBLE);
+            binding.loginFragment.animate().rotation(0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    binding.signUpFragment.setVisibility(INVISIBLE);
+                    binding.signUpFragment.setRotation(90);
+                    binding.wrapper.setDrawOrder(ORDER_LOGIN_STATE);
+                }
+            });
+        } else {
+            binding.signUpFragment.setVisibility(VISIBLE);
+            binding.signUpFragment.animate().rotation(0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    binding.loginFragment.setVisibility(INVISIBLE);
+                    binding.loginFragment.setRotation(-90);
+                    binding.wrapper.setDrawOrder(ORDER_SIGN_UP_STATE);
+                }
+            });
+        }
+
+        isLogin = !isLogin;
+        binding.button.startAnimation();
+    }
+
+    @Override
+    public void onFragmentInteraction(String json, String id) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    private void send_Sign_In() {
+        String email = $_Client.getSharedPreferences().getObject("id");
+        String username = $_Client.getSharedPreferences().getObject("username");
+        String password = $_Client.getSharedPreferences().getObject("password");
+        JSONObject jsonObject = new JSONObject();
+        if (email != null) {
+            try {
+                jsonObject.put($_JSONAttributes.Type.toString(), "Login_User");
+                jsonObject.put($_JSONAttributes.Id.toString(), email);
+                jsonObject.put($_JSONAttributes.Password.toString(), password);
+                $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                $_Client.setEmail(email);
+
+                final $_CheckReciveData checkReciveData = new $_CheckReciveData();
+                checkReciveData.excute();
+                if (checkReciveData.getResult() != null) {
+                    Decode_JSON(checkReciveData);
+                }
+                System.out.println("EEMAAAAIIIL = " + $_Client.getEmail());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.err.println("error send data sign up");
+            }
+
+        } else {
+
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     private static $_Value_Item_Main_Chat getValueItemMainChat(String id_user) {
         for ($_Value_Item_Main_Chat value_item_main_chat : main_chat_fragment.rooms) {
             if (value_item_main_chat.getEmail().equals(id_user)) {
@@ -746,158 +945,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                 }
             }
         }).start();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        secondActivity = new SecondActivity();
-        thirdActivity = new ThirdActivity();
-        fourActivity = new FourActivity();
-        allMessages = new HashMap<>();
-
-        signin_fragment topLoginFragment = new signin_fragment();
-        signup_fragment topSignUpFragment = new signup_fragment();
-
-
-        binding.loginFragment.setRotation(-90);
-
-        binding.button.setOnSignUpListener(topSignUpFragment);
-        binding.button.setOnLoginListener(topLoginFragment);
-
-        binding.button.setOnButtonSwitched(isLogin -> {
-            binding.getRoot()
-                    .setBackgroundColor(ContextCompat.getColor(
-                            this,
-                            isLogin ? R.color.colorPrimary : R.color.secondPage));
-        });
-
-        binding.loginFragment.setVisibility(INVISIBLE);
-
-
-        fragmentActivity = this;
-        context = this;
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        store_friend = new $_Store_Friend(new $_FriendStorgeMangement());
-        store_message = new $_Store_Message(new $_ChatMessageMangment());
-        $_Client.setSharedPreferences(new $_SharedPreferences("RememberMe"));
-        //$_Client.getSharedPreferences().removeObject("data_signup");
-        //messages = new ArrayList<>();
-        if (findViewById(R.id.container_main) != null) {
-            if (savedInstanceState != null) return;
-            if ($_Client.getSharedPreferences().isExist("id") == "") {
-                //  fragmentTransaction.add(R.id.continer_main, new signin_fragment(), null).addToBackStack(null).commit();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.login_fragment, topLoginFragment)
-                        .replace(R.id.sign_up_fragment, topSignUpFragment)
-                        .commit();
-            } else {
-                //fragmentTransaction.add(R.id.container_main, new main_fragment(), null).addToBackStack(null).commit();
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //  if (validateEmail() && validatePassword() && validateConfirmPassword()) {
-                            $_Client client = new $_Client(context);
-                            send_Sign_In();
-                            $_Client.setCheckOnline(new $_CheckOnline($_Client.getEmail(), "Check", "online"));
-                            get_Recive_Data_And_Apply();
-                            //  }
-                        } catch (IOException e) {
-                            System.err.println("error connect to internet");
-                        }
-                    }
-                });
-                thread.start();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("fragment", "main_fragment");
-                Intent intent = new Intent(MainActivity.context, SecondActivity.class);
-                intent.putExtras(bundle);
-                MainActivity.fragmentActivity.startActivity(intent);
-            }
-        }
-    }
-
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        binding.loginFragment.setPivotX(binding.loginFragment.getWidth() / 2);
-        binding.loginFragment.setPivotY(binding.loginFragment.getHeight());
-        binding.signUpFragment.setPivotX(binding.signUpFragment.getWidth() / 2);
-        binding.signUpFragment.setPivotY(binding.signUpFragment.getHeight());
-    }
-
-    public void switchFragment(View v) {
-        if (isLogin) {
-            binding.loginFragment.setVisibility(VISIBLE);
-            binding.loginFragment.animate().rotation(0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    binding.signUpFragment.setVisibility(INVISIBLE);
-                    binding.signUpFragment.setRotation(90);
-                    binding.wrapper.setDrawOrder(ORDER_LOGIN_STATE);
-                }
-            });
-        } else {
-            binding.signUpFragment.setVisibility(VISIBLE);
-            binding.signUpFragment.animate().rotation(0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    binding.loginFragment.setVisibility(INVISIBLE);
-                    binding.loginFragment.setRotation(-90);
-                    binding.wrapper.setDrawOrder(ORDER_SIGN_UP_STATE);
-                }
-            });
-        }
-
-        isLogin = !isLogin;
-        binding.button.startAnimation();
-    }
-
-    @Override
-    public void onFragmentInteraction(String json, String id) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    private void send_Sign_In() {
-        String email = $_Client.getSharedPreferences().getObject("id");
-        String username = $_Client.getSharedPreferences().getObject("username");
-        String password = $_Client.getSharedPreferences().getObject("password");
-        JSONObject jsonObject = new JSONObject();
-        if (email != null) {
-            try {
-                jsonObject.put($_JSONAttributes.Type.toString(), "Login_User");
-                jsonObject.put($_JSONAttributes.Id.toString(), username);
-                jsonObject.put($_JSONAttributes.Password.toString(), password);
-                $_Client.getDataOutputStreamOnline().writeUTF(jsonObject.toString());
-                $_Client.setEmail(email);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                System.err.println("error send data sign up");
-            }
-
-        } else {
-
-        }
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
 

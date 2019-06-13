@@ -36,7 +36,7 @@ public class $_SharedPreferences {
     }
 
     public String isExist(String key) {
-        return sharedPreferences.getString("key", "");
+        return sharedPreferences.getString(key, "");
     }
 
 

@@ -31,6 +31,7 @@ import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageImage.$_Message_Image;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageText.$_Message_Text;
+import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageVoice.$_Message_Voice;
 import com.myhexaville.UI.Chat.VoiceFragment.voice_fragment;
 
 import org.json.JSONException;
@@ -190,6 +191,44 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
     @Override
     protected void onStop() {
         super.onStop();
+        // sendSaveImage();
+    }
+
+    private void sendSaveImage() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+            for ($_Message message : MainActivity.allMessages.get($_Client.idRecived).second) {
+
+                jsonObject.put("IdMessage", message.getId());
+                jsonObject.put("TypeMessage", message.getType());
+                jsonObject.put("NameMessage", message.getName());
+                jsonObject.put("TimeMessage", message.getTime());
+
+                if (message instanceof $_Message_Text) {
+                    jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Text");
+                    jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Text) message).getMessage_text());
+                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+
+                } else if (message instanceof $_Message_Image) {
+                    jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Image");
+                    jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Image) message).getBytes().length);
+                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                    $_Client.getDataOutputStreamMessage().write((($_Message_Image) message).getBytes());
+
+                } else if (message instanceof $_Message_Voice) {
+                    jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Voice");
+                    jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Voice) message).getVoice_data().length);
+                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                    $_Client.getDataOutputStreamMessage().write((($_Message_Voice) message).getVoice_data());
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

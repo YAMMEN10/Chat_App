@@ -189,6 +189,7 @@ public class signin_fragment extends Fragment implements OnLoginListener {
                 $_Client.getSharedPreferences().storeObject("id", txt_email_signin.getText().toString());
                 $_Client.getSharedPreferences().storeObject("username", $_Client.getSharedPreferences().getObject("username"));
                 $_Client.getSharedPreferences().storeObject("password", txt_password_signin.getText().toString());
+                System.out.println("OOOOOOOOO  " + $_Client.getSharedPreferences().getObject("id"));
             }
            /* $_Client.getSharedPreferences().storeObject("id_project", txt_email_signin.getText().toString());
             $_Client.getSharedPreferences().storeObject("username_project",$_Client.getSharedPreferences().getObject("username"));
