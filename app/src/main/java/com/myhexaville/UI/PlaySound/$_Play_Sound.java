@@ -72,7 +72,6 @@ public class $_Play_Sound {
                 imageButton.setImageResource(R.drawable.play_voice);
                 //message_send_voice_seek_bar.setProgress(0);
                 wasPlaying = true;
-                System.out.println("AAAAAAAAAAA");
             }
 
 

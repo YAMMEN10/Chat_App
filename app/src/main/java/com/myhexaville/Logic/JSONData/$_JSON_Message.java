@@ -4,8 +4,8 @@ public abstract class $_JSON_Message extends $_JSON_Comunication {
     protected String time;
     protected String username;
 
-    public $_JSON_Message(String type, String idFrom, String idTo, String time, String username) {
-        super(type, idFrom, idTo);
+    public $_JSON_Message(String type, String idFrom, String time, String username) {
+        super(type, idFrom);
         this.time = time;
         this.username = username;
     }

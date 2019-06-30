@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.Logic.ServerManagment.$_CheckOnline;
 import com.myhexaville.Logic.ServerManagment.$_CheckReciveData;
@@ -183,13 +183,12 @@ public class signin_fragment extends Fragment implements OnLoginListener {
             jsonObject.put($_JSONAttributes.Type.toString(), "Login_User");
             jsonObject.put($_JSONAttributes.Id.toString(), txt_email_signin.getText().toString());
             jsonObject.put($_JSONAttributes.Password.toString(), txt_password_signin.getText().toString());
-            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
 
             if (check_remember_me_signin.isChecked()) {
-                $_Client.getSharedPreferences().storeObject("id", txt_email_signin.getText().toString());
-                $_Client.getSharedPreferences().storeObject("username", $_Client.getSharedPreferences().getObject("username"));
-                $_Client.getSharedPreferences().storeObject("password", txt_password_signin.getText().toString());
-                System.out.println("OOOOOOOOO  " + $_Client.getSharedPreferences().getObject("id"));
+                $_ClientStatic.getSharedPreferences().storeObject("id", txt_email_signin.getText().toString());
+                $_ClientStatic.getSharedPreferences().storeObject("username", $_ClientStatic.getSharedPreferences().getObject("username"));
+                $_ClientStatic.getSharedPreferences().storeObject("password", txt_password_signin.getText().toString());
             }
            /* $_Client.getSharedPreferences().storeObject("id_project", txt_email_signin.getText().toString());
             $_Client.getSharedPreferences().storeObject("username_project",$_Client.getSharedPreferences().getObject("username"));
@@ -220,7 +219,7 @@ public class signin_fragment extends Fragment implements OnLoginListener {
             public void run() {
                 try {
                     //  if (validateEmail() && validatePassword() && validateConfirmPassword()) {
-                    $_Client client = new $_Client(getContext());
+                    $_ClientStatic client = new $_ClientStatic(getContext());
                     send_Sign_In();
 
                 } catch (IOException e) {
@@ -236,7 +235,7 @@ public class signin_fragment extends Fragment implements OnLoginListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        $_Client.setCheckOnline(new $_CheckOnline(txt_email_signin.getText().toString(), "Check", "online"));
+        $_ClientStatic.setCheckOnline(new $_CheckOnline(txt_email_signin.getText().toString(), "Check", "online"));
         //MainActivity.get_Recive_Data_And_Apply();
 
 

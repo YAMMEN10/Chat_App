@@ -11,7 +11,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.myhexaville.Logic.Client.$_Client;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message_Type;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageImage.$_Message_Image;
@@ -46,6 +45,7 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
         this.list.toArray();
         this.context = context;
     }
+
 
     //Overrided Method
     @NonNull
@@ -231,7 +231,8 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
     @Override
     public int getItemViewType(int position) {
         $_Message message = list.get(position);
-        if ($_Client.getEmail().equals(message.getId())) {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA === " + message.getType());
+        //   if ($_ClientStatic.getEmail().equals(message.getId())) {
             if (message.getType().equals("1")) {
                 return $_Message_Type.SENT_TEXT;
             } else if (message.getType().equals("2")) {
@@ -239,15 +240,15 @@ public class $_Recycle_View_Room_Chat_Adapter extends RecyclerView.Adapter<Recyc
             } else if (message.getType().equals("5")) {
                 return $_Message_Type.SENT_VOICE;
             }
-        } else {
-            if (message.getType().equals("3")) {
+            //  } else {
+            else if (message.getType().equals("3")) {
                 return $_Message_Type.RECIVE_TEXT;
             } else if (message.getType().equals("4")) {
                 return $_Message_Type.RECIVE_IMAGE;
             } else if (message.getType().equals("6")) {
                 return $_Message_Type.RECIVE_VOICE;
             }
-        }
+        // }
         return super.getItemViewType(position);
     }
 

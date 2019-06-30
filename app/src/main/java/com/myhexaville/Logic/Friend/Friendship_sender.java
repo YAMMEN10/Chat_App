@@ -1,6 +1,6 @@
 package com.myhexaville.Logic.Friend;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 
 import org.json.JSONException;
@@ -14,10 +14,10 @@ public class Friendship_sender {
         try {
             JSONObject jsonObject1 = new JSONObject();
             jsonObject1.put($_JSONAttributes.Type.toString(), Type);
-            jsonObject1.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
+            jsonObject1.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
             jsonObject1.put(Type_ID, id);
             jsonObject1.put($_JSONAttributes.user_friend_request.toString(), username);
-            jsonObject1.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+            jsonObject1.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
             if (Type.equals($_JSONAttributes.Accept_Friend.toString())) {
 
 
@@ -25,7 +25,7 @@ public class Friendship_sender {
                     @Override
                     public void run() {
                         try {
-                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
                            // $_Client.getDataOutputStreamMessage().write(image);
                             //$_Client.getDataOutputStreamMessage().flush();
                         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class Friendship_sender {
                     @Override
                     public void run() {
                         try {
-                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject1.toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

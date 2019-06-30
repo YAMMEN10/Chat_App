@@ -18,21 +18,6 @@ public class $_ChatMessageMangment implements $_Tools {
     private String messageFile;
 
 
-    public FileInputStream getFileInputChatMessage() {
-        return fileInputChatMessage;
-    }
-
-    public void setFileInputChatMessage(FileInputStream fileInputChatMessage) {
-        this.fileInputChatMessage = fileInputChatMessage;
-    }
-
-    public FileOutputStream getFileOutputChatMessage() {
-        return fileOutputChatMessage;
-    }
-
-    public void setFileOutputChatMessage(FileOutputStream fileOutputChatMessage) {
-        this.fileOutputChatMessage = fileOutputChatMessage;
-    }
 
     @Override
     public boolean update(Object object, String FriendPath) {
@@ -56,7 +41,6 @@ public class $_ChatMessageMangment implements $_Tools {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
 
@@ -93,5 +77,22 @@ public class $_ChatMessageMangment implements $_Tools {
             e.printStackTrace();
         }
         return messages;
+    }
+
+
+    public FileInputStream getFileInputChatMessage() {
+        return fileInputChatMessage;
+    }
+
+    public void setFileInputChatMessage(FileInputStream fileInputChatMessage) {
+        this.fileInputChatMessage = fileInputChatMessage;
+    }
+
+    public FileOutputStream getFileOutputChatMessage() {
+        return fileOutputChatMessage;
+    }
+
+    public void setFileOutputChatMessage(FileOutputStream fileOutputChatMessage) {
+        this.fileOutputChatMessage = fileOutputChatMessage;
     }
 }

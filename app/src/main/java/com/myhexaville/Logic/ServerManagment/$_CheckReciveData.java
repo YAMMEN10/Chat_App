@@ -1,6 +1,6 @@
 package com.myhexaville.Logic.ServerManagment;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class $_CheckReciveData extends $_Background {
     public void excute() {
         // TODO implement here
         try {
-            final String s = $_Client.getDataInputStreamMessage().readUTF();
+            final String s = $_ClientStatic.getDataInputStreamMessage().readUTF();
             result = s;
 
             // new $_TreatmentData(new JSONObject(s)).excute();

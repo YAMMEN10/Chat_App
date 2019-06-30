@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.$_Recycle_View_Room_Chat_Adapter;
@@ -196,14 +196,14 @@ public class room_chat extends Fragment {
             public void onClick(View v) {
 
 
-                final $_Message message_text = new $_Message_Text($_Client.getEmail(), "Yamen", "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
+                final $_Message message_text = new $_Message_Text($_ClientStatic.getEmail(), "Yamen", "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
                 final JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-                    jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
+                    jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
+                    jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
                     jsonObject.put($_JSONAttributes.Type.toString(), "Message_Text");
                     jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                    jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+                    jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
                     jsonObject.put("Message", (($_Message_Text) message_text).getMessage_text());
                     jsonObject.put("MType", "1");
 
@@ -211,7 +211,7 @@ public class room_chat extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -278,26 +278,24 @@ public class room_chat extends Fragment {
                 file = new FileInputStream(picturePath);
                 final byte[] bytes = new byte[file.available()];
                 file.read(bytes);
-                System.out.println("BYYYTTTEEESSS = " + bytes);
 
                 final JSONObject jsonObject = new JSONObject();
-                jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
+                jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
+                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
                 jsonObject.put($_JSONAttributes.Type.toString(), "Message_Image");
                 jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+                jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
                 // String s = Base64.encodeToString(bytes, Base64.DEFAULT);
                 jsonObject.put("Message", bytes.length);
-                System.out.println(bytes);
                 jsonObject.put("MType", "2");
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                            $_Client.getDataOutputStreamMessage().write(bytes);
-                            $_Client.getDataOutputStreamMessage().flush();
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().write(bytes);
+                            $_ClientStatic.getDataOutputStreamMessage().flush();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -306,8 +304,7 @@ public class room_chat extends Fragment {
                 });
                 thread.start();
                 thread.join();
-                System.out.println("BYYYTTTEEESSS = " + bytes);
-                $_Message_Image message_image = new $_Message_Image($_Client.getEmail(), $_Client.getUserName(), "2", null, bytes);
+                $_Message_Image message_image = new $_Message_Image($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "2", null, bytes);
                 message_image.setTime(message_image.getTime());
                 addMessage(message_image);
             } catch (JSONException e) {

@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.Friend.Friendship_sender;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.Logic.JSONData.$_JSON_Search_User_Successful;
@@ -141,6 +141,9 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
 
         View view = inflater.inflate(R.layout.fragment_search_fragment, container, false);
         mListener = (OnFragmentInteractionListener) getActivity();
+        user_info_searches = new ArrayList<>();
+        mAdapter = new User_Adapter(getActivity(), user_info_searches);
+
         return view;
     }
 
@@ -171,7 +174,6 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        System.out.println(query);
         send_to_search(query);
 
         return false;
@@ -179,7 +181,6 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        System.out.println("d=" + newText);
         if (!newText.equals("")) {
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -204,10 +205,9 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
 
         try {
             jsonObject.put($_JSONAttributes.Type.toString(), "Search_Of_User");
-            jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-            System.out.println("RRRRRRRRRRRRRRRRR = " + $_Client.getEmail());
+            jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
             jsonObject.put($_JSONAttributes.Search_User.toString(), query);
-            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {

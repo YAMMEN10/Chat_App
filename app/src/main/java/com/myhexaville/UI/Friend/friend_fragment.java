@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myhexaville.Logic.Friend.$_FriendInfo;
+import com.myhexaville.UI.Adapter.AdapterCreateGroup.$_Value_Item_Create_Group;
 import com.myhexaville.UI.Adapter.AdapterFriend.$_Recycle_View_Friend_Adapter;
 import com.myhexaville.UI.Adapter.AdapterFriend.$_Value_Item_Friend;
 import com.myhexaville.UI.ToolStorage.FriendPathMangment;
+import com.myhexaville.login.FiveActivity;
 import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
 
@@ -170,6 +172,7 @@ public class friend_fragment extends Fragment {
             friendInfo = ($_FriendInfo) MainActivity.store_friend.retriveFriend(temp_file.getName());
             $_Value_Item_Friend valueItemFriend=new $_Value_Item_Friend(friendInfo.getId(),friendInfo.getUser(),friendInfo.getState(),friendInfo.getPhoto());
             valueItemFriends.add(valueItemFriend);
+            FiveActivity.value_item_create_groups.add(new $_Value_Item_Create_Group(friendInfo.getId(), friendInfo.getUser(), friendInfo.getState(), friendInfo.getPhoto(), false));
 
         }
         recycleViewFriend.notifyDataSetChanged();
@@ -183,6 +186,7 @@ public class friend_fragment extends Fragment {
             if(valueItemFriends.get(i).getId().equals(id_user))
             {
                 valueItemFriends.remove(valueItemFriends.get(i));
+                FiveActivity.value_item_create_groups.remove(FiveActivity.value_item_create_groups.get(i));
             }
             
         }

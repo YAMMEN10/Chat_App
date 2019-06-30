@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/view_profile_client"
+        android:icon="@drawable/checked"
+        android:title="view profile"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/remove_friend_client"
+        android:title="remove friend" />
+    <item
+        android:id="@+id/cancel_client"
+        android:title="Cancel" />
+</menu>

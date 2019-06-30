@@ -68,7 +68,7 @@ public class User_Adapter extends RecyclerView.Adapter<ViewHolder> {
 
             }
         });
-       if(userInfoSearch.getmImageUrl()!=null) Glide.with(ThirdActivity.fragmentActivity)
+        Glide.with(ThirdActivity.fragmentActivity)
                 .load(userInfoSearch.getmImageUrl())
                 .asBitmap()
                 .into(

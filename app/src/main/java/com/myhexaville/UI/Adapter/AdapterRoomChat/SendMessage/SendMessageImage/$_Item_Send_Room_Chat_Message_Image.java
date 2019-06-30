@@ -5,10 +5,11 @@ import android.widget.ImageView;
 
 import com.myhexaville.UI.Adapter.AdapterRoomChat.SendMessage.SendMessageAbstruct.$_Item_Send_Room_Chat_Message_Abstruct;
 import com.myhexaville.login.R;
+import com.zolad.zoominimageview.ZoomInImageView;
 
 public class $_Item_Send_Room_Chat_Message_Image extends $_Item_Send_Room_Chat_Message_Abstruct {
 
-    private ImageView message_send_image;
+    private ZoomInImageView message_send_image;
 
     public $_Item_Send_Room_Chat_Message_Image(View view) {
         super(view);
@@ -21,7 +22,7 @@ public class $_Item_Send_Room_Chat_Message_Image extends $_Item_Send_Room_Chat_M
         return message_send_image;
     }
 
-    public void setMessage_send_image(ImageView message_send_image) {
+    public void setMessage_send_image(ZoomInImageView message_send_image) {
         this.message_send_image = message_send_image;
     }
 }

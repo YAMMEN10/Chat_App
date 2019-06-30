@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#97E65100"
     android:orientation="vertical"
     tools:context="com.myhexaville.UI.Chat.VoiceFragment.voice_fragment">
@@ -12,14 +12,14 @@
         android:id="@+id/recording"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
         app:barWidth="10dp"
+        android:layout_gravity="center_horizontal"
         app:countText="931,199"
-        app:countTextColor="@android:color/black"
         app:countTextSize="10sp"
+        app:countTextColor="@android:color/black"
         app:defTextColor="@android:color/black"
-        app:defTextSize="10sp"
         app:definitionText="Recording..."
+        app:defTextSize="10sp"
         app:marginBtwText="15dp"
         app:percentage="90"
         app:progressColor="#64b324" />
@@ -29,12 +29,12 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         app:definition="daily steps"
-        app:lineBarWidth="7dp"
-        app:lineProgressColor="#43bd9f"
-        app:underLineColor="@android:color/darker_gray"
         app:value="10,000"
+        app:lineBarWidth="7dp"
         app:valueDefTextSize="20sp"
         app:valuePercentage="55"
+        app:lineProgressColor="#43bd9f"
+        app:underLineColor="@android:color/darker_gray"
 
         />
 

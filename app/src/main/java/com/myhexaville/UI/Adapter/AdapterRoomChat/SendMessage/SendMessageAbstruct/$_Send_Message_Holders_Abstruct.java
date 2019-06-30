@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
@@ -42,7 +42,6 @@ public class $_Send_Message_Holders_Abstruct extends RecyclerView.ViewHolder imp
                 });
 
         builder.create().show();*/
-        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEeee =  " + view);
         PopupMenu popupMenu = new PopupMenu(FourActivity.context, view);
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.message_popup_menu, popupMenu.getMenu());
@@ -50,24 +49,53 @@ public class $_Send_Message_Holders_Abstruct extends RecyclerView.ViewHolder imp
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getTitle().equals("Delete")) {
-                    MainActivity.allMessages.get($_Client.idRecived).second.remove(getAdapterPosition());
-                    MainActivity.allMessages.get($_Client.idRecived).first.notifyDataSetChanged();
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            MainActivity.store_message.updateMessage($_Client.idRecived, MainActivity.allMessages.get($_Client.idRecived).second);
+                switch ($_ClientStatic.getType()) {
+                    case "ClientChat": {
+                        if (item.getTitle().equals("Delete")) {
+                            MainActivity.allMessages.get($_ClientStatic.idRecived).second.remove(getAdapterPosition());
+                            MainActivity.allMessages.get($_ClientStatic.idRecived).first.notifyDataSetChanged();
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MainActivity.store_message.updateMessage($_ClientStatic.idRecived, MainActivity.allMessages.get($_ClientStatic.idRecived).second);
+                                }
+                            });
+                            thread.start();
+                            try {
+                                thread.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                            return true;
+
+                        } else {
+                            return false;
                         }
-                    });
-                    thread.start();
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
-                    return true;
-                } else {
-                    return false;
+                    case "GroupChat": {
+                        MainActivity.allMessages.get($_ClientStatic.idGroup).second.remove(getAdapterPosition());
+                        MainActivity.allMessages.get($_ClientStatic.idGroup).first.notifyDataSetChanged();
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++)
+                                    MainActivity.store_message.updateMessage($_ClientStatic.getIdsRecived().get(i), MainActivity.allMessages.get($_ClientStatic.idGroup).second);
+                            }
+                        });
+                        thread.start();
+                        try {
+                            thread.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                        //break;
+                        return true;
+                    }
+                    default: {
+                        return false;
+                    }
                 }
             }
         });

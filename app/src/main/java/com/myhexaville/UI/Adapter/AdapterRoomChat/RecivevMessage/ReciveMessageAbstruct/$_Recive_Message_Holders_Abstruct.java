@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageText.$_Message_Text;
 import com.myhexaville.UI.ToolSpeech.$_Arabic_TTS;
 import com.myhexaville.login.FourActivity;
@@ -61,35 +61,87 @@ public abstract class $_Recive_Message_Holders_Abstruct extends RecyclerView.Vie
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getTitle().equals("Delete")) {
-                    MainActivity.allMessages.get($_Client.idRecived).second.remove(getAdapterPosition());
-                    MainActivity.allMessages.get($_Client.idRecived).first.notifyDataSetChanged();
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            MainActivity.store_message.updateMessage($_Client.idRecived, MainActivity.allMessages.get($_Client.idRecived).second);
+                switch ($_ClientStatic.getType()) {
+                    case "ClientChat": {
+                        if (item.getTitle().equals("Delete")) {
+                            MainActivity.allMessages.get($_ClientStatic.idRecived).second.remove(getAdapterPosition());
+                            MainActivity.allMessages.get($_ClientStatic.idRecived).first.notifyDataSetChanged();
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MainActivity.store_message.updateMessage($_ClientStatic.idRecived, MainActivity.allMessages.get($_ClientStatic.idRecived).second);
+                                }
+                            });
+                            thread.start();
+                            try {
+                                thread.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                            return true;
+                            //break;
+
+
+                        } else if (item.getTitle().equals("Speech")) {
+                            String text = (($_Message_Text) MainActivity.allMessages.get($_ClientStatic.idRecived).second.get(getAdapterPosition())).getMessage_text();
+                            if (text != null && !text.equals("")) {
+                                // To read the text inserted
+                                arabic_tts.talk(text);
+                            }
+
+                            return true;
+
+                        } else {
+                            return false;
                         }
-                    });
-                    thread.start();
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                } else if (item.getTitle().equals("Speech")) {
-                    System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ = " + FourActivity.context);
-                    String text = (($_Message_Text) MainActivity.allMessages.get($_Client.idRecived).second.get(getAdapterPosition())).getMessage_text();
-                    if (text != null && !text.equals("")) {
-                        // To read the text inserted
-                        arabic_tts.talk(text);
+
+                        //break;
                     }
 
-                    return true;
+                    case "GroupChat": {
 
-                } else {
-                    return false;
+                        if (item.getTitle().equals("Delete")) {
+                            MainActivity.allMessages.get($_ClientStatic.idGroup).second.remove(getAdapterPosition());
+                            MainActivity.allMessages.get($_ClientStatic.idGroup).first.notifyDataSetChanged();
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++)
+                                        MainActivity.store_message.updateMessage($_ClientStatic.getIdsRecived().get(i), MainActivity.allMessages.get($_ClientStatic.idGroup).second);
+                                }
+                            });
+                            thread.start();
+                            try {
+                                thread.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                return false;
+                            }
+                            return true;
+
+                        } else if (item.getTitle().equals("Speech")) {
+                            String text = (($_Message_Text) MainActivity.allMessages.get($_ClientStatic.idGroup).second.get(getAdapterPosition())).getMessage_text();
+                            if (text != null && !text.equals("")) {
+                                // To read the text inserted
+                                arabic_tts.talk(text);
+                            }
+
+                            return true;
+
+                        } else {
+                            return false;
+                        }
+
+
+                        //break;
+                    }
+                    default: {
+                        //breack;
+                        return false;
+                    }
                 }
+
             }
         });
         return true;

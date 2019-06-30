@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.Logic.ServerManagment.$_CheckOnline;
 import com.myhexaville.Logic.ServerManagment.$_CheckReciveData;
@@ -132,9 +132,9 @@ public class signup_fragment extends Fragment implements OnSignUpListener {
             public void run() {
                 try {
                     //  if (validateEmail() && validatePassword() && validateConfirmPassword()) {
-                    $_Client client = new $_Client(getContext());
+                    $_ClientStatic client = new $_ClientStatic(getContext());
                     send_Sign_Up();
-                    $_Client.setCheckOnline(new $_CheckOnline(txt_email_signup.getText().toString(), "Check", "online"));
+                    $_ClientStatic.setCheckOnline(new $_CheckOnline(txt_email_signup.getText().toString(), "Check", "online"));
                     //MainActivity.get_Recive_Data_And_Apply();
                     final $_CheckReciveData checkReciveData = new $_CheckReciveData();
                     checkReciveData.excute();
@@ -250,11 +250,11 @@ public class signup_fragment extends Fragment implements OnSignUpListener {
             jsonObject.put($_JSONAttributes.Id.toString(), txt_email_signup.getText().toString());
             jsonObject.put($_JSONAttributes.Password.toString(), txt_password_signup.getText().toString());
             jsonObject.put($_JSONAttributes.User_Name.toString(), txt_name_signup.getText().toString());
-            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
             if (check_remember_me_signup.isChecked()) {
-                $_Client.getSharedPreferences().storeObject("id", txt_email_signup.getText().toString());
-                $_Client.getSharedPreferences().storeObject("username", txt_name_signup);
-                $_Client.getSharedPreferences().storeObject("password", txt_password_signup.getText().toString());
+                $_ClientStatic.getSharedPreferences().storeObject("id", txt_email_signup.getText().toString());
+                $_ClientStatic.getSharedPreferences().storeObject("username", txt_name_signup);
+                $_ClientStatic.getSharedPreferences().storeObject("password", txt_password_signup.getText().toString());
             }
 
 

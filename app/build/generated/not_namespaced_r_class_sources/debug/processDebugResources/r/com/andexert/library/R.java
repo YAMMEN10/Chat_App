@@ -12,16 +12,16 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static final int rv_alpha = 0x7f0301b9;
-        public static final int rv_centered = 0x7f0301ba;
-        public static final int rv_color = 0x7f0301bb;
-        public static final int rv_framerate = 0x7f0301bc;
-        public static final int rv_rippleDuration = 0x7f0301bd;
-        public static final int rv_ripplePadding = 0x7f0301be;
-        public static final int rv_type = 0x7f0301bf;
-        public static final int rv_zoom = 0x7f0301c0;
-        public static final int rv_zoomDuration = 0x7f0301c1;
-        public static final int rv_zoomScale = 0x7f0301c2;
+        public static final int rv_alpha = 0x7f0301bd;
+        public static final int rv_centered = 0x7f0301be;
+        public static final int rv_color = 0x7f0301bf;
+        public static final int rv_framerate = 0x7f0301c0;
+        public static final int rv_rippleDuration = 0x7f0301c1;
+        public static final int rv_ripplePadding = 0x7f0301c2;
+        public static final int rv_type = 0x7f0301c3;
+        public static final int rv_zoom = 0x7f0301c4;
+        public static final int rv_zoomDuration = 0x7f0301c5;
+        public static final int rv_zoomScale = 0x7f0301c6;
     }
     public static final class color {
         private color() {}
@@ -31,9 +31,9 @@ public final class R {
     public static final class id {
         private id() {}
 
-        public static final int doubleRipple = 0x7f080061;
-        public static final int rectangle = 0x7f0800cc;
-        public static final int simpleRipple = 0x7f0800f3;
+        public static final int doubleRipple = 0x7f08006a;
+        public static final int rectangle = 0x7f0800e6;
+        public static final int simpleRipple = 0x7f080114;
     }
     public static final class style {
         private style() {}
@@ -43,7 +43,7 @@ public final class R {
     public static final class styleable {
         private styleable() {}
 
-        public static final int[] RippleView = { 0x7f0301b9, 0x7f0301ba, 0x7f0301bb, 0x7f0301bc, 0x7f0301bd, 0x7f0301be, 0x7f0301bf, 0x7f0301c0, 0x7f0301c1, 0x7f0301c2 };
+        public static final int[] RippleView = { 0x7f0301bd, 0x7f0301be, 0x7f0301bf, 0x7f0301c0, 0x7f0301c1, 0x7f0301c2, 0x7f0301c3, 0x7f0301c4, 0x7f0301c5, 0x7f0301c6 };
         public static final int RippleView_rv_alpha = 0;
         public static final int RippleView_rv_centered = 1;
         public static final int RippleView_rv_color = 2;

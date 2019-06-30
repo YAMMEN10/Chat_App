@@ -1,7 +1,6 @@
 package com.myhexaville.UI.Chat.MainFragment.MainChat;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,15 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.Friend.$_FriendInfo;
 import com.myhexaville.Logic.Friend.$_FriendStorgeMangement;
+import com.myhexaville.Logic.Room.$_Group;
+import com.myhexaville.UI.Adapter.AdapterMainChat.$_Abstruct_Value_Item_Main_Chat;
 import com.myhexaville.UI.Adapter.AdapterMainChat.$_Recycle_View_Main_Chat_Adapter;
-import com.myhexaville.UI.Adapter.AdapterMainChat.$_Value_Item_Main_Chat;
+import com.myhexaville.UI.Adapter.AdapterMainChat.Client_Room.$_Value_Item_Main_Chat;
+import com.myhexaville.UI.Adapter.AdapterMainChat.Group_Room.$_Value_Item_Main_Chat_Group;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.$_Recycle_View_Room_Chat_Adapter;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
 import com.myhexaville.UI.ToolStorage.FriendPathMangment;
-import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
 
@@ -41,7 +42,7 @@ public class main_chat_fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static List<$_Value_Item_Main_Chat> rooms;
+    public static List<$_Abstruct_Value_Item_Main_Chat> rooms;
     public static $_Recycle_View_Main_Chat_Adapter recycleAdapter;
     //Attribute
     public static RecyclerView recycle_view_main_chat;
@@ -97,10 +98,9 @@ public class main_chat_fragment extends Fragment {
         $_Value_Item_Main_Chat value_item_main_chat;
         $_FriendInfo friendInfo;
         for (File temp_file : all_friend.listFiles()) {
-
             friendInfo = ($_FriendInfo) MainActivity.store_friend.retriveFriend(temp_file.getName());
-            value_item_main_chat = new $_Value_Item_Main_Chat("", friendInfo.getUser(), friendInfo.getId(), friendInfo.getPhoto());
-           /* rooms.add(value_item_main_chat);
+            value_item_main_chat = new $_Value_Item_Main_Chat("", friendInfo.getUser(), friendInfo.getId(), friendInfo.getPhoto(), "client");
+            /* rooms.add(value_item_main_chat);
             recycle_view_main_chat.addItemDecoration(new DividerItemDecoration(getContext(),
                     DividerItemDecoration.VERTICAL));
             recycleAdapter.notifyDataSetChanged();*/
@@ -111,15 +111,51 @@ public class main_chat_fragment extends Fragment {
                 MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(messages, getContext()), messages));
             } else {
                 // if not have any message
-                System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
                 List<$_Message> list = new ArrayList();
                 MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(list, getContext()), list));
-
             }
 
         }
     }
 
+    public void getAllGroups() {
+        for ($_Group one_group : $_ClientStatic.getAll_groups()) {
+            List<String> client_id = new ArrayList<>();
+            for (int i = 0; i < one_group.getClients().size(); i++) {
+                client_id.add(one_group.getClients().get(i).getID());
+            }
+            $_Abstruct_Value_Item_Main_Chat value_item_main_chat_group = new $_Value_Item_Main_Chat_Group(
+                    "Message",
+                    one_group.getGroup_information().getName(),
+                    one_group.getGroup_information().getID(),
+                    one_group.getGroup_information().getPicture(),
+                    "group",
+                    client_id,
+                    one_group.getGroup_information(),
+                    one_group.getClients()
+            );
+            /* rooms.add(value_item_main_chat);
+            recycle_view_main_chat.addItemDecoration(new DividerItemDecoration(getContext(),
+                    DividerItemDecoration.VERTICAL));
+            recycleAdapter.notifyDataSetChanged();*/
+            MainActivity.addChatFriend(value_item_main_chat_group);
+            if (MainActivity.store_message_group.isExist(value_item_main_chat_group.getEmail())) {
+                List<$_Message> messages = (List<$_Message>) MainActivity.store_message_group.retriveMessage(value_item_main_chat_group.getEmail());
+                MainActivity.allMessages.put(value_item_main_chat_group.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(messages, getContext()), messages));
+            } else {
+                // if not have any message
+                List<$_Message> list = new ArrayList();
+                MainActivity.allMessages.put(value_item_main_chat_group.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(list, getContext()), list));
+            }
+
+/*
+            MainActivity.addChatFriend(value_item_main_chat_group);
+                List<$_Message> messages = (List<$_Message>) MainActivity.store_message.retriveMessage(value_item_main_chat.getEmail());
+                MainActivity.allMessages.put(value_item_main_chat.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(messages, getContext()), messages));
+
+*/
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,15 +164,15 @@ public class main_chat_fragment extends Fragment {
         // Inflate the layout for this fragment
         //rooms = new ArrayList<>();
         // mangementFriend.setFriendPath(FriendPathMangment.FriendPath);
-        System.out.println("testtt2");
         layoutManager = new LinearLayoutManager(getContext());
         View view = inflater.inflate(R.layout.fragment_main_chat_fragment, container, false);
         mListener = (OnFragmentInteractionListener) getActivity();
         recycle_view_main_chat = view.findViewById(R.id.recycle_view_main_chat);
         recycle_view_main_chat.setAdapter(recycleAdapter);
         recycle_view_main_chat.setLayoutManager(layoutManager);
-        action_recycle_view();
+        //action_recycle_view();
         getAllFriend(FriendPathMangment.FriendPath + "/", mangementFriend);
+        getAllGroups();
         MainActivity.get_Recive_Data_And_Apply();
         // $_Value_Item_Main_Chat value_item_main_chat = new $_Value_Item_Main_Chat("Hello", "Yamen", "y@y.y", R.drawable.add);
         //room_chat room_chat = new room_chat();
@@ -190,9 +226,9 @@ public class main_chat_fragment extends Fragment {
                 for (int i = 0; i < main_chat_fragment.rooms.size(); i++) {
                     s.add(rooms.get(i).getEmail());
                 }*/
-                $_Client.idRecived = rooms.get(position).getEmail();
+                /*$_Client.idRecived = rooms.get(position).getEmail();
                 Intent intent = new Intent(getContext(), FourActivity.class);
-                getActivity().startActivity(intent);
+                getActivity().startActivity(intent);*/
 
             }
 

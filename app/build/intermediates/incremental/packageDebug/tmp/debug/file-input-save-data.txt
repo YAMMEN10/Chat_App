@@ -1,7 +1,7 @@
 #Internal package file, do not edit.
-#Mon Jun 03 00:12:46 EEST 2019
+#Sat Jun 29 17:43:53 AST 2019
 0.baseType=DIRECTORY
-0.base=C\:\\Users\\Abdulrahman\\Chat_App\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+0.base=C\:\\Users\\USER\\Desktop\\YAMMON_Andoid\\Android-Login-Screen-master\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 0.path=classes.dex
 0.set=DEX
 count=1

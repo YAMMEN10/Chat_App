@@ -13,7 +13,7 @@ import java.util.List;
 
 public class $_Store_Message {
     private $_ChatMessageMangment chatMessageMangment;
-    private String MessagedPath;
+    private String messagePath;
     private String messageFile;
 
 
@@ -29,7 +29,7 @@ public class $_Store_Message {
         new File(FriendPathMangment.AccountPath).mkdir();
 
         //init
-        this.MessagedPath = FriendPathMangment.FriendPath;
+        this.messagePath = FriendPathMangment.FriendPath;
         this.messageFile = "Message.Fi";
 
     }
@@ -37,9 +37,10 @@ public class $_Store_Message {
 
     public synchronized void storeMessage(String id, List<$_Message> messages) {
         String customeFriendPath;
-        customeFriendPath = MessagedPath + File.separator + id;
+        customeFriendPath = messagePath + File.separator + id;
         File folder = new File(customeFriendPath);
-        folder.mkdir();
+      /*  if(!folder.exists())
+        folder.mkdir();*/
         File file = new File(customeFriendPath, messageFile);
         try {
             chatMessageMangment.setFileOutputChatMessage(new FileOutputStream(file));
@@ -53,7 +54,7 @@ public class $_Store_Message {
     }
 
     public synchronized void updateMessage(String id, List<$_Message> messages) {
-        deleteMessage(id, MessagedPath);
+        deleteMessage(id, messagePath);
         storeMessage(id, messages);
     }
 
@@ -66,7 +67,7 @@ public class $_Store_Message {
     public Object retriveMessage(String name) {
         String customeFriendPath;
 
-        customeFriendPath = MessagedPath + File.separator + name;
+        customeFriendPath = messagePath + File.separator + name;
         //File folder = new File(customeFriendPath);
         //folder.mkdir();
 
@@ -85,7 +86,7 @@ public class $_Store_Message {
 
 
     public synchronized boolean isExist(String id) {
-        return chatMessageMangment.isExist(id, MessagedPath);
+        return chatMessageMangment.isExist(id, messagePath);
     }
 
 

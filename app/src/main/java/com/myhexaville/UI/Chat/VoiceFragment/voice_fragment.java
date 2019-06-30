@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.progresviews.ProgressWheel;
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
@@ -111,7 +111,7 @@ public class voice_fragment extends Fragment {
         //System.out.println("TTTTTTTTTTT = " + bundle +  "    " + bundle.getString("name"));
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        mFileName += "/" + $_Client.idRecived + ".3gp";
+        mFileName += "/" + $_ClientStatic.idRecived + ".3gp";
 
         isPlay = true;
         if (CheckPermissions()) {
@@ -163,23 +163,21 @@ public class voice_fragment extends Fragment {
             dataInputStream.close();
             JSONObject jsonObject = new JSONObject();
             try {
-                System.out.println("AAAAAAAAAAAAAAAAAAAAAAA = " + $_Client.idRecived);
-                jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
+                jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
+                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
                 jsonObject.put($_JSONAttributes.Type.toString(), "Message_Voice");
                 jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+                jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
                 jsonObject.put("MType", "R");
                 jsonObject.put("Message", bytes.length);
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA = " + jsonObject.toString());
 
-                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                            $_Client.getDataOutputStreamMessage().write(bytes);
-                            $_Client.getDataOutputStreamMessage().flush();
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().write(bytes);
+                            $_ClientStatic.getDataOutputStreamMessage().flush();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -192,9 +190,9 @@ public class voice_fragment extends Fragment {
                 e.printStackTrace();
             }
 
-            $_Message_Voice message_voice = new $_Message_Voice($_Client.getEmail(), $_Client.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
+            $_Message_Voice message_voice = new $_Message_Voice($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
             addMessage(message_voice);
-            storeMessage(MainActivity.allMessages.get($_Client.idRecived).second);
+            storeMessage(MainActivity.allMessages.get($_ClientStatic.idRecived).second);
 // maybe this statement not work i dont test it
             FourActivity.fragmentActivity.getSupportFragmentManager().beginTransaction().remove(FourActivity.voice_fragment).commit();
 
@@ -226,7 +224,6 @@ public class voice_fragment extends Fragment {
                             stopRecording();
                             break;
                         }
-                        System.out.println("tiiiiiiiiiiiiiiiiiiiiiiiiiiime = " + time);
                         time++;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -244,7 +241,7 @@ public class voice_fragment extends Fragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                MainActivity.store_message.storeMessage($_Client.idRecived, messages);
+                MainActivity.store_message.storeMessage($_ClientStatic.idRecived, messages);
             }
         });
         thread.start();
@@ -252,15 +249,15 @@ public class voice_fragment extends Fragment {
 
     public synchronized void addMessage($_Message message) {
         //list.add(message);
-        MainActivity.allMessages.get($_Client.idRecived).second.add(message);
+        MainActivity.allMessages.get($_ClientStatic.idRecived).second.add(message);
         FourActivity.fragmentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                MainActivity.allMessages.get($_Client.idRecived).first.notifyDataSetChanged();
+                MainActivity.allMessages.get($_ClientStatic.idRecived).first.notifyDataSetChanged();
                 if (FourActivity.recycle_view_room_chat == null) {
                     System.out.println("NNNNULLLLLLLLLLLLL->");
                 } else
-                    FourActivity.recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_Client.idRecived).first.getItemCount() - 1);
+                    FourActivity.recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_ClientStatic.idRecived).first.getItemCount() - 1);
             }
         });
 

@@ -25,5 +25,9 @@ public enum $_JSONAttributes {
     Remove_Friend,
     Remove_Request,
     Accept_Friend,
-    Message
+    Message,
+    Group,
+    Group_Information,
+    Client_Group,
+    IdGroup
 }

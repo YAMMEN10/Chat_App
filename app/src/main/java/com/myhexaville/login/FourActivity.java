@@ -25,7 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
@@ -34,6 +34,7 @@ import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageText.$_Message_
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageVoice.$_Message_Voice;
 import com.myhexaville.UI.Chat.VoiceFragment.voice_fragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,6 +75,7 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
     public static boolean wasPlaying = false;
     public static MediaPlayer mPlayer = null;
 
+    private String type;
 
     //Constructor
     public FourActivity() {
@@ -91,6 +93,8 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_four);
 
+        type = getIntent().getExtras().getString("Type");
+        System.out.println("TTTYYYPPEE = " + type);
         /* FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
          fragmentTransaction.add(R.id.container_main_four,new room_chat()).commit();*/
         /*for(int i = 0 ; i < MainActivity.messages.size(); i++){
@@ -99,19 +103,32 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 list.add(MainActivity.messages.get(i));
             }
         }*/
-        System.out.println(MainActivity.allMessages.get($_Client.idRecived).second.size());
         /*for(int i = 0; i < MainActivity.allMessages.get($_Client.idRecived).second.size(); i++){
             //list.add(MainActivity.allMessages.get($_Client.idRecived).get(i));
             MainActivity.allMessages.get($_Client.idRecived).second.add(MainActivity.allMessages.get($_Client.idRecived).second.get(i));
+
         }*/
         //recycle_view_room_chat_adapter.notifyDataSetChanged();
-        MainActivity.allMessages.get($_Client.idRecived).first.notifyDataSetChanged();
+        if (type.equals("ClientChat"))
+            MainActivity.allMessages.get($_ClientStatic.idRecived).first.notifyDataSetChanged();
+        else MainActivity.allMessages.get($_ClientStatic.idGroup).first.notifyDataSetChanged();
+
 
         initUI();
         action_UI();
-        recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_Client.idRecived).first.getItemCount() - 1);
-        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        mFileName += "/" + $_Client.idRecived + ".3gp";
+        if (type.equals("ClientChat")) {
+            recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_ClientStatic.idRecived).first.getItemCount() - 1);
+
+            mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+            mFileName += "/" + $_ClientStatic.idRecived + ".3gp";
+        } else {
+            recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_ClientStatic.idGroup).first.getItemCount() - 1);
+            mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+            mFileName += "/" + $_ClientStatic.idGroup + ".3gp";
+
+        }
+
+
     }
 
 
@@ -137,23 +154,35 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
 
 
                 final JSONObject jsonObject = new JSONObject();
-                jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
-                jsonObject.put($_JSONAttributes.Type.toString(), "Message_Image");
+                jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
                 jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
+                jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
                 // String s = Base64.encodeToString(bytes, Base64.DEFAULT);
                 jsonObject.put("Message", bytes.length);
                 System.out.println(bytes);
                 jsonObject.put("MType", "2");
 
+                if (type.equals("ClientChat")) {
+                    jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
+                    jsonObject.put($_JSONAttributes.Type.toString(), "Message_Image");
+                } else {
+                    jsonObject.put($_JSONAttributes.Type.toString(), "Message_Image_Group");
+                    JSONArray json_clients_ids = new JSONArray();
+                    for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++) {
+                        json_clients_ids.put($_ClientStatic.getIdsRecived().get(i));
+                    }
+                    jsonObject.put($_JSONAttributes.IdRecive.toString(), json_clients_ids.toString());
+                    jsonObject.put($_JSONAttributes.IdGroup.toString(), $_ClientStatic.idGroup);
+                }
+
+
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                            $_Client.getDataOutputStreamMessage().write(bytes);
-                            $_Client.getDataOutputStreamMessage().flush();
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().write(bytes);
+                            $_ClientStatic.getDataOutputStreamMessage().flush();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -162,18 +191,26 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 });
                 thread.start();
                 thread.join();
-                $_Message_Image message_image = new $_Message_Image($_Client.getEmail(), $_Client.getUserName(), "2", "", bytes);
+                $_Message_Image message_image = null;
+                if (type.equals("ClientChat")) {
+                    message_image = new $_Message_Image($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "2", "", bytes);
+                } else {
+                    message_image = new $_Message_Image($_ClientStatic.idGroup, $_ClientStatic.getUserName(), "2", "", bytes);
+                }
                 message_image.setTime(message_image.getTime());
                 addMessage(message_image);
-                storeMessage(MainActivity.allMessages.get($_Client.idRecived).second);
+                if (type.equals("ClientChat"))
+                    storeMessage(MainActivity.allMessages.get($_ClientStatic.idRecived).second);
+                else
+                    storeMessage(MainActivity.allMessages.get($_ClientStatic.idGroup).second);
 
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -198,7 +235,7 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         JSONObject jsonObject = new JSONObject();
         try {
 
-            for ($_Message message : MainActivity.allMessages.get($_Client.idRecived).second) {
+            for ($_Message message : MainActivity.allMessages.get($_ClientStatic.idRecived).second) {
 
                 jsonObject.put("IdMessage", message.getId());
                 jsonObject.put("TypeMessage", message.getType());
@@ -208,19 +245,19 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 if (message instanceof $_Message_Text) {
                     jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Text");
                     jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Text) message).getMessage_text());
-                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
 
                 } else if (message instanceof $_Message_Image) {
                     jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Image");
                     jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Image) message).getBytes().length);
-                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                    $_Client.getDataOutputStreamMessage().write((($_Message_Image) message).getBytes());
+                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                    $_ClientStatic.getDataOutputStreamMessage().write((($_Message_Image) message).getBytes());
 
                 } else if (message instanceof $_Message_Voice) {
                     jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Voice");
                     jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Voice) message).getVoice_data().length);
-                    $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                    $_Client.getDataOutputStreamMessage().write((($_Message_Voice) message).getVoice_data());
+                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                    $_ClientStatic.getDataOutputStreamMessage().write((($_Message_Voice) message).getVoice_data());
 
                 }
             }
@@ -241,13 +278,11 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
     public void initUI() {
         recycle_view_room_chat = findViewById(R.id.recycle_view_room_chat);
         layoutManager = new LinearLayoutManager(this);
-        if (MainActivity.allMessages.get($_Client.idRecived).first == null) {
-            System.out.println("NULLLLLLLLLLLLLLLLLLLLL 1");
-        }
-        if (recycle_view_room_chat == null) {
-            System.out.println("NUUUUUUUUUUUUUUUUUL 2");
-        }
-        recycle_view_room_chat.setAdapter(MainActivity.allMessages.get($_Client.idRecived).first);
+        if (type.equals("ClientChat"))
+            recycle_view_room_chat.setAdapter(MainActivity.allMessages.get($_ClientStatic.idRecived).first);
+        else
+            recycle_view_room_chat.setAdapter(MainActivity.allMessages.get($_ClientStatic.idGroup).first);
+
 
         recycle_view_room_chat.setLayoutManager(layoutManager);
         recycle_view_room_chat.setHasFixedSize(true);
@@ -285,24 +320,38 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         txt_message_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                final $_Message message_text = new $_Message_Text($_Client.getEmail(), "Yamen", "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
                 final JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
-                    jsonObject.put($_JSONAttributes.IdRecive.toString(), $_Client.idRecived);
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Message_Text");
+                    jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
                     jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                    jsonObject.put($_JSONAttributes.User_Name.toString(), $_Client.getUserName());
-                    jsonObject.put("Message", (($_Message_Text) message_text).getMessage_text());
+                    jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
+                    jsonObject.put("Message", txt_message_input.getText().toString());
                     jsonObject.put("MType", "1");
+
+                    if (type.equals("ClientChat")) {
+                        jsonObject.put($_JSONAttributes.Type.toString(), "Message_Text");
+                        jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
+
+                    } else {
+                        jsonObject.put($_JSONAttributes.Type.toString(), "Message_Text_Group");
+                        JSONArray json_clients_ids = new JSONArray();
+                        for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++) {
+                            json_clients_ids.put($_ClientStatic.getIdsRecived().get(i));
+                        }
+                        jsonObject.put($_JSONAttributes.IdRecive.toString(), json_clients_ids.toString());
+                        jsonObject.put($_JSONAttributes.IdGroup.toString(), $_ClientStatic.getIdGroup());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -311,14 +360,21 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                     });
                     thread.start();
                     thread.join();
+                    $_Message message_text = null;
+                    if (type.equals("ClientChat")) {
+                        message_text = new $_Message_Text($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
+
+                    } else {
+                        message_text = new $_Message_Text($_ClientStatic.getIdGroup(), $_ClientStatic.getUserName(), "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
+                    }
 
                     addMessage(message_text);
-                    storeMessage(MainActivity.allMessages.get($_Client.idRecived).second);
+                    if (type.equals("ClientChat"))
+                        storeMessage(MainActivity.allMessages.get($_ClientStatic.idRecived).second);
+                    else
+                        storeMessage(MainActivity.allMessages.get($_ClientStatic.idGroup).second);
 
 
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -406,7 +462,7 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 }
 */
                 Bundle bundle = new Bundle();
-                bundle.putString("name", $_Client.idRecived);
+                bundle.putString("name", $_ClientStatic.idRecived);
                 voice_fragment.setArguments(bundle);
                 fragmentActivity.getSupportFragmentManager().beginTransaction().add(R.id.container_main_fourty, voice_fragment).commit();
             }
@@ -472,16 +528,27 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
 
     public synchronized void addMessage($_Message message) {
         //list.add(message);
-        MainActivity.allMessages.get($_Client.idRecived).second.add(message);
+        if (type.equals("ClientChat"))
+            MainActivity.allMessages.get($_ClientStatic.idRecived).second.add(message);
+        else
+            MainActivity.allMessages.get($_ClientStatic.idGroup).second.add(message);
+
 
         FourActivity.fragmentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                MainActivity.allMessages.get($_Client.idRecived).first.notifyDataSetChanged();
+                if (type.equals("ClientChat"))
+                    MainActivity.allMessages.get($_ClientStatic.idRecived).first.notifyDataSetChanged();
+                else
+                    MainActivity.allMessages.get($_ClientStatic.idGroup).first.notifyDataSetChanged();
                 if (recycle_view_room_chat == null) {
                     System.out.println("NNNNULLLLLLLLLLLLL->");
-                } else
-                    recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_Client.idRecived).first.getItemCount() - 1);
+                } else {
+                    if (type.equals("ClientChat"))
+                        recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_ClientStatic.idRecived).first.getItemCount() - 1);
+                    else
+                        recycle_view_room_chat.scrollToPosition(MainActivity.allMessages.get($_ClientStatic.idGroup).first.getItemCount() - 1);
+                }
             }
         });
 
@@ -492,7 +559,20 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                MainActivity.store_message.storeMessage($_Client.idRecived, messages);
+                if (type.equals("ClientChat"))
+                    MainActivity.store_message.storeMessage($_ClientStatic.idRecived, messages);
+                else {
+                    for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++) {
+                        if (!$_ClientStatic.getIdsRecived().get(i).equals($_ClientStatic.getEmail())) {
+                            MainActivity.store_message_group.setMessageGroupFile($_ClientStatic.getIdGroup());
+                            MainActivity.store_message_group.getChatMessageGroupMangment().setMessageFile($_ClientStatic.getIdGroup());
+                            MainActivity.store_message_group.storeMessage($_ClientStatic.getIdsRecived().get(i), $_ClientStatic.getIdGroup(), messages);
+
+                        }
+
+                    }
+                }
+
             }
         });
         thread.start();

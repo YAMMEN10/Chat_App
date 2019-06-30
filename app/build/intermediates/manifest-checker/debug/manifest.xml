@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.myhexaville.login.FiveActivity" />
         <activity android:name="com.myhexaville.login.FourActivity" />
         <activity android:name="com.myhexaville.login.ThirdActivity" />
         <activity

@@ -16,7 +16,7 @@ public class $_Store_Friend {
 
     public $_Store_Friend($_FriendStorgeMangement friendStorgeMangement) {
         this.friendStorgeMangement = friendStorgeMangement;
-        //removeFolder(new File(MainActivity.context.getFilesDir() + "/Chat"));
+        removeFolder(new File(MainActivity.context.getFilesDir() + "/Chat"));
         // init Folder's
         FriendPathMangment.MainPath = MainActivity.context.getFilesDir() + "/Chat";
         FriendPathMangment.FriendPath = FriendPathMangment.MainPath + "/Friend";
@@ -61,8 +61,10 @@ public class $_Store_Friend {
         //folder.mkdir();
 
         File file = new File(customeFriendPath, name + ".Fi");
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII = " + file.exists());
         $_FriendInfo friendInfo;
         try {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA = " + file);
             friendStorgeMangement.setFileInputFriend(new FileInputStream(file));
 
             friendInfo = ($_FriendInfo) friendStorgeMangement.get(name + ".Fi");
@@ -79,9 +81,9 @@ public class $_Store_Friend {
 
         customeFriendPath = FriendPath + File.separator + name;
         File folder = new File(customeFriendPath);
-        folder.mkdir();
-
-        friendStorgeMangement.delete(name, customeFriendPath, 0);
+        //folder.mkdir();
+        removeFolder(folder);
+        //friendStorgeMangement.delete(name, customeFriendPath, 0);
     }
 
     public void removeFolder(File fileOrDirectory) {

@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bumptech.glide.Glide;
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.Logic.JSONData.$_JSON_Change_Image;
 import com.myhexaville.Logic.ServerManagment.$_CheckReciveData;
@@ -144,9 +144,9 @@ public class signup_fragment_tow extends Fragment {
             try {
                 FileInputStream fileInputStream = new FileInputStream(picturePath);
                 bytes = new byte[fileInputStream.available()];
-                $_Client.setPersonalImage(bytes);
+                $_ClientStatic.setPersonalImage(bytes);
                 fileInputStream.read(bytes);
-                $_JSON_Change_Image change_image = new $_JSON_Change_Image("Change_Image", $_Client.getEmail(), $_Client.getUserName(), bytes.length);
+                $_JSON_Change_Image change_image = new $_JSON_Change_Image("Change_Image", $_ClientStatic.getEmail(), $_ClientStatic.getUserName(), bytes.length);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put($_JSONAttributes.Id.toString(), change_image.getIdFrom());
                 jsonObject.put($_JSONAttributes.Type.toString(), change_image.getType());
@@ -156,14 +156,14 @@ public class signup_fragment_tow extends Fragment {
                     @Override
                     public void run() {
                         try {
-                            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                            $_Client.getDataOutputStreamMessage().write(bytes);
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().write(bytes);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }).start();
-                $_Client.getDataOutputStreamMessage().flush();
+                $_ClientStatic.getDataOutputStreamMessage().flush();
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
@@ -178,7 +178,6 @@ public class signup_fragment_tow extends Fragment {
                 thread.start();
 
 
-                System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTT = " + $_Client.getEmail());
 
                 Glide.with(SecondActivity.fragmentActivity)
                         .load(bytes)
@@ -249,10 +248,10 @@ public class signup_fragment_tow extends Fragment {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put($_JSONAttributes.Type.toString(), "Sign_Up_Tow");
-            jsonObject.put($_JSONAttributes.Id.toString(), $_Client.getEmail());
+            jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
             jsonObject.put($_JSONAttributes.State.toString(), txt_state_signup.getText());
             //jsonObject.put($_JSONAttributes.Message.toString(), bytes.length);
-            $_Client.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
 
 
             final $_CheckReciveData checkReciveData = new $_CheckReciveData();
@@ -260,7 +259,6 @@ public class signup_fragment_tow extends Fragment {
             if (checkReciveData.getResult() != null) {
                 Decode_JSON(checkReciveData);
             }
-            System.out.println("AAAAAAAAAAAAAAAAAAAAA");
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {

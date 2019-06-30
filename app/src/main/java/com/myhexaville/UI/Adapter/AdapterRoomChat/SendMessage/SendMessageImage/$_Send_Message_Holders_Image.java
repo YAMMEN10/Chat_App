@@ -1,9 +1,18 @@
 package com.myhexaville.UI.Adapter.AdapterRoomChat.SendMessage.SendMessageImage;
 
+import android.app.AlertDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.github.chrisbanes.photoview.PhotoView;
+import com.myhexaville.Logic.Client.$_ClientStatic;
+import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageImage.$_Message_Image;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.SendMessage.SendMessageAbstruct.$_Send_Message_Holders_Abstruct;
+import com.myhexaville.login.FourActivity;
+import com.myhexaville.login.MainActivity;
+import com.myhexaville.login.R;
 
 public class $_Send_Message_Holders_Image extends $_Send_Message_Holders_Abstruct implements View.OnClickListener {
 
@@ -26,7 +35,21 @@ public class $_Send_Message_Holders_Image extends $_Send_Message_Holders_Abstruc
 
     @Override
     public void onClick(View v) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(FourActivity.fragmentActivity);
+        View mView = FourActivity.fragmentActivity.getLayoutInflater().inflate(R.layout.dialog_custom_layout, null);
+        PhotoView photoView = mView.findViewById(R.id.imageView);
+        Bitmap bmp = null;
+        if ($_ClientStatic.getType().equals("ClientChat")) {
+            bmp = BitmapFactory.decodeByteArray((($_Message_Image) MainActivity.allMessages.get($_ClientStatic.idRecived).second.get(getAdapterPosition())).getBytes(), 0, (($_Message_Image) MainActivity.allMessages.get($_ClientStatic.idRecived).second.get(getAdapterPosition())).getBytes().length);
 
+        } else {
+            bmp = BitmapFactory.decodeByteArray((($_Message_Image) MainActivity.allMessages.get($_ClientStatic.getIdGroup()).second.get(getAdapterPosition())).getBytes(), 0, (($_Message_Image) MainActivity.allMessages.get($_ClientStatic.getIdGroup()).second.get(getAdapterPosition())).getBytes().length);
+
+        }
+        photoView.setImageBitmap(bmp);
+        mBuilder.setView(mView);
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
     }
 
     private void initAction() {

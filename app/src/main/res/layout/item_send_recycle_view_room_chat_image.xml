@@ -17,11 +17,12 @@
         android:background="@drawable/send_message_chat"
         android:orientation="vertical">
 
-        <ImageView
+        <com.zolad.zoominimageview.ZoomInImageView
             android:id="@+id/message_send_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
+            android:scaleType="centerCrop"
             android:src="@color/white"
             android:textSize="17dp" />
 

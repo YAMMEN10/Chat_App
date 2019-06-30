@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageVoice.$_Message_Voice;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.SendMessage.SendMessageAbstruct.$_Send_Message_Holders_Abstruct;
 import com.myhexaville.UI.PlaySound.$_Play_Sound;
@@ -31,7 +31,7 @@ public class $_Send_Message_Holders_Voice extends $_Send_Message_Holders_Abstruc
     public void onClick(View v) {
         if (v.getId() == item_send_room_chat_message_voice.getMessage_send_voice().getId()) {
             Toast.makeText(v.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-            new $_Play_Sound("Sound", (($_Message_Voice) MainActivity.allMessages.get($_Client.idRecived).second.get(getAdapterPosition())).getVoice_data(), item_send_room_chat_message_voice.getMessage_send_voice_seek_bar(), item_send_room_chat_message_voice.getMessage_send_voice(), item_send_room_chat_message_voice.getMessage_send_value());
+            new $_Play_Sound("Sound", (($_Message_Voice) MainActivity.allMessages.get($_ClientStatic.idRecived).second.get(getAdapterPosition())).getVoice_data(), item_send_room_chat_message_voice.getMessage_send_voice_seek_bar(), item_send_room_chat_message_voice.getMessage_send_voice(), item_send_room_chat_message_voice.getMessage_send_value());
 
         } else {
             Toast.makeText(v.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();

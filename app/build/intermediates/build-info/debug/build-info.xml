@@ -6,29 +6,23 @@
     density="xhdpi"
     format="10"
     plugin-version="3.3.0"
-    timestamp="1560074825417"
+    timestamp="1561819176554"
     token="-3029599265169584332"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="31267" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="1574" />
+        duration="9921" />
     <task
         name="verifier"
-        duration="953" />
+        duration="222" />
 
-    <artifact
-        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-        type="SPLIT" />
     <artifact
         location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
         type="SPLIT" />
@@ -42,16 +36,22 @@
         location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
         type="SPLIT" />
     <artifact
+        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
+    <artifact
         location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
         type="SPLIT" />
     <artifact
         location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
         type="SPLIT" />
     <artifact
-        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
         type="SPLIT" />
     <artifact
-        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
         type="SPLIT" />
     <artifact
         location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
@@ -62,14 +62,8 @@
 
     <build
         build-mode="FULL"
-        timestamp="1560074825417"
+        timestamp="1561819176554"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
         <artifact
             location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
@@ -83,16 +77,22 @@
             location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
+            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+        <artifact
             location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\USER\Desktop\YAMMON_Andoid\Android-Login-Screen-master\app\build\intermediates\split-apk\debug\slices\slice_2.apk"

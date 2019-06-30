@@ -95,7 +95,6 @@ public class notification_fragment extends Fragment implements RecyclerItemTouch
 
         recyclerView = view.findViewById(R.id.recycler_view);
         if (recyclerView == null) {
-            System.out.println("aaa");
         }
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
 

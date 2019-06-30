@@ -1,6 +1,6 @@
 package com.myhexaville.Logic.ServerManagment;
 
-import com.myhexaville.Logic.Client.$_Client;
+import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 
 import org.json.JSONException;
@@ -35,23 +35,20 @@ public class $_CheckOnline extends $_Background {
 
     }
 
-    public void excute() {
-        // TODO implement here
-    }
 
     @Override
     public void run() {
         while (true) {
             try {
-                $_Client.getDataOutputStreamOnline().writeUTF(jsonObject.toString());
+                System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW = = " + jsonObject);
+                $_ClientStatic.getDataOutputStreamOnline().writeUTF(jsonObject.toString());
                 Thread.sleep(1000);
-                System.out.println("aaaaaaaaaaaa");
             } catch (InterruptedException e) {
                 System.err.println("error interrupt write online");
             } catch (IOException e) {
                 try {
                     System.out.println("cloooooooooos");
-                    $_Client.getSocketOnline().close();
+                    $_ClientStatic.getSocketOnline().close();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
