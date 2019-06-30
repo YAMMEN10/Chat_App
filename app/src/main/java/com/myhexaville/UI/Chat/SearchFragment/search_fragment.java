@@ -23,8 +23,6 @@ import com.myhexaville.Logic.JSONData.$_JSON_Search_User_Successful;
 import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.login.R;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -214,8 +212,6 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
             sendData.excute();
             $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             System.err.println("error send data sign up");
 

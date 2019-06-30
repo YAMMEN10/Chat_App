@@ -1,6 +1,5 @@
 package com.myhexaville.Logic.ServerManagment;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -24,11 +23,8 @@ public class $_TreatmentData {
     public void excute() {
         // TODO implement here
         $_ReciveData reciveData = new $_ReciveData(json);
-        try {
-            reciveData.excute();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+        reciveData.excute();
 
 
     }

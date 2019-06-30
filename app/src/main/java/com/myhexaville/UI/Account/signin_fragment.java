@@ -17,8 +17,6 @@ import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.login.R;
 import com.myhexaville.login.login.OnLoginListener;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 
 import static com.myhexaville.login.MainActivity.Decode_JSON;
@@ -208,8 +206,6 @@ public class signin_fragment extends Fragment implements OnLoginListener {
             }
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             System.err.println("error send data sign up");
 

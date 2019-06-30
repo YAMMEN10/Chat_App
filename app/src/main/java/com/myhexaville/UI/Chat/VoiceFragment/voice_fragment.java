@@ -27,8 +27,6 @@ import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
 
-import org.json.JSONException;
-
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -161,38 +159,35 @@ public class voice_fragment extends Fragment {
             bytes = new byte[dataInputStream.available()];
             dataInputStream.read(bytes);
             dataInputStream.close();
-            try {
 
-                $_JSON_Message_Voice_Client json_message_voice_client = new $_JSON_Message_Voice_Client(
-                        "Message_Voice",
-                        $_ClientStatic.getEmail(),
-                        $_ClientStatic.idRecived,
-                        "R",
-                        String.valueOf(bytes.length),
-                        $_Static_Class.getCurrentTime(),
-                        $_ClientStatic.getUserName()
-                );
-                $_SendData sendData = new $_SendData(json_message_voice_client, "Message_Voice");
-                sendData.excute();
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
+            $_JSON_Message_Voice_Client json_message_voice_client = new $_JSON_Message_Voice_Client(
+                    "Message_Voice",
+                    $_ClientStatic.getEmail(),
+                    $_ClientStatic.idRecived,
+                    "R",
+                    String.valueOf(bytes.length),
+                    $_Static_Class.getCurrentTime(),
+                    $_ClientStatic.getUserName()
+            );
+            $_SendData sendData = new $_SendData(json_message_voice_client, "Message_Voice");
+            sendData.excute();
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
 
-                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
-                            $_ClientStatic.getDataOutputStreamMessage().write(bytes);
-                            $_ClientStatic.getDataOutputStreamMessage().flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                        $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+                        $_ClientStatic.getDataOutputStreamMessage().write(bytes);
+                        $_ClientStatic.getDataOutputStreamMessage().flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
-                thread.start();
-                thread.join();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+                }
+            });
+            thread.start();
+            thread.join();
+
 
             $_Message_Voice message_voice = new $_Message_Voice($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "5", $_Static_Class.getCurrentTime(), 0, bytes);
             addMessage(message_voice);
@@ -223,10 +218,14 @@ public class voice_fragment extends Fragment {
                             }
                         });
                         Thread.sleep(1000);
-                        if (time == 20 || !isPlay) {
-                            time = 0;
-                            stopRecording();
-                            break;
+                        if (time == 20) {
+                            if (!isPlay) {
+                                break;
+                            } else {
+                                time = 0;
+                                stopRecording();
+                                break;
+                            }
                         }
                         time++;
                     } catch (InterruptedException e) {

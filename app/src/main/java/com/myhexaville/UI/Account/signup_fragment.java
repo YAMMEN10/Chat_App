@@ -21,8 +21,6 @@ import com.myhexaville.UI.RegularExpressions.$_Rex;
 import com.myhexaville.login.R;
 import com.myhexaville.login.login.OnSignUpListener;
 
-import org.json.JSONException;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -263,8 +261,6 @@ public class signup_fragment extends Fragment implements OnSignUpListener {
             }
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             System.err.println("error send data sign up");
 

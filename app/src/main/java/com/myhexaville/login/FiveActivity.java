@@ -100,12 +100,12 @@ public class FiveActivity extends AppCompatActivity {
 
                 $_Group group = new $_Group(groupInformation, clients);
                 JSONArray jsonArray = createJSONObject(group);
-                try {
+              /*  try {
                     System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVv = " + jsonArray.getString(0));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-                try {
+                }*/
+
                     $_JSON_Create_Group json_create_group = new $_JSON_Create_Group(
                             "Create_Group",
                             $_ClientStatic.getEmail(),
@@ -137,9 +137,6 @@ public class FiveActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
 
                 break;

@@ -1262,8 +1262,6 @@ public class MainActivity extends AppCompatActivity implements signup_fragment.O
                 if (checkReciveData.getResult() != null) {
                     Decode_JSON(checkReciveData);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 System.err.println("error send data sign up");
             }

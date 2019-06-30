@@ -26,8 +26,6 @@ import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.login.R;
 import com.myhexaville.login.SecondActivity;
 
-import org.json.JSONException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -191,10 +189,7 @@ public class signup_fragment_tow extends Fragment {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
         }
     }
 
@@ -265,8 +260,6 @@ public class signup_fragment_tow extends Fragment {
             if (checkReciveData.getResult() != null) {
                 Decode_JSON(checkReciveData);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             System.err.println("error send data sign up");
 

@@ -37,8 +37,6 @@ import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageImage.$_Message
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageText.$_Message_Text;
 import com.myhexaville.UI.Chat.VoiceFragment.voice_fragment;
 
-import org.json.JSONException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -224,8 +222,6 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 }
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -369,8 +365,6 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                         storeMessage(MainActivity.allMessages.get($_ClientStatic.idGroup).second);
 
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

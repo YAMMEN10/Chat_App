@@ -19,8 +19,6 @@ import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.R;
 import com.myhexaville.login.SecondActivity;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,8 +96,6 @@ public class $_Holder_Group extends $_Abstruct_Holder {
                                 thread.start();
                                 thread.join();
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 

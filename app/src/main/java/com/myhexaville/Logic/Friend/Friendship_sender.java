@@ -9,8 +9,6 @@ import com.myhexaville.Logic.JSONData.$_JSON_Remove_Friend;
 import com.myhexaville.Logic.JSONData.$_JSON_Remove_Request;
 import com.myhexaville.Logic.ServerManagment.$_SendData;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 
 public class Friendship_sender {
@@ -89,8 +87,6 @@ public class Friendship_sender {
             });
             thread.start();
             thread.join();
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
