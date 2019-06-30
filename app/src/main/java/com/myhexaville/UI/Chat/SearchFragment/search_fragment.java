@@ -18,11 +18,12 @@ import android.widget.SearchView;
 import com.myhexaville.Logic.Client.$_ClientStatic;
 import com.myhexaville.Logic.Friend.Friendship_sender;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_Search_User;
 import com.myhexaville.Logic.JSONData.$_JSON_Search_User_Successful;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.login.R;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -201,13 +202,18 @@ public class search_fragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void send_to_search(String query) {
-        JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put($_JSONAttributes.Type.toString(), "Search_Of_User");
-            jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
-            jsonObject.put($_JSONAttributes.Search_User.toString(), query);
-            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+
+            $_JSON_Search_User json_search_user = new $_JSON_Search_User(
+                    "Search_Of_User",
+                    $_ClientStatic.getEmail(),
+                    query
+            );
+            $_SendData sendData = new $_SendData(json_search_user, "Search_Of_User");
+            sendData.excute();
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {

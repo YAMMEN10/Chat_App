@@ -5,8 +5,8 @@ import java.util.List;
 public class $_JSON_Message_Group extends $_JSON_Message {
     List<String> idTos;
 
-    public $_JSON_Message_Group(String type, String idFrom, List<String> idTos, String time, String username) {
-        super(type, idFrom, time, username);
+    public $_JSON_Message_Group(String type, String idFrom, List<String> idTos, String MType, String time, String username) {
+        super(type, idFrom, MType, time, username);
         this.idTos = idTos;
     }
 

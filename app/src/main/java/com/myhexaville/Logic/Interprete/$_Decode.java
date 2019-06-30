@@ -1,7 +1,5 @@
 package com.myhexaville.Logic.Interprete;
 
-import com.myhexaville.Logic.JSONData.$_JSON;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,12 +12,12 @@ public class $_Decode extends $_Interprete {
      * Default constructor
      */
     public $_Decode(JSONObject jsonObject) {
-        this.jsonObject = jsonObject;
+        this.json_object = jsonObject;
     }
 
-    public $_JSON run() throws JSONException {
+    public void run() throws JSONException {
         // TODO implement here
-        switch (jsonObject.getString("Type")) {
+        switch (json_object.getString("Type")) {
             case "Login_User": {
 
                 break;
@@ -53,7 +51,6 @@ public class $_Decode extends $_Interprete {
             default:
                 break;
         }
-        return my_json;
     }
 
 

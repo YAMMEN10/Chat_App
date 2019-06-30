@@ -16,7 +16,7 @@ public class $_Store_Friend {
 
     public $_Store_Friend($_FriendStorgeMangement friendStorgeMangement) {
         this.friendStorgeMangement = friendStorgeMangement;
-        removeFolder(new File(MainActivity.context.getFilesDir() + "/Chat"));
+        //removeFolder(new File(MainActivity.context.getFilesDir() + "/Chat"));
         // init Folder's
         FriendPathMangment.MainPath = MainActivity.context.getFilesDir() + "/Chat";
         FriendPathMangment.FriendPath = FriendPathMangment.MainPath + "/Friend";

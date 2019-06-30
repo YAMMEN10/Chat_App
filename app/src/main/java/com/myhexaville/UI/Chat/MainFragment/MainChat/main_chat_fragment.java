@@ -139,6 +139,8 @@ public class main_chat_fragment extends Fragment {
                     DividerItemDecoration.VERTICAL));
             recycleAdapter.notifyDataSetChanged();*/
             MainActivity.addChatFriend(value_item_main_chat_group);
+            MainActivity.store_message_group.setMessageGroupFile(value_item_main_chat_group.getEmail());
+            MainActivity.store_message_group.getChatMessageGroupMangment().setMessageFile(value_item_main_chat_group.getEmail());
             if (MainActivity.store_message_group.isExist(value_item_main_chat_group.getEmail())) {
                 List<$_Message> messages = (List<$_Message>) MainActivity.store_message_group.retriveMessage(value_item_main_chat_group.getEmail());
                 MainActivity.allMessages.put(value_item_main_chat_group.getEmail(), new Pair<>(new $_Recycle_View_Room_Chat_Adapter(messages, getContext()), messages));

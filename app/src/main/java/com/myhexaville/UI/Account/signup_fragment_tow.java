@@ -19,14 +19,14 @@ import android.widget.EditText;
 
 import com.bumptech.glide.Glide;
 import com.myhexaville.Logic.Client.$_ClientStatic;
-import com.myhexaville.Logic.JSONData.$_JSONAttributes;
 import com.myhexaville.Logic.JSONData.$_JSON_Change_Image;
+import com.myhexaville.Logic.JSONData.$_JSON_SignUp_Tow;
 import com.myhexaville.Logic.ServerManagment.$_CheckReciveData;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.login.R;
 import com.myhexaville.login.SecondActivity;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -146,17 +146,19 @@ public class signup_fragment_tow extends Fragment {
                 bytes = new byte[fileInputStream.available()];
                 $_ClientStatic.setPersonalImage(bytes);
                 fileInputStream.read(bytes);
-                $_JSON_Change_Image change_image = new $_JSON_Change_Image("Change_Image", $_ClientStatic.getEmail(), $_ClientStatic.getUserName(), bytes.length);
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put($_JSONAttributes.Id.toString(), change_image.getIdFrom());
-                jsonObject.put($_JSONAttributes.Type.toString(), change_image.getType());
-                jsonObject.put($_JSONAttributes.User_Name.toString(), change_image.getUser_name());
-                jsonObject.put($_JSONAttributes.Message.toString(), change_image.getBytes());
+
+                $_JSON_Change_Image json_change_image = new $_JSON_Change_Image(
+                        "Change_Image",
+                        $_ClientStatic.getEmail(),
+                        $_ClientStatic.getUserName(),
+                        bytes.length);
+                $_SendData sendData = new $_SendData(json_change_image, "Change_Image");
+                sendData.excute();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
                             $_ClientStatic.getDataOutputStreamMessage().write(bytes);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -223,7 +225,7 @@ public class signup_fragment_tow extends Fragment {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        send_Sign_In();
+                        send_Sign_Up_Tow();
                     }
                 });
                 thread.start();
@@ -244,14 +246,18 @@ public class signup_fragment_tow extends Fragment {
         });
     }
 
-    private void send_Sign_In() {
-        JSONObject jsonObject = new JSONObject();
+    private void send_Sign_Up_Tow() {
         try {
-            jsonObject.put($_JSONAttributes.Type.toString(), "Sign_Up_Tow");
-            jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
-            jsonObject.put($_JSONAttributes.State.toString(), txt_state_signup.getText());
-            //jsonObject.put($_JSONAttributes.Message.toString(), bytes.length);
-            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+
+            $_JSON_SignUp_Tow json_signUp_tow = new $_JSON_SignUp_Tow(
+                    "Sign_Up_Tow",
+                    $_ClientStatic.getEmail(),
+                    txt_state_signup.getText().toString(),
+                    "UserName : SignUpTow"
+            );
+            $_SendData sendData = new $_SendData(json_signUp_tow, "Sign_Up_Tow");
+            sendData.excute();
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
 
 
             final $_CheckReciveData checkReciveData = new $_CheckReciveData();

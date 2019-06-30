@@ -10,14 +10,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.myhexaville.Logic.Client.$_ClientStatic;
-import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_login;
 import com.myhexaville.Logic.ServerManagment.$_CheckOnline;
 import com.myhexaville.Logic.ServerManagment.$_CheckReciveData;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.login.R;
 import com.myhexaville.login.login.OnLoginListener;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -178,12 +178,18 @@ public class signin_fragment extends Fragment implements OnLoginListener {
     }
 
     private void send_Sign_In() {
-        JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put($_JSONAttributes.Type.toString(), "Login_User");
-            jsonObject.put($_JSONAttributes.Id.toString(), txt_email_signin.getText().toString());
-            jsonObject.put($_JSONAttributes.Password.toString(), txt_password_signin.getText().toString());
-            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+
+            $_JSON_login json_login = new $_JSON_login(
+                    "Login_User",
+                    txt_email_signin.getText().toString(),
+                    txt_password_signin.getText().toString(),
+                    "UserName : Login"
+            );
+            $_SendData sendData = new $_SendData(json_login, "Login_User");
+            sendData.excute();
+            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+
 
             if (check_remember_me_signin.isChecked()) {
                 $_ClientStatic.getSharedPreferences().storeObject("id", txt_email_signin.getText().toString());

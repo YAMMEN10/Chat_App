@@ -96,8 +96,6 @@ public class $_Store_Message_Group {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
 

@@ -3,8 +3,8 @@ package com.myhexaville.Logic.JSONData;
 public class $_JSON_Message_Client extends $_JSON_Message {
     String idTo;
 
-    public $_JSON_Message_Client(String type, String idFrom, String idTo, String time, String username) {
-        super(type, idFrom, time, username);
+    public $_JSON_Message_Client(String type, String idFrom, String MType, String idTo, String time, String username) {
+        super(type, idFrom, MType, time, username);
         this.idTo = idTo;
     }
 

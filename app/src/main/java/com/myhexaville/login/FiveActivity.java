@@ -13,7 +13,9 @@ import com.myhexaville.Logic.Information.$_AccountInformation;
 import com.myhexaville.Logic.Information.$_AccountInformationById;
 import com.myhexaville.Logic.Information.$_GroupInformation;
 import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_Create_Group;
 import com.myhexaville.Logic.Room.$_Group;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterCreateGroup.$_Recycle_View_Create_Group_Adapter;
 import com.myhexaville.UI.Adapter.AdapterCreateGroup.$_Value_Item_Create_Group;
@@ -103,16 +105,22 @@ public class FiveActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Create_Group");
-                    jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
-                    jsonObject.put($_JSONAttributes.Group.toString(), jsonArray.toString());
+                    $_JSON_Create_Group json_create_group = new $_JSON_Create_Group(
+                            "Create_Group",
+                            $_ClientStatic.getEmail(),
+                            group.getGroup_information().getID(),
+                            group
+                    );
+
+                    $_SendData sendData = new $_SendData(json_create_group, "Create_Group");
+                    sendData.excute();
+
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
                                 $_ClientStatic.getDataOutputStreamMessage().write(group.getGroup_information().getPicture());
                                 for (int i = 0; i < group.getClients().size(); i++) {
                                     $_ClientStatic.getDataOutputStreamMessage().write(group.getClients().get(i).getPicture());

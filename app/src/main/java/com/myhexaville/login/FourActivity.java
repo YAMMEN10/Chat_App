@@ -26,17 +26,18 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.myhexaville.Logic.Client.$_ClientStatic;
-import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_Message_Image_Client;
+import com.myhexaville.Logic.JSONData.$_JSON_Message_Image_Group;
+import com.myhexaville.Logic.JSONData.$_JSON_Message_Text_Client;
+import com.myhexaville.Logic.JSONData.$_JSON_Message_Text_Group;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageImage.$_Message_Image;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageText.$_Message_Text;
-import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageVoice.$_Message_Voice;
 import com.myhexaville.UI.Chat.VoiceFragment.voice_fragment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -153,56 +154,75 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
                 file.read(bytes);
 
 
-                final JSONObject jsonObject = new JSONObject();
-                jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
-                jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
-                // String s = Base64.encodeToString(bytes, Base64.DEFAULT);
-                jsonObject.put("Message", bytes.length);
-                System.out.println(bytes);
-                jsonObject.put("MType", "2");
-
-                if (type.equals("ClientChat")) {
-                    jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Message_Image");
-                } else {
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Message_Image_Group");
-                    JSONArray json_clients_ids = new JSONArray();
-                    for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++) {
-                        json_clients_ids.put($_ClientStatic.getIdsRecived().get(i));
-                    }
-                    jsonObject.put($_JSONAttributes.IdRecive.toString(), json_clients_ids.toString());
-                    jsonObject.put($_JSONAttributes.IdGroup.toString(), $_ClientStatic.idGroup);
-                }
-
-
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                            $_ClientStatic.getDataOutputStreamMessage().write(bytes);
-                            $_ClientStatic.getDataOutputStreamMessage().flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-                thread.start();
-                thread.join();
                 $_Message_Image message_image = null;
+
                 if (type.equals("ClientChat")) {
+                    $_JSON_Message_Image_Client json_message_image_client = new $_JSON_Message_Image_Client(
+                            "Message_Image",
+                            $_ClientStatic.getEmail(),
+                            $_ClientStatic.idRecived,
+                            "2",
+                            String.valueOf(bytes.length),
+                            $_Static_Class.getCurrentTime(),
+                            $_ClientStatic.getUserName()
+                    );
+
+                    $_SendData sendData = new $_SendData(json_message_image_client, "Message_Image");
+                    sendData.excute();
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+                                $_ClientStatic.getDataOutputStreamMessage().write(bytes);
+                                $_ClientStatic.getDataOutputStreamMessage().flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    thread.start();
+                    thread.join();
                     message_image = new $_Message_Image($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "2", "", bytes);
-                } else {
-                    message_image = new $_Message_Image($_ClientStatic.idGroup, $_ClientStatic.getUserName(), "2", "", bytes);
-                }
-                message_image.setTime(message_image.getTime());
-                addMessage(message_image);
-                if (type.equals("ClientChat"))
+                    addMessage(message_image);
                     storeMessage(MainActivity.allMessages.get($_ClientStatic.idRecived).second);
-                else
+
+                } else {
+                    $_JSON_Message_Image_Group json_message_image_group = new $_JSON_Message_Image_Group(
+                            "Message_Image_Group",
+                            $_ClientStatic.getEmail(),
+                            $_ClientStatic.getIdsRecived(),
+                            $_ClientStatic.idGroup,
+                            "2",
+                            String.valueOf(bytes.length),
+                            $_Static_Class.getCurrentTime(),
+                            $_ClientStatic.getUserName()
+                    );
+
+                    $_SendData sendData = new $_SendData(json_message_image_group, "Message_Image_Group");
+                    sendData.excute();
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+                                $_ClientStatic.getDataOutputStreamMessage().write(bytes);
+                                $_ClientStatic.getDataOutputStreamMessage().flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    thread.start();
+                    thread.join();
+                    message_image = new $_Message_Image($_ClientStatic.idGroup, $_ClientStatic.getUserName(), "2", $_Static_Class.getCurrentTime(), bytes);
+                    addMessage(message_image);
                     storeMessage(MainActivity.allMessages.get($_ClientStatic.idGroup).second);
+
+                }
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -231,42 +251,6 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         // sendSaveImage();
     }
 
-    private void sendSaveImage() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            for ($_Message message : MainActivity.allMessages.get($_ClientStatic.idRecived).second) {
-
-                jsonObject.put("IdMessage", message.getId());
-                jsonObject.put("TypeMessage", message.getType());
-                jsonObject.put("NameMessage", message.getName());
-                jsonObject.put("TimeMessage", message.getTime());
-
-                if (message instanceof $_Message_Text) {
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Text");
-                    jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Text) message).getMessage_text());
-                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-
-                } else if (message instanceof $_Message_Image) {
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Image");
-                    jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Image) message).getBytes().length);
-                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                    $_ClientStatic.getDataOutputStreamMessage().write((($_Message_Image) message).getBytes());
-
-                } else if (message instanceof $_Message_Voice) {
-                    jsonObject.put($_JSONAttributes.Type.toString(), "Store_Message_Voice");
-                    jsonObject.put($_JSONAttributes.Message.toString(), (($_Message_Voice) message).getVoice_data().length);
-                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                    $_ClientStatic.getDataOutputStreamMessage().write((($_Message_Voice) message).getVoice_data());
-
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -320,64 +304,77 @@ public class FourActivity extends AppCompatActivity implements voice_fragment.On
         txt_message_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
-                    jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                    jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
-                    jsonObject.put("Message", txt_message_input.getText().toString());
-                    jsonObject.put("MType", "1");
+                    $_Message message_text = null;
 
                     if (type.equals("ClientChat")) {
-                        jsonObject.put($_JSONAttributes.Type.toString(), "Message_Text");
-                        jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
+                        $_JSON_Message_Text_Client json_message_text_client = new $_JSON_Message_Text_Client(
+                                "Message_Text",
+                                $_ClientStatic.getEmail(),
+                                $_ClientStatic.idRecived,
+                                "1",
+                                txt_message_input.getText().toString(),
+                                $_Static_Class.getCurrentTime(),
+                                $_ClientStatic.getUserName()
+                        );
+                        $_SendData sendData = new $_SendData(json_message_text_client, "Message_Text");
+                        sendData.excute();
+
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                        thread.start();
+                        thread.join();
+                        message_text = new $_Message_Text($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
+                        addMessage(message_text);
+                        storeMessage(MainActivity.allMessages.get($_ClientStatic.idRecived).second);
+
 
                     } else {
-                        jsonObject.put($_JSONAttributes.Type.toString(), "Message_Text_Group");
-                        JSONArray json_clients_ids = new JSONArray();
-                        for (int i = 0; i < $_ClientStatic.getIdsRecived().size(); i++) {
-                            json_clients_ids.put($_ClientStatic.getIdsRecived().get(i));
-                        }
-                        jsonObject.put($_JSONAttributes.IdRecive.toString(), json_clients_ids.toString());
-                        jsonObject.put($_JSONAttributes.IdGroup.toString(), $_ClientStatic.getIdGroup());
+                        $_JSON_Message_Text_Group json_message_text_group = new $_JSON_Message_Text_Group(
+                                "Message_Text_Group",
+                                $_ClientStatic.getEmail(),
+                                $_ClientStatic.getIdsRecived(),
+                                "1",
+                                $_ClientStatic.getIdGroup(),
+                                txt_message_input.getText().toString(),
+                                $_Static_Class.getCurrentTime(),
+                                $_ClientStatic.getUserName()
+
+                        );
+                        $_SendData sendData = new $_SendData(json_message_text_group, "Message_Text_Group");
+                        sendData.excute();
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                        thread.start();
+                        message_text = new $_Message_Text($_ClientStatic.getIdGroup(), $_ClientStatic.getUserName(), "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
+                        addMessage(message_text);
+                        storeMessage(MainActivity.allMessages.get($_ClientStatic.idGroup).second);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-                try {
-
-
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-                    thread.start();
-                    thread.join();
-                    $_Message message_text = null;
-                    if (type.equals("ClientChat")) {
-                        message_text = new $_Message_Text($_ClientStatic.getEmail(), $_ClientStatic.getUserName(), "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
-
-                    } else {
-                        message_text = new $_Message_Text($_ClientStatic.getIdGroup(), $_ClientStatic.getUserName(), "1", $_Static_Class.getCurrentTime(), txt_message_input.getText().toString());
-                    }
-
-                    addMessage(message_text);
-                    if (type.equals("ClientChat"))
-                        storeMessage(MainActivity.allMessages.get($_ClientStatic.idRecived).second);
-                    else
-                        storeMessage(MainActivity.allMessages.get($_ClientStatic.idGroup).second);
-
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }
         });
 

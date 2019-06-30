@@ -10,7 +10,7 @@ import org.json.JSONObject;
  */
 public abstract class $_Connect {
 
-    protected JSONObject json;
+    protected JSONObject json_object;
     protected $_JSON my_json;
     protected int id_operation;
 
@@ -27,12 +27,12 @@ public abstract class $_Connect {
         // TODO implement here
     }
 
-    public JSONObject getJson() {
-        return json;
+    public JSONObject getJson_object() {
+        return json_object;
     }
 
-    public void setJson(JSONObject json) {
-        this.json = json;
+    public void setJson_object(JSONObject json_object) {
+        this.json_object = json_object;
     }
 
     public $_JSON getMy_json() {

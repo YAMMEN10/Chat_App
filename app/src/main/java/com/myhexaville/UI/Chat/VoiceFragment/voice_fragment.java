@@ -18,7 +18,8 @@ import android.widget.Toast;
 
 import com.app.progresviews.ProgressWheel;
 import com.myhexaville.Logic.Client.$_ClientStatic;
-import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_Message_Voice_Client;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.UI.$_Static_Class;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.$_Message;
 import com.myhexaville.UI.Adapter.AdapterRoomChat.Message.MessageVoice.$_Message_Voice;
@@ -27,7 +28,6 @@ import com.myhexaville.login.MainActivity;
 import com.myhexaville.login.R;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -161,21 +161,25 @@ public class voice_fragment extends Fragment {
             bytes = new byte[dataInputStream.available()];
             dataInputStream.read(bytes);
             dataInputStream.close();
-            JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail());
-                jsonObject.put($_JSONAttributes.IdRecive.toString(), $_ClientStatic.idRecived);
-                jsonObject.put($_JSONAttributes.Type.toString(), "Message_Voice");
-                jsonObject.put("Time", $_Static_Class.getCurrentTime());
-                jsonObject.put($_JSONAttributes.User_Name.toString(), $_ClientStatic.getUserName());
-                jsonObject.put("MType", "R");
-                jsonObject.put("Message", bytes.length);
+
+                $_JSON_Message_Voice_Client json_message_voice_client = new $_JSON_Message_Voice_Client(
+                        "Message_Voice",
+                        $_ClientStatic.getEmail(),
+                        $_ClientStatic.idRecived,
+                        "R",
+                        String.valueOf(bytes.length),
+                        $_Static_Class.getCurrentTime(),
+                        $_ClientStatic.getUserName()
+                );
+                $_SendData sendData = new $_SendData(json_message_voice_client, "Message_Voice");
+                sendData.excute();
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
 
-                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
                             $_ClientStatic.getDataOutputStreamMessage().write(bytes);
                             $_ClientStatic.getDataOutputStreamMessage().flush();
                         } catch (IOException e) {

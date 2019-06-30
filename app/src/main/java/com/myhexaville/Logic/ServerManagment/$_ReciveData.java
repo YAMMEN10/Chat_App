@@ -3,7 +3,6 @@ package com.myhexaville.Logic.ServerManagment;
 import com.myhexaville.Logic.Interprete.$_Decode;
 import com.myhexaville.Logic.Interprete.$_Interprete;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -23,10 +22,10 @@ public class $_ReciveData extends $_Connect {
     }
 
 
-    public void excute() throws JSONException {
+    public void excute() {
         // TODO implement here
         $_Interprete interprete = new $_Decode(json);
-        my_json = interprete.run();
+        //my_json = interprete.run();
 
     }
 

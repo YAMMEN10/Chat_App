@@ -30,7 +30,6 @@ public class $_TreatmentData {
             e.printStackTrace();
         }
 
-        $_SendData sendData = new $_SendData(reciveData.getMy_json());
-        sendData.excute();
+
     }
 }

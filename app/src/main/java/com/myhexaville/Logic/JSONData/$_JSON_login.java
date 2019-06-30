@@ -9,5 +9,11 @@ public class $_JSON_login extends $_JSON_Account {
         this.Password = password;
     }
 
+    public String getPassword() {
+        return Password;
+    }
 
+    public void setPassword(String password) {
+        Password = password;
+    }
 }

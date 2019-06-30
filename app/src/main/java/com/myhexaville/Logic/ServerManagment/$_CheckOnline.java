@@ -1,10 +1,9 @@
 package com.myhexaville.Logic.ServerManagment;
 
 import com.myhexaville.Logic.Client.$_ClientStatic;
-import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_Check_Online;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.concurrent.Executors;
@@ -17,16 +16,13 @@ public class $_CheckOnline extends $_Background {
     /**
      * Default constructor
      */
-
-    JSONObject jsonObject;
+    private $_SendData sendData;
 
     public $_CheckOnline(String email, String type, String value) {
-        jsonObject = new JSONObject();
         try {
-            jsonObject.put($_JSONAttributes.Id.toString(), email);
-            jsonObject.put($_JSONAttributes.Type.toString(), type);
-            jsonObject.put("Value", value);
-
+            $_JSON_Check_Online json_check_online = new $_JSON_Check_Online(type, email, value);
+            sendData = new $_SendData(json_check_online, type);
+            sendData.excute();
         } catch (JSONException e) {
             System.err.println("error put json");
         }
@@ -40,8 +36,8 @@ public class $_CheckOnline extends $_Background {
     public void run() {
         while (true) {
             try {
-                System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW = = " + jsonObject);
-                $_ClientStatic.getDataOutputStreamOnline().writeUTF(jsonObject.toString());
+                System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW = = " + sendData.getJson_object());
+                $_ClientStatic.getDataOutputStreamOnline().writeUTF(sendData.getJson_object().toString());
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.err.println("error interrupt write online");

@@ -9,5 +9,12 @@ public abstract class $_JSON_Group extends $_JSON_Receive {
         this.idGroup = idGroup;
     }
 
+    public String getIdGroup() {
+        return idGroup;
+    }
+
+    public void setIdGroup(String idGroup) {
+        this.idGroup = idGroup;
+    }
 }
 

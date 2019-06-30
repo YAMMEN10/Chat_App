@@ -12,18 +12,18 @@ import android.widget.PopupMenu;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.myhexaville.Logic.Client.$_ClientStatic;
-import com.myhexaville.Logic.JSONData.$_JSONAttributes;
+import com.myhexaville.Logic.JSONData.$_JSON_Remove_Group;
+import com.myhexaville.Logic.ServerManagment.$_SendData;
 import com.myhexaville.UI.Adapter.AdapterMainChat.$_Abstruct_Holder;
 import com.myhexaville.login.FourActivity;
 import com.myhexaville.login.R;
 import com.myhexaville.login.SecondActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.myhexaville.UI.Chat.MainFragment.MainChat.main_chat_fragment.rooms;
 
@@ -70,29 +70,25 @@ public class $_Holder_Group extends $_Abstruct_Holder {
                             break;
                         }
                         case "remove group": {
-                            JSONObject jsonObject = new JSONObject();
-                            JSONArray json_client_id = new JSONArray();
+                            List<String> clients_ids = new ArrayList<>();
                             $_Value_Item_Main_Chat_Group value_item_main_chat_group = ($_Value_Item_Main_Chat_Group) rooms.get(getAdapterPosition());
                             for (int i = 0; i < value_item_main_chat_group.getAccountInformations().size(); i++) {
-                                JSONObject one_id = new JSONObject();
-                                try {
-                                    one_id.put($_JSONAttributes.Id.toString(), value_item_main_chat_group.getAccountInformations().get(i).getID());
-                                    json_client_id.put(one_id.toString());
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                clients_ids.add(value_item_main_chat_group.getAccountInformations().get(i).getID());
                             }
                             try {
-                                jsonObject.
-                                        put($_JSONAttributes.Type.toString(), "Remove_Group").
-                                        put($_JSONAttributes.Id.toString(), $_ClientStatic.getEmail()).
-                                        put($_JSONAttributes.IdGroup.toString(), rooms.get(getAdapterPosition()).getEmail()).
-                                        put($_JSONAttributes.Client_Group.toString(), json_client_id.toString());
+                                $_JSON_Remove_Group json_remove_group = new $_JSON_Remove_Group(
+                                        "Remove_Group",
+                                        $_ClientStatic.getEmail(),
+                                        rooms.get(getAdapterPosition()).getEmail(),
+                                        clients_ids
+                                );
+                                $_SendData sendData = new $_SendData(json_remove_group, "Remove_Group");
+                                sendData.excute();
                                 Thread thread = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
-                                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(jsonObject.toString());
+                                            $_ClientStatic.getDataOutputStreamMessage().writeUTF(sendData.getJson_object().toString());
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
@@ -101,11 +97,12 @@ public class $_Holder_Group extends $_Abstruct_Holder {
                                 });
                                 thread.start();
                                 thread.join();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+
 
                             break;
                         }
